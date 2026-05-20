@@ -55,18 +55,18 @@ const securityCamerasCode = `
 content = content.replace(/<Achievements \/>/g, securityCamerasCode);
 
 // Replace <Projects /> with Weapons screen Mockup
-const projectsCode = \`
+const projectsCode = `
 <div className="flex-1 flex items-center justify-center text-green-400 font-mono flex-col gap-4">
   <div className="text-2xl font-bold tracking-widest text-[#38FEDE] animate-pulse">WEAPONS DEPLOYED</div>
   <div className="text-xs text-white/50 text-center max-w-sm">
     All targets successfully neutralized. Targeting systems are now offline pending next wave.
   </div>
 </div>
-\`;
+`;
 content = content.replace(/<Projects \/>/g, projectsCode);
 
 // Replace <WorkExperience /> with Cafeteria Layout
-const cafeteriaCode = \`
+const cafeteriaCode = `
 <div className="flex-1 bg-[#1a1a2e] rounded-lg border border-white/10 p-4 font-mono overflow-y-auto w-full">
   <h3 className="text-[#38FEDE] text-lg font-bold border-b border-[#38FEDE]/30 pb-2 mb-4">DECK PROFILE / CAFETERIA</h3>
   <div className="flex flex-col gap-3 text-sm text-slate-300">
@@ -79,7 +79,7 @@ const cafeteriaCode = \`
     </div>
   </div>
 </div>
-\`;
+`;
 content = content.replace(/<WorkExperience \/>/g, cafeteriaCode);
 content = content.replace(/<DegreeCerts \/>/g, '');
 
