@@ -19,14 +19,14 @@ export default function Projects() {
               <span>PROJECT_ALPHA</span>
               <span>LIVE</span>
             </div>
-            <h3 className="text-sm font-bold text-white font-mono tracking-wider group-hover:text-rose-400 transition-colors">E-Quiz Platform</h3>
+            <h3 className="text-sm font-bold text-white font-mono tracking-wider group-hover:text-rose-400 transition-colors">Quiz Platform</h3>
             <p className="text-xs text-slate-400 leading-relaxed min-h-[60px]">
-              A complete online examination ecosystem built with Next.js App Router and Django Rest Framework. Included secure user sessions, robust timer states, and anti-cheat tracking.
+              Built complete exam engine with question bank, randomised delivery, session handling, and results. Improved SEO and page performance using Next.js Server-Side Rendering (SSR) and metadata optimization.
             </p>
             <div className="flex flex-wrap gap-2 text-[10px] font-mono">
               <span className="px-2.5 py-1 bg-white/10 text-slate-100 rounded-md font-mono border border-white/20 shadow-sm">Next.js</span>
-              <span className="px-2 py-1 bg-blue-500/10 rounded text-blue-400 border border-blue-500/20">Django DRF</span>
-              <span className="px-2 py-1 bg-green-500/10 rounded text-green-400 border border-green-500/20">PostgreSQL</span>
+              <span className="px-2 py-1 bg-blue-500/10 rounded text-blue-400 border border-blue-500/20">TypeScript</span>
+              <span className="px-2 py-1 bg-green-500/10 rounded text-green-400 border border-green-500/20">MongoDB</span>
             </div>
           </div>
           <div className="mt-6 pt-3 border-t border-rose-500/10 flex justify-between font-mono text-[10px] items-center">
@@ -44,14 +44,14 @@ export default function Projects() {
               <span>PROJECT_BETA</span>
               <span>LIVE</span>
             </div>
-            <h3 className="text-sm font-bold text-white font-mono tracking-wider group-hover:text-orange-400 transition-colors">LaundryEase SaaS</h3>
+            <h3 className="text-sm font-bold text-white font-mono tracking-wider group-hover:text-orange-400 transition-colors">LaundryEase</h3>
             <p className="text-xs text-slate-400 leading-relaxed min-h-[60px]">
-              Digital transformation for physical laundry shops. Full POS system, order tracking, SMS alerts, and deep Razorpay integration for fast physical/online checkout syncing.
+              Web-Based Laundry Marketplace. Built escrow-based payment system with delayed settlement. Integrated Razorpay webhooks with idempotency to prevent duplicate charges.
             </p>
             <div className="flex flex-wrap gap-2 text-[10px] font-mono">
-              <span className="px-2.5 py-1 bg-white/10 text-slate-100 rounded-md font-mono border border-white/20 shadow-sm">React</span>
-              <span className="px-2 py-1 bg-yellow-500/10 rounded text-yellow-400 border border-yellow-500/20">Razorpay API</span>
-              <span className="px-2 py-1 bg-[#38FEDE]/10 rounded text-[#38FEDE] border border-[#38FEDE]/20">FastAPI</span>
+              <span className="px-2.5 py-1 bg-white/10 text-slate-100 rounded-md font-mono border border-white/20 shadow-sm">Next.js</span>
+              <span className="px-2 py-1 bg-yellow-500/10 rounded text-yellow-400 border border-yellow-500/20">Node.js</span>
+              <span className="px-2 py-1 bg-[#38FEDE]/10 rounded text-[#38FEDE] border border-[#38FEDE]/20">Razorpay</span>
             </div>
           </div>
           <div className="mt-6 pt-3 border-t border-orange-500/10 flex justify-between font-mono text-[10px] items-center">

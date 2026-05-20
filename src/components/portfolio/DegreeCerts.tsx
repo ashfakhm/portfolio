@@ -37,7 +37,7 @@ export default function DegreeCerts() {
               </div>
               <div className="flex flex-col">
                 <span className="text-gray-500 text-[10px]">CORE STUDIES REDACTED</span>
-                <span className="text-white mt-0.5">Data Structures · DBMS · OS · Architecture</span>
+                <span className="text-white mt-0.5">Data Structures & Algorithms · DBMS · OS · Distributed Systems</span>
               </div>
             </div>
           </div>

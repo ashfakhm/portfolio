@@ -17,15 +17,15 @@ export default function Achievements() {
           <div className="space-y-4">
             <div className="flex items-center gap-3 mb-2">
               <span className="text-2xl transform group-hover:scale-110 transition-transform">🏆</span>
-              <h4 className="text-sm font-black text-amber-400 uppercase tracking-widest font-mono">TechTantra '24 Finalist</h4>
+              <h4 className="text-sm font-black text-amber-400 uppercase tracking-widest font-mono">Performance Optimization</h4>
             </div>
             <p className="text-xs text-slate-300 leading-relaxed font-sans max-w-3xl">
-              Constructed algorithm strategies minimizing space complexities inside constrained runtime scopes. Built highly optimized Graph Searches, Sorting mechanisms, and Mapping hashes using Python and TypeScript under strict conditions.
+              Achieved a perfect 100 SEO score and 90+ Core Web Vitals (verified via Chrome DevTools) for the Quiz Platform by leveraging Next.js Server-Side Rendering (SSR) and fine-tuning metadata.
             </p>
             <div className="flex flex-wrap gap-2 text-[10px] font-mono mt-4">
-              <span className="px-2.5 py-1 bg-white/10 text-slate-100 rounded-md font-mono border border-white/20 shadow-sm">Algorithms</span>
-              <span className="px-2.5 py-1 bg-white/10 text-slate-100 rounded-md font-mono border border-white/20 shadow-sm">Python</span>
-              <span className="px-2 py-1 bg-amber-500/10 rounded text-amber-400 border border-amber-500/20">Optimization</span>
+              <span className="px-2.5 py-1 bg-white/10 text-slate-100 rounded-md font-mono border border-white/20 shadow-sm">Next.js</span>
+              <span className="px-2.5 py-1 bg-white/10 text-slate-100 rounded-md font-mono border border-white/20 shadow-sm">SEO</span>
+              <span className="px-2 py-1 bg-amber-500/10 rounded text-amber-400 border border-amber-500/20">Web Vitals</span>
             </div>
           </div>
           <div className="mt-6 pt-3 border-t border-amber-500/10 flex justify-between font-mono text-[10px] items-center">

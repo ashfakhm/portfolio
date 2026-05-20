@@ -16,9 +16,9 @@ export default function WorkExperience() {
           {
             id: 1,
             label: 'EXP 1',
-            title: 'HIGH-EFFICIENCY VELOCITY',
-            desc: 'Ashfakh regularly tests client loads. Implemented a Next.js App Router core engine scoring a perfect 100 SEO value on Chrome Lighthouse audit logs.',
-            highlight: '🎯 Engineered Core Web Vitals (CWV) above 90+ threshold.',
+            title: 'END-TO-END DEVELOPMENT',
+            desc: 'Full Stack Developer who owns products end-to-end — from Performant Next.js frontends to Python/Node.js backends. Comfortable taking features from idea to software independently.',
+            highlight: '🎯 Complete system ownership and delivery.',
             color: 'text-indigo-400',
             bg: 'bg-indigo-500/10 border-indigo-500/30'
           },
@@ -26,7 +26,7 @@ export default function WorkExperience() {
             id: 2,
             label: 'EXP 2',
             title: 'BULLETPROOF PAYMENT SYSTEMS',
-            desc: 'Constructed robust payment pipeline integrations (using Razorpay API blocks) supporting multi-layered checkout logic.',
+            desc: 'Integrated Razorpay webhooks with idempotency to prevent duplicate charges during network failures. Built escrow-based payment system with delayed settlement workflows.',
             highlight: '🛡️ Forged highly idempotent webhook controllers.',
             color: 'text-yellow-400',
             bg: 'bg-yellow-400/10 border-yellow-400/30'
@@ -34,9 +34,9 @@ export default function WorkExperience() {
           {
             id: 3,
             label: 'EXP 3',
-            title: 'ARCHITECTURE INDEPENDENT',
-            desc: 'Ashfakh works solo to formulate concept briefs into live, operational web platforms. Controls entire lifecycles under local parameters.',
-            highlight: '📦 Shipped functional products solo successfully.',
+            title: 'ARCHITECTURE & DATABASES',
+            desc: 'Expertise in designing payment integrations, database architectures (PostgreSQL, MongoDB), and scalable RESTful/FastAPI backend logic.',
+            highlight: '📦 Architected scalable backend logic.',
             color: 'text-blue-400',
             bg: 'bg-blue-400/10 border-blue-400/30'
           },
@@ -44,7 +44,7 @@ export default function WorkExperience() {
             id: 4,
             label: 'EXP 4',
             title: 'STRUCTURAL BLUEPRINTS',
-            desc: 'Pre-structures files, draws logical schemas, and models databases efficiently. Prioritizes engineering safety from start to execution.',
+            desc: 'Documented entire systems with detailed DFDs and ERDs covering full order lifecycles and application architectures before execution.',
             highlight: '📐 Pre-builds blueprints with thorough DFDs & ERDs.',
             color: 'text-[#38FEDE]',
             bg: 'bg-[#1a9eff]/10 border-[#1a9eff]/20'
