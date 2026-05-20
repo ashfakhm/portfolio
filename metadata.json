@@ -1,0 +1,8 @@
+{
+  "name": "Among Us Developer Portfolio",
+  "description": "An interactive Among Us themed developer portfolio website for Ashfakh M.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
