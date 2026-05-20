@@ -1,9 +1,28 @@
 // Sound Manager class utilizing native browser Web Audio API Synthesizer (failsafe, no external file loads)
 export class SoundSynth {
-  private ctx: AudioContext | null = null;
+  public ctx: AudioContext | null = null;
   public enabled = true;
+  private interacted = false;
 
-  private init() {
+  constructor() {
+    const unlock = () => {
+      if (!this.interacted) {
+        this.init();
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+        this.interacted = true;
+        window.removeEventListener('click', unlock);
+        window.removeEventListener('keydown', unlock);
+        window.removeEventListener('touchstart', unlock);
+      }
+    };
+    window.addEventListener('click', unlock);
+    window.addEventListener('keydown', unlock);
+    window.addEventListener('touchstart', unlock);
+  }
+
+  public init() {
     if (!this.ctx) {
       try {
         this.ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -11,9 +30,52 @@ export class SoundSynth {
         console.warn('Web Audio API not supported on this platform');
       }
     }
-    if (this.ctx && this.ctx.state === 'suspended') {
+    if (this.ctx && this.ctx.state === 'suspended' && this.interacted) {
       this.ctx.resume();
     }
+  }
+
+  playTone(freq: number, type: 'sine' | 'square' | 'triangle' | 'sawtooth', duration: number, volume = 0.05) {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, now);
+    gain.gain.setValueAtTime(volume, now);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+    
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    
+    osc.start(now);
+    osc.stop(now + duration);
+  }
+
+  playLaser() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(800, now);
+    osc.frequency.exponentialRampToValueAtTime(80, now + 0.25);
+    gain.gain.setValueAtTime(0.06, now);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.25);
+    
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    
+    osc.start(now);
+    osc.stop(now + 0.25);
   }
 
   playBeep() {
@@ -189,17 +251,19 @@ export class SoundSynth {
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
     
-    // Smooth thud low frequency bump sound for footsteps
-    osc.type = 'triangle';
-    osc.frequency.setValueAtTime(50 + Math.random() * 12, now);
-    gain.gain.setValueAtTime(0.018, now);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.08);
+    // Clear, audible step sound (Square wave blip)
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(150, now);
+    osc.frequency.exponentialRampToValueAtTime(80, now + 0.05);
+    
+    gain.gain.setValueAtTime(0.05, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
     
     osc.connect(gain);
     gain.connect(this.ctx.destination);
     
     osc.start(now);
-    osc.stop(now + 0.08);
+    osc.stop(now + 0.05);
   }
 }
 

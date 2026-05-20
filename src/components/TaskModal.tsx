@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, Send, BookOpen, User, Briefcase, Award, Zap, Code, Shield, KeyRound, Radio, ArrowRight, CornerDownLeft, Play, RefreshCw, Layers } from 'lucide-react';
 import CrewmateSprite, { CrewmateColor } from './CrewmateSprite';
+import { synthSFX } from '../utils/sound';
 
 interface TaskModalProps {
   room: string; // 'cafeteria' | 'reactor' | 'admin' | 'comms' | 'medbay' | 'security' | 'emergency' | 'vents'
@@ -15,51 +16,17 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
 
   // Web Audio API Sound Synthesizer
   const playLocalSound = (freq: number, type: 'sine' | 'square' | 'triangle' | 'sawtooth', duration: number, volume = 0.05) => {
-    try {
-      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-      if (!AudioContext) return;
-      const ctx = new AudioContext();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      
-      osc.type = type;
-      osc.frequency.setValueAtTime(freq, ctx.currentTime);
-      gain.gain.setValueAtTime(volume, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
-      
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      
-      osc.start();
-      osc.stop(ctx.currentTime + duration);
-    } catch (e) {}
+    synthSFX.playTone(freq, type, duration, volume);
   };
 
-  const playBeep = () => playLocalSound(600, 'sine', 0.1);
-  const playLaser = () => {
-    try {
-      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-      if (!AudioContext) return;
-      const ctx = new AudioContext();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(800, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.25);
-      gain.gain.setValueAtTime(0.06, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.25);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.25);
-    } catch (e) {}
-  };
-  const playWireSpark = () => playLocalSound(1000, 'triangle', 0.12, 0.08);
-  const playShieldClick = () => playLocalSound(520, 'sine', 0.12, 0.08);
+  const playBeep = () => synthSFX.playBeep();
+  const playLaser = () => synthSFX.playLaser();
+  const playWireSpark = () => synthSFX.playTone(1000, 'triangle', 0.12, 0.08);
+  const playShieldClick = () => synthSFX.playTone(520, 'sine', 0.12, 0.08);
   const playSuccessTune = () => {
-    playLocalSound(523.25, 'sine', 0.3, 0.04);
-    setTimeout(() => playLocalSound(659.25, 'sine', 0.3, 0.04), 100);
-    setTimeout(() => playLocalSound(783.99, 'sine', 0.5, 0.04), 200);
+    synthSFX.playTone(523.25, 'sine', 0.3, 0.04);
+    setTimeout(() => synthSFX.playTone(659.25, 'sine', 0.3, 0.04), 100);
+    setTimeout(() => synthSFX.playTone(783.99, 'sine', 0.5, 0.04), 200);
   };
 
   // Storage Refueling Specifics
