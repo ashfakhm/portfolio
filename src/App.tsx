@@ -2352,21 +2352,8 @@ export default function App() {
           </div>
           <button 
             onClick={() => {
-              setShowVictory(false);
-              setPlayerPos({ x: 450, y: 100 });
-              setCompletedTasks({
-                cafeteria: false,
-                reactor: false,
-                admin: false,
-                comms: false,
-                medbay: false,
-                security: false,
-                storage: false,
-                weapons: false,
-                electrical: false,
-                navigation: false,
-                shields: false,
-              });
+              sessionStorage.clear();
+              window.location.reload();
             }}
             className="px-8 py-4 bg-[#1a9eff] text-white font-bold rounded-xl hover:bg-[#38FEDE] hover:text-black hover:scale-105 active:scale-95 transition-all shadow-[0_6px_0_#0d4d80] active:shadow-[0_2px_0_#0d4d80] active:translate-y-1 z-10 border-2 border-black tracking-widest uppercase text-xs"
             style={{ fontFamily: '"Press Start 2P"' }}
