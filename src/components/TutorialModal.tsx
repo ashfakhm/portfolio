@@ -9,7 +9,9 @@ interface TutorialModalProps {
 
 export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
   const [isMobileDevice, setIsMobileDevice] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(() => {
+    return localStorage.getItem('tutorialMinimized') === 'true';
+  });
 
   useEffect(() => {
     // Detect typical touch / mobile dimensions
@@ -23,12 +25,15 @@ export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Minimize slowly after presentation
+  // Minimize slowly after presentation if not permanently dismissed
   useEffect(() => {
     if (isOpen) {
-      setIsMinimized(false);
-      const t = setTimeout(() => setIsMinimized(true), 8000);
-      return () => clearTimeout(t);
+      const isPermanentlyMinimized = localStorage.getItem('tutorialMinimized') === 'true';
+      if (!isPermanentlyMinimized) {
+        setIsMinimized(false);
+        const t = setTimeout(() => setIsMinimized(true), 8000);
+        return () => clearTimeout(t);
+      }
     }
   }, [isOpen]);
 
@@ -46,7 +51,11 @@ export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
         {/* Header (Always Visible) */}
         <div 
           className="flex items-center justify-between p-3 cursor-pointer bg-slate-900/50 hover:bg-slate-800/50 transition-colors"
-          onClick={() => setIsMinimized(!isMinimized)}
+          onClick={() => {
+            const next = !isMinimized;
+            setIsMinimized(next);
+            localStorage.setItem('tutorialMinimized', String(next));
+          }}
         >
           <div className="flex items-center gap-2 flex-1">
             <span className="text-lg animate-bounce">🎮</span>
@@ -72,7 +81,7 @@ export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
         {!isMinimized && (
           <div className="flex-1 p-4 pt-0 space-y-4 text-xs font-mono text-slate-300 overflow-y-auto mt-2 custom-scrollbar">
             <p className="text-[9px] text-[#38FEDE] uppercase tracking-wider font-bold select-none leading-relaxed">
-              Read these instructions to navigate Ashfakh M's spaceship and complete node repairs safely.
+              The Boogeyman is coming to kill you! Finish your tasks quickly. If you finish them all, you win. Otherwise, the Boogeyman wins!
             </p>
 
             {/* Grid content */}
@@ -89,7 +98,8 @@ export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
                     </ul>
                   ) : (
                     <ul className="list-disc pl-4 space-y-1 text-[9px] text-slate-400">
-                      <li><strong className="text-slate-200">WASD:</strong> Direct control.</li>
+                      <li><strong className="text-slate-200">Move:</strong> <kbd className="px-1 bg-slate-900 border border-slate-700 rounded text-white">W</kbd><kbd className="px-1 bg-slate-900 border border-slate-700 rounded text-white">A</kbd><kbd className="px-1 bg-slate-900 border border-slate-700 rounded text-white">S</kbd><kbd className="px-1 bg-slate-900 border border-slate-700 rounded text-white">D</kbd> or Arrows.</li>
+                      <li><strong className="text-slate-200">Map:</strong> <kbd className="px-1 bg-slate-900 border border-slate-700 rounded text-white">M</kbd> or <kbd className="px-1 bg-slate-900 border border-slate-700 rounded text-white">TAB</kbd>.</li>
                       <li><strong className="text-slate-200">Autopilot Click:</strong> Click floor map to run.</li>
                       <li><strong className="text-slate-200">HUD Nav:</strong> Click mission list top-left.</li>
                     </ul>
@@ -113,11 +123,27 @@ export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
                 <div className="flex-1">
                   <div className="font-bold text-white uppercase text-[#ffd700] tracking-wider text-[10px] font-sans border-b border-slate-700 pb-1 mb-1.5">Warping & Reporting</div>
                   <ul className="list-disc pl-4 space-y-1 text-[9px] text-slate-400">
-                    <li><strong className="text-slate-200">Fast Travel:</strong> Use vents via <kbd className="px-1 bg-slate-900 border border-slate-700 rounded text-white">V</kbd> or <strong className="text-sky-400">VENT</strong> button.</li>
+                    <li><strong className="text-slate-200">Fast Travel:</strong> Use secret passages via <kbd className="px-1 bg-slate-900 border border-slate-700 rounded text-white">V</kbd> or <strong className="text-sky-400">PASSAGE</strong> button.</li>
                     <li><strong className="text-slate-200">Report:</strong> Tap Cafeteria red table button to contact.</li>
                   </ul>
                 </div>
               </div>
+            </div>
+
+            {/* Horizontal Confirm Bar */}
+            <div className="mt-4 pb-2">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsMinimized(true);
+                  localStorage.setItem('tutorialMinimized', 'true');
+                  synthSFX.playBeep();
+                }}
+                className="w-full bg-[#38FEDE]/10 hover:bg-[#38FEDE]/20 text-[#38FEDE] border border-[#38FEDE]/50 py-3 rounded uppercase font-bold tracking-widest text-[10px] transition-colors flex items-center justify-center gap-2"
+                style={{ fontFamily: '"Press Start 2P"' }}
+              >
+                <span>CONFIRM & START</span>
+              </button>
             </div>
           </div>
         )}
