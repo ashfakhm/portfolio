@@ -8,7 +8,8 @@ import HologramMap from './components/HologramMap';
 import VentMap from './components/VentMap';
 import { 
   Compass, Shield, Radio, KeyRound, User, BookOpen, AlertCircle, Play, Sparkles, Navigation2, Zap, 
-  Tv, Volume2, VolumeX, Smartphone, Trophy, Flame, HelpCircle, MessageSquare, Send, Map, X, CheckSquare
+  Tv, Volume2, VolumeX, Smartphone, Trophy, Flame, HelpCircle, MessageSquare, Send, Map, X, CheckSquare,
+  Rocket, ChevronRight, ShieldCheck, CheckCircle2, AlertTriangle, Wind
 } from 'lucide-react';
 
 import { synthSFX } from './utils/sound';
@@ -1660,14 +1661,14 @@ export default function App() {
                 <button
                   onClick={enterMissionShip}
                   disabled={progressCount < 100}
-                  className={`py-3.5 px-6 text-[10px] md:text-xs font-black leading-none uppercase tracking-widest rounded-lg border-2 cursor-pointer border-black transform active:translate-y-0.5 transition-all w-full md:w-auto ${
+                  className={`py-3.5 px-6 text-[10px] md:text-xs font-black leading-none uppercase tracking-widest rounded-lg border cursor-pointer transform active:translate-y-0.5 transition-all w-full md:w-auto flex items-center justify-center gap-2 ${
                     progressCount === 100 
-                      ? 'bg-[#50F01E] text-black hover:bg-green-400 shadow-[0_4px_0_#1e6a04] hover:scale-[1.02]' 
-                      : 'bg-slate-800 text-slate-500 cursor-not-allowed shadow-none border-dashed'
+                      ? 'bg-green-500/20 text-green-400 border-green-500/50 hover:bg-green-500/30 hover:border-green-400 shadow-[0_0_15px_rgba(34,197,94,0.3)] hover:scale-[1.02]' 
+                      : 'bg-slate-800/50 text-slate-500 border-slate-700/50 cursor-not-allowed shadow-none'
                   }`}
                   style={{ fontFamily: '"Press Start 2P"' }}
                 >
-                  🚀 ENTER VEHICLE 🚀
+                  <Rocket size={16} /> ENTER VEHICLE <Rocket size={16} />
                 </button>
               </div>
 
@@ -1799,8 +1800,8 @@ export default function App() {
                 )}
               </p>
 
-              <div className="bg-[#121926] border-2 border-slate-800 px-5 py-3 rounded-xl text-[9px] font-mono text-slate-400 max-w-lg mt-3 uppercase tracking-wider">
-                🛡️ GOAL: REPAIR WIRE NODES · CALIBRATE CORES · VENT SENSOR CHECKS
+              <div className="bg-[#121926]/80 backdrop-blur-md border border-slate-700/50 px-5 py-3 rounded-xl text-[9px] font-mono text-slate-400 max-w-lg mt-3 uppercase tracking-wider flex items-center gap-2 shadow-lg">
+                <ShieldCheck size={14} className="text-[#38FEDE]" /> GOAL: REPAIR WIRE NODES · CALIBRATE CORES · VENT SENSOR CHECKS
               </div>
             </div>
           )}
@@ -1817,13 +1818,14 @@ export default function App() {
           className="absolute inset-0 z-50 bg-[#c51111ee] animate-pulse flex flex-col items-center justify-center text-center cursor-pointer p-4 transition-all"
         >
           <div className="space-y-5 flex flex-col items-center justify-center animate-bounce">
+            <AlertTriangle className="text-white mx-auto drop-shadow-lg" size={56} />
             <h1 
               className="text-white text-3xl sm:text-5xl font-black uppercase tracking-widest max-w-xl leading-tight"
-              style={{ fontFamily: '"Press Start 2P"', textShadow: '0 6px 0 #000' }}
+              style={{ fontFamily: '"Press Start 2P"', textShadow: '0 4px 15px rgba(0,0,0,0.5)' }}
             >
-              🔴 ASHFAKH IS IMPOSTOR! 🔴
+              ASHFAKH IS IMPOSTOR!
             </h1>
-            <p className="font-mono text-xs tracking-widest text-[#FFD700] uppercase pt-2">
+            <p className="font-mono text-xs tracking-widest text-red-200 uppercase pt-2 bg-black/40 px-4 py-2 rounded-lg border border-red-500/30 backdrop-blur-sm">
               He has infiltrated national computer structures solo. Tap to resume!
             </p>
           </div>
@@ -1839,7 +1841,7 @@ export default function App() {
           {/* Top HUD bar with Task completion bar */}
           <div className="w-full max-w-2xl mx-auto pointer-events-auto bg-[#0b0b14]/90 backdrop-blur-md border border-white/10 p-2 sm:p-2.5 rounded-2xl flex flex-col space-y-2 shadow-[0_8px_32px_rgba(0,0,0,0.5)] ring-1 ring-inset ring-white/5">
             <div className="flex items-center justify-between text-[10px] font-mono font-bold tracking-wider text-green-400">
-              <span className="flex items-center gap-1">🟢 TOTAL SHIP TASKS STATUS:</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 size={12} /> TOTAL SHIP TASKS STATUS:</span>
               <div className="flex items-center gap-3">
                 <span>{progressPercent}% COMPLETED ({completedCount}/{totalTasks})</span>
                 <button
@@ -1847,9 +1849,9 @@ export default function App() {
                     setShowTutorial(true);
                     synthSFX.playBeep();
                   }}
-                  className="bg-sky-600 hover:bg-sky-500 border border-black text-[9px] font-semibold text-white px-2 py-0.5 rounded cursor-pointer uppercase transition-all tracking-wider font-mono hover:scale-105 active:scale-95 leading-none"
+                  className="bg-sky-500/20 hover:bg-sky-500/30 border border-sky-500/50 text-[9px] font-semibold text-sky-300 px-2.5 py-1 rounded-md cursor-pointer uppercase transition-all tracking-wider font-mono hover:scale-105 active:scale-95 leading-none flex items-center gap-1"
                 >
-                  ❔ Help
+                  <HelpCircle size={10} /> Help
                 </button>
               </div>
             </div>
@@ -1861,10 +1863,10 @@ export default function App() {
               />
               {progressPercent === 100 ? (
                 <div 
-                  className="absolute inset-x-0 inset-y-0 text-[8px] font-black tracking-widest text-white leading-none flex items-center justify-center animate-bounce uppercase"
+                  className="absolute inset-x-0 inset-y-0 text-[8px] font-black tracking-widest text-white leading-none flex items-center justify-center animate-bounce uppercase drop-shadow-md"
                   style={{ fontFamily: '"Press Start 2P"' }}
                 >
-                  🚀 ALL SYSTEMS STABILIZED BY ASHFAKH! 🏆
+                  <Rocket size={10} className="mr-2" /> ALL SYSTEMS STABILIZED BY ASHFAKH! <Trophy size={10} className="ml-2 text-yellow-300" />
                 </div>
               ) : null}
             </div>
@@ -1989,32 +1991,36 @@ export default function App() {
               {nearVent && (
                 <button
                   onClick={() => { setVentMapOpen(true); synthSFX.playBeep(); }}
-                  className="px-4 py-3 bg-[#4e5564] hover:bg-[#5f697c] border-2 border-black rounded-full shadow-[0_4px_0_#000] active:translate-y-1 text-center font-bold text-[9px] tracking-widest uppercase text-[#38FEDE]"
+                  className="px-4 py-3 bg-[#4e5564]/80 backdrop-blur-sm hover:bg-[#5f697c]/90 border border-slate-400/50 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.1)] active:scale-95 transition-all text-center font-bold text-[9px] tracking-widest uppercase text-[#38FEDE] flex items-center gap-1.5"
                   style={{ fontFamily: '"Press Start 2P"' }}
                 >
-                  🌬️ VENT
+                  <Wind size={12} /> VENT
                 </button>
               )}
 
               <button
                 onClick={() => triggerModal('emergency')}
-                className="px-5 py-4 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 text-white rounded-2xl border-2 border-red-400/50 text-center shadow-[0_8px_0_#7f1d1d,auto_auto_30px_rgba(220,38,38,0.4)] active:shadow-[0_2px_0_#7f1d1d] active:translate-y-1.5 transition-all w-[120px] flex flex-col items-center justify-center"
+                className="px-5 py-4 bg-red-500/20 hover:bg-red-500/30 text-red-100 rounded-2xl border border-red-500/50 text-center shadow-[0_0_20px_rgba(220,38,38,0.2)] active:scale-95 transition-all w-[120px] flex flex-col items-center justify-center backdrop-blur-md"
                 style={{ fontFamily: '"Press Start 2P"' }}
               >
-                <div className="flex flex-col items-center gap-1"><span className="text-red-200 text-[8px] tracking-[0.2em] mb-0 font-bold leading-none select-none">EMERGENCY</span><span className="font-bold text-[10px] md:text-sm tracking-widest uppercase leading-none select-none">REPORT</span></div>
+                <div className="flex flex-col items-center gap-1.5">
+                  <AlertTriangle size={14} className="text-red-400" />
+                  <span className="text-red-300 text-[7px] tracking-[0.2em] mb-0 font-bold leading-none select-none opacity-80">EMERGENCY</span>
+                  <span className="font-bold text-[9px] md:text-xs tracking-widest uppercase leading-none select-none text-white drop-shadow-md">REPORT</span>
+                </div>
               </button>
 
               <button
                 onClick={() => { if (nearestRoom) triggerModal(nearestRoom.id); }}
                 disabled={!nearestRoom}
-                className={`py-4 px-6 md:py-4 md:px-8 rounded-2xl border-2 shadow-xl text-center cursor-pointer font-bold uppercase transition-all flex flex-col items-center justify-center relative overflow-hidden w-[140px] ${
+                className={`py-4 px-6 md:py-4 md:px-8 rounded-2xl border text-center cursor-pointer font-bold uppercase transition-all flex flex-col items-center justify-center relative overflow-hidden w-[140px] backdrop-blur-md ${
                   nearestRoom 
-                    ? 'bg-gradient-to-b from-yellow-300 to-yellow-500 hover:from-yellow-200 hover:to-yellow-400 text-yellow-950 border-yellow-200 shadow-[0_8px_0_#b45309,auto_auto_30px_rgba(234,179,8,0.4)] active:shadow-[0_2px_0_#b45309] active:translate-y-1.5' 
-                    : 'bg-[#1a1a24] text-slate-500 border-slate-700 cursor-not-allowed opacity-80 shadow-none'
+                    ? 'bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-300 border-yellow-500/50 shadow-[0_0_20px_rgba(234,179,8,0.2)] active:scale-95' 
+                    : 'bg-slate-800/30 text-slate-500 border-slate-700/50 cursor-not-allowed opacity-80 shadow-none'
                 }`}
               >
-                <span className="text-[10px] sm:text-[11px] font-black tracking-widest block" style={{ fontFamily: '"Press Start 2P"' }}>USE</span>
-                {nearestRoom && <span className="text-[7px] font-mono mt-0.5 tracking-wider uppercase font-extrabold">{nearestRoom.name}</span>}
+                <span className="text-[10px] sm:text-[11px] font-black tracking-widest block drop-shadow-md text-white" style={{ fontFamily: '"Press Start 2P"' }}>USE</span>
+                {nearestRoom && <span className="text-[7px] font-mono mt-1 tracking-wider uppercase font-extrabold text-yellow-200/80">{nearestRoom.name}</span>}
               </button>
             </div>
           </div>
@@ -2165,9 +2171,9 @@ export default function App() {
                 <button
                   key={idx}
                   onClick={() => handleSendPreset(p)}
-                  className="p-1.5 border border-slate-800 hover:border-[#1a9eff] bg-slate-900 rounded text-slate-300 text-left truncate cursor-pointer transition-colors hover:text-white"
+                  className="p-1.5 border border-white/5 hover:border-[#1a9eff]/50 bg-white/5 hover:bg-white/10 rounded-md text-slate-300 text-left truncate cursor-pointer transition-all hover:text-white flex items-center gap-1"
                 >
-                  👉 {p.text}
+                  <ChevronRight size={10} className="text-[#1a9eff]" /> {p.text}
                 </button>
               ))}
             </div>

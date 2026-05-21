@@ -382,7 +382,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
             clearInterval(timer);
             setScanState('completed');
             setTaskCompleted(true);
-            setScanDiagnostics((d) => [...d, 'SCAN RESULT: CANDIDATE CLEAR FOR LANDING! ✅']);
+            setScanDiagnostics((d) => [...d, 'SCAN RESULT: CANDIDATE CLEAR FOR LANDING!']);
             return 100;
           }
           return next;
@@ -489,7 +489,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
     >
       <div 
         id="task-inner-box"
-        className="w-full max-w-4xl bg-[#09090f]/95 backdrop-blur-3xl border border-white/10 rounded-[32px] flex flex-col shadow-[0_0_80px_rgba(0,0,0,0.8)] relative select-none ring-1 ring-inset ring-white/5"
+        className="w-full max-w-4xl bg-[#09090f]/80 backdrop-blur-3xl border border-white/10 rounded-[32px] flex flex-col shadow-[0_0_40px_rgba(0,0,0,0.5)] relative select-none ring-1 ring-inset ring-white/5"
         style={{ height: 'min(90vh, 700px)' }}
       >
         {/* Simple red X close button (Among Us Style) */}
@@ -538,7 +538,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
               onClick={forceCompleteTask}
               className="absolute top-2 right-2 z-10 text-[10px] text-gray-400 hover:text-green-400 border border-[#3a3a5e] hover:border-green-500/50 bg-[#1a1a2e] px-2 py-1 rounded transition-all cursor-pointer flex items-center gap-1"
             >
-              <span>Skip Task Game Quick-Unlock ⚡</span>
+              <span>Skip Task Game Quick-Unlock</span>
             </button>
           )}
 
@@ -554,7 +554,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                 </div>
                 <div className="space-y-1.5 w-full">
                   <div className="text-[10px] text-gray-400 uppercase">LOCATION</div>
-                  <div className="text-xs font-semibold text-red-400">Malappuram, Kerala, India 🇮🇳</div>
+                  <div className="text-xs font-semibold text-red-400">Malappuram, Kerala, India</div>
                   <div className="text-[10px] text-gray-400 uppercase mt-2">CLASS</div>
                   <div className="text-xs text-white">Full Stack Crewmate</div>
                 </div>
@@ -664,9 +664,9 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
 
                       <div className="pt-4 border-t border-[#3a3a5e] space-y-2 text-[10px]" style={{ fontFamily: '"Fira Code", monospace' }}>
                         <div className="text-slate-400">env_variables:</div>
-                        <div className="text-green-400">⚡ NEXT_JS_EXPERTISE = 100/100</div>
-                        <div className="text-[#38FEDE]">⚡ WEBHOOKS_IDEMPOTENT = true</div>
-                        <div className="text-red-400">⚡ META_CERTIFIED = true</div>
+                        <div className="text-green-400">NEXT_JS_EXPERTISE = 100/100</div>
+                        <div className="#38FEDE">WEBHOOKS_IDEMPOTENT = true</div>
+                        <div className="text-red-400">META_CERTIFIED = true</div>
                       </div>
                     </div>
 
@@ -689,7 +689,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                       </div>
 
                       <div className="bg-[#1c1c38]/40 p-3 rounded border border-[#3a3a5e] text-[11px] text-[#38FEDE]">
-                        🏆 "Committed to delivering pristine UI performance (100 SEO & 90+ Lighthouse Core Web Vitals) alongside optimal server latency."
+                        "Committed to delivering pristine UI performance (100 SEO & 90+ Lighthouse Core Web Vitals) alongside optimal server latency."
                       </div>
                     </div>
                   </div>
@@ -771,7 +771,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                           <div className="w-full flex-1 flex gap-3">
                              {/* User Photo Box */}
                              <div className="w-16 h-20 bg-gray-200 border border-gray-400 rounded flex items-center justify-center text-3xl overflow-hidden shadow-inner">
-                               👨‍💻
+                               <User size={32} className="text-gray-500" />
                              </div>
                              <div className="flex-1 flex flex-col pt-1">
                                <div className="w-full h-4 bg-red-600 mb-3 rounded-sm opacity-90 shadow-sm" />
@@ -821,10 +821,9 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                       </div>
 
                       <div className="pt-4 border-t border-[#3a3a5e] space-y-1 text-[10px]" style={{ fontFamily: '"Fira Code", monospace' }}>
-                        <div className="text-gray-500 uppercase">LIGHTHOUSE SUMMARY</div>
-                        <div className="text-yellow-400">⭐ SEO: 100/100</div>
-                        <div className="text-blue-400">⭐ PERSISTENCE: 100%</div>
-                        <div className="text-green-400">⭐ STABILITY: IMMUNE</div>
+                        <div className="text-yellow-400">SEO: 100/100</div>
+                        <div className="text-blue-400">PERSISTENCE: 100%</div>
+                        <div className="text-green-400">STABILITY: IMMUNE</div>
                       </div>
                     </div>
 
@@ -883,7 +882,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                         <div className="flex flex-wrap gap-1.5 text-[9px]">
                           {['Git', 'GitHub', 'Postman', 'Vercel', 'VS Code', 'Google Lighthouse'].map((tool, idx) => (
                             <span key={idx} className="bg-slate-900 px-1.5 py-0.5 rounded border border-[#3a3a5e] text-slate-300">
-                              🛠️ {tool}
+                              {tool}
                             </span>
                           ))}
                         </div>
@@ -940,7 +939,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                         className="w-full p-2.5 bg-[#1a9eff] text-black hover:bg-[#38FEDE] font-bold text-xs uppercase tracking-wide rounded border-2 border-black active:translate-y-0.5 transition-all text-center cursor-pointer"
                         style={{ fontFamily: '"Press Start 2P"' }}
                       >
-                        DOWNLOAD DATA 📥
+                        DOWNLOAD DATA
                       </button>
                     ) : (
                       <span className="text-[10px] text-gray-500 block">DO NOT CLOSE TERMINAL...</span>
@@ -976,10 +975,10 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                         <div className="space-y-1 pt-1">
                           <span className="text-[9px] text-[#38FEDE] block uppercase tracking-wider">COMPLETED TASKS</span>
                           <div className="text-[10px] text-slate-300 space-y-1.5 font-mono">
-                            <div>✅ Multi-role dashboard UI (Customer, Vendor, Admin)</div>
-                            <div>✅ Idempotent Razorpay webhook architecture</div>
-                            <div>✅ Escrow payment logs with automatic vendor settlements</div>
-                            <div>✅ Rendered complete systems architecture DFDs & ERDs</div>
+                            <div>Multi-role dashboard UI (Customer, Vendor, Admin)</div>
+                            <div>Idempotent Razorpay webhook architecture</div>
+                            <div>Escrow payment logs with automatic vendor settlements</div>
+                            <div>Rendered complete systems architecture DFDs & ERDs</div>
                           </div>
                         </div>
                       </div>
@@ -1022,10 +1021,10 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                         <div className="space-y-1 pt-1">
                           <span className="text-[9px] text-green-400 block uppercase tracking-wider">COMPLETED TASKS</span>
                           <div className="text-[10px] text-slate-300 space-y-1.5 font-mono">
-                            <div>✅ Achieved strict [100 SEO Score] & [90+ Core Web Vitals]</div>
-                            <div>✅ Optimized server side rendering & dynamic metadata tags</div>
-                            <div>✅ Drafted randomized question delivery math vectors</div>
-                            <div>✅ Programmed session-aware quiz states to avert test fraud</div>
+                            <div>Achieved strict [100 SEO Score] & [90+ Core Web Vitals]</div>
+                            <div>Optimized server side rendering & dynamic metadata tags</div>
+                            <div>Drafted randomized question delivery math vectors</div>
+                            <div>Programmed session-aware quiz states to avert test fraud</div>
                           </div>
                         </div>
                       </div>
@@ -1069,16 +1068,16 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                       <div className="pt-4 border-t border-[#3a3a5e] mt-4 space-y-3">
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[10px] font-bold">
                           <a href="https://github.com/ashfakhm/Sem-6-Learning-Android-Studio" target="_blank" rel="noreferrer" className="p-2 border border-slate-700 bg-slate-900 text-center hover:text-white hover:border-yellow-500 hover:bg-slate-800 rounded transition-colors flex items-center justify-center">
-                            📱 Android Studio (Sem 6)
+                            Android Studio (Sem 6)
                           </a>
                           <a href="https://github.com/ashfakhm/SEM-6-Learning_Shell_Scripting" target="_blank" rel="noreferrer" className="p-2 border border-slate-700 bg-slate-900 text-center hover:text-white hover:border-yellow-500 hover:bg-slate-800 rounded transition-colors flex items-center justify-center">
-                            🐧 Shell Scripting (Sem 6)
+                            Shell Scripting (Sem 6)
                           </a>
                            <a href="https://github.com/ashfakhm/SEM-5-Learning_Html_And_Php" target="_blank" rel="noreferrer" className="p-2 border border-slate-700 bg-slate-900 text-center hover:text-white hover:border-yellow-500 hover:bg-slate-800 rounded transition-colors flex items-center justify-center">
-                            🌐 HTML & PHP (Sem 5)
+                            HTML & PHP (Sem 5)
                           </a>
                           <a href="https://github.com/ashfakhm/SEM-5-Learning_JAVA" target="_blank" rel="noreferrer" className="p-2 border border-slate-700 bg-slate-900 text-center hover:text-white hover:border-yellow-500 hover:bg-slate-800 rounded transition-colors flex items-center justify-center">
-                            ☕ Java (Sem 5)
+                            Java (Sem 5)
                           </a>
                         </div>
                       </div>
@@ -1123,7 +1122,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                         className="mt-4 w-full p-2 bg-green-600 hover:bg-green-500 text-black font-extrabold text-xs tracking-wider uppercase rounded-md shadow border-2 border-black active:translate-y-0.5 cursor-pointer"
                         style={{ fontFamily: '"Press Start 2P"' }}
                       >
-                        SUBMIT SCAN 🔬
+                        SUBMIT SCAN
                       </button>
                     ) : (
                       <span className="text-[9px] mt-4 text-gray-500 font-mono animate-pulse">DO NOT STEP OFF PAD</span>
@@ -1208,7 +1207,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                         className="text-[10px] md:text-xs font-black text-white uppercase select-none leading-none max-w-[80px]"
                         style={{ fontFamily: '"Press Start 2P"' }}
                       >
-                        {gameStarted ? 'TAP IN!' : 'REPORT INFO 🚨'}
+                        {gameStarted ? 'TAP IN!' : 'REPORT INFO' }
                       </span>
                     </button>
                     
@@ -1267,7 +1266,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                         className="w-full py-3 mt-2 bg-red-600 hover:bg-red-500 text-white font-bold rounded cursor-pointer uppercase transition-all tracking-wider text-center border-2 border-black flex items-center justify-center gap-2 text-xs"
                         style={{ fontFamily: '"Press Start 2P"' }}
                       >
-                        🔴 CALL MEETING 🔴
+                        CALL MEETING
                       </button>
                     </form>
                   </div>
@@ -1276,7 +1275,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
               ) : (
                 <div className="flex-1 flex flex-col items-center justify-center text-center p-6 space-y-4 animate-fadeIn">
                   <div className="p-4 bg-green-950/20 border border-green-500/30 rounded-lg max-w-md">
-                    <h3 className="text-sm font-bold text-green-400 mb-2">📥 COMS RECORDED SUCCESSFULLY</h3>
+                    <h3 className="text-sm font-bold text-green-400 mb-2">COMS RECORDED SUCCESSFULLY</h3>
                     <p className="text-xs text-gray-300 leading-normal">
                       Thank you for submitting! Your report has bypassed firewall protocols and landed securely in ashfakhthedev@gmail.com inbox logs.
                     </p>
@@ -1387,7 +1386,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                         }`}
                         style={{ fontFamily: '"Press Start 2P"' }}
                       >
-                        {refuelState === 'refueling' ? 'FUELING... 🚨' : 'HOLD TO REFUEL ⛽'}
+                        {refuelState === 'refueling' ? 'FUELING...' : 'HOLD TO REFUEL'}
                       </button>
                     </div>
                   </div>
@@ -1395,7 +1394,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
               ) : (
                 <div className="flex-1 flex flex-col gap-4 animate-fadeIn">
                   <div className="bg-amber-950/20 border-2 border-yellow-500/30 p-3 rounded-lg flex items-center justify-between text-xs text-yellow-500 font-mono">
-                    <span className="font-bold">⚡ ESTABLISHED DIRECT CHANNELS TO ASHFAKH'S TRANSMISSIONS</span>
+                    <span className="font-bold">ESTABLISHED DIRECT CHANNELS TO ASHFAKH'S TRANSMISSIONS</span>
                     <span>LOCAL STATION CLOUD SECURED</span>
                   </div>
 
@@ -1415,7 +1414,6 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                             rel="noreferrer" 
                             className="flex items-center gap-2.5 p-2 bg-slate-900 border border-slate-800 rounded hover:border-[#38FEDE] text-xs text-white group"
                           >
-                            <span className="text-[#38FEDE]">💻</span>
                             <span className="font-mono">GitHub: <span className="underline select-all font-bold text-gray-300">github.com/ashfakhm</span></span>
                           </a>
 
@@ -1425,12 +1423,11 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                             rel="noreferrer" 
                             className="flex items-center gap-2.5 p-2 bg-slate-900 border border-slate-800 rounded hover:border-[#1a9eff] text-xs text-white group"
                           >
-                            <span className="text-[#1a9eff]">🔗</span>
                             <span className="font-mono">LinkedIn: <span className="underline select-all font-bold text-gray-300">Ashfakh M</span></span>
                           </a>
                         </div>
                       </div>
-                      <div className="text-[9px] text-[#e67e22] mt-3 font-mono">⚡ ID_CHANNELS = ESTABLISHED</div>
+                      <div className="text-[9px] text-[#e67e22] mt-3 font-mono">ID_CHANNELS = ESTABLISHED</div>
                     </div>
 
                     {/* Email / Resume Card */}
@@ -1446,7 +1443,6 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                             href="mailto:ashfakhthedev@gmail.com" 
                             className="flex items-center gap-2.5 p-2 bg-slate-900 border border-slate-800 rounded hover:border-red-400 text-xs text-white group"
                           >
-                            <span className="text-red-400">📧</span>
                             <span className="font-mono">Email: <span className="underline font-bold text-gray-300">ashfakhthedev@gmail.com</span></span>
                           </a>
 
@@ -1456,12 +1452,11 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                             rel="noreferrer" 
                             className="flex items-center gap-2.5 p-2 bg-slate-900 border border-slate-800 rounded hover:border-green-400 text-xs text-white group"
                           >
-                            <span className="text-green-400">📄</span>
                             <span className="font-mono">Curriculum Vitae: <span className="underline font-bold text-gray-300 font-extrabold">Open CV Payload Link</span></span>
                           </a>
                         </div>
                       </div>
-                      <div className="text-[9px] text-[#e67e22] mt-3 font-mono">⚡ DIRECT_MAIL = COMPLIANT</div>
+                      <div className="text-[9px] text-[#e67e22] mt-3 font-mono">DIRECT_MAIL = COMPLIANT</div>
                     </div>
                   </div>
                 </div>
@@ -1481,7 +1476,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                   </div>
                   
                   {/* Shooting stage box */}
-                  <div className="w-full max-w-lg h-[240px] bg-black border-4 border-slate-700 rounded-lg relative overflow-hidden select-none cursor-crosshair">
+                  <div className="w-full max-w-lg h-[240px] bg-black/60 backdrop-blur-md border border-slate-700/50 rounded-xl relative overflow-hidden select-none cursor-crosshair shadow-inner">
                     <div className="absolute inset-0 bg-[#0e1712]/30 bg-[linear-gradient(rgba(16,185,129,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.04)_1px,transparent_1px)] bg-[size:20px_20px]" />
                     
                     {/* Targeting reticle overlay */}
@@ -1570,7 +1565,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                     CLICK A WIRE ON LEFT, THEN MATCH WITH IT'S COLOR ON RIGHT
                   </div>
 
-                  <div className="w-full max-w-sm bg-neutral-950 border-4 border-slate-700 rounded-lg p-5 flex relative min-h-[220px]">
+                  <div className="w-full max-w-sm bg-neutral-950/80 backdrop-blur-md border border-slate-700/50 shadow-inner rounded-xl p-5 flex relative min-h-[220px]">
                     
                     {/* Colors indices */}
                     {/* Left Column: Fixed red, blue, yellow, pink */}
@@ -1595,7 +1590,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                               'bg-pink-500 border-pink-700 text-white'
                             }`}
                           >
-                            <span>🔌 {color}</span>
+                            <span>{color}</span>
                             {isConnected && <span>✓</span>}
                           </button>
                         );
@@ -1674,7 +1669,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                               'bg-pink-500 border-pink-700 text-white'
                             }`}
                           >
-                            <span>{color} 🔌</span>
+                            <span>{color}</span>
                           </button>
                         );
                       })}
@@ -1689,7 +1684,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
               ) : (
                 <div className="flex-1 flex flex-col gap-4 animate-fadeIn">
                   <div className="bg-lime-950/20 border-2 border-lime-500/30 p-2.5 rounded-lg flex items-center justify-between text-xs text-lime-400 font-mono">
-                    <span className="font-bold">⚡ STACK SWITCHBOARD COMPLETED SYSTEM SHUNT</span>
+                    <span className="font-bold">STACK SWITCHBOARD COMPLETED SYSTEM SHUNT</span>
                     <span>AUTOMATIC ELECTRICAL SWITCHING ONLINE</span>
                   </div>
 
@@ -1728,7 +1723,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                     CHART COURSE
                   </div>
 
-                  <div className="w-full max-w-lg bg-[#0e1726] border-4 border-[#1f2937] rounded-xl p-8 flex flex-col items-center relative min-h-[220px] justify-center">
+                  <div className="w-full max-w-lg bg-[#0e1726]/80 backdrop-blur-md border border-[#1f2937]/50 shadow-inner rounded-2xl p-8 flex flex-col items-center relative min-h-[220px] justify-center">
                     <div className="absolute inset-0 bg-[#000000]/40 bg-[radial-gradient(circle,rgba(30,144,255,0.08)_1px,transparent_1px)] bg-[size:15px_15px] pointer-events-none" />
 
                     <div className="w-full relative py-8 px-4">
@@ -1765,7 +1760,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                         className="absolute top-1/2 -translate-y-1/2 w-10 h-10 -ml-5 bg-blue-500 border-[3px] border-white rounded-full flex items-center justify-center text-lg z-10 pointer-events-none shadow-[0_0_15px_rgba(59,130,246,0.6)]"
                         style={{ left: `${shipNavPos.x > 100 ? 100 : shipNavPos.x}%` }}
                       >
-                       🚀
+                        
                       </div>
                     </div>
                     
@@ -1777,20 +1772,19 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
               ) : (
                 <div className="flex-1 flex flex-col gap-4 animate-fadeIn">
                   <div className="bg-blue-950/20 border-2 border-blue-500/30 p-2.5 rounded-lg flex items-center justify-between text-xs text-blue-400 font-mono">
-                    <span className="font-bold">🗺️ COURSE LOCK CONFIRMED // RADAR TRACK LOCKED</span>
+                    <span className="font-bold">COURSE LOCK CONFIRMED // RADAR TRACK LOCKED</span>
                     <span>BASE HUB TARGET: MALAPPURAM, KERALA</span>
                   </div>
 
                   <div className="bg-[#0b141d] border border-blue-500/20 p-4 rounded-xl space-y-2 text-xs font-mono">
                     <h4 className="text-white text-xs font-bold uppercase tracking-wide border-b border-dashed border-blue-500/20 pb-1 flex items-center gap-2">
-                      <span>🛰️</span>
                       <span>LOCAL METADATA LOCK: KERALA coordinate</span>
                     </h4>
                     <p className="text-[11px] text-slate-300 leading-relaxed pt-1">
                       Target locked! Ashfakh operates natively from Kozhikode/Malappuram hub base inside Kerala (India), delivering remote software code globally with precise latency specs.
                     </p>
                     <div className="bg-[#0a0d14] p-2 rounded text-[10px] text-blue-400 border border-blue-950">
-                      🛰️ GPS COORDINATES: 11.0510° N, 76.0711° E (Malappuram Dev Lab)
+                      GPS COORDINATES: 11.0510° N, 76.0711° E (Malappuram Dev Lab)
                     </div>
                   </div>
                 </div>
@@ -1809,7 +1803,7 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
                     TAP RED PANELS TO PRIME AND ACTIVATE PROPULSION SHIELDS
                   </div>
 
-                  <div className="w-full max-w-sm bg-neutral-950 border-4 border-slate-700 rounded-lg p-4 flex flex-col items-center justify-center relative min-h-[220px]">
+                  <div className="w-full max-w-sm bg-neutral-950/80 backdrop-blur-md border border-slate-700/50 shadow-inner rounded-2xl p-4 flex flex-col items-center justify-center relative min-h-[220px]">
                     {/* Arrange 6 hexes in grid */}
                     <div className="grid grid-cols-3 gap-3.5 max-w-[240px]">
                       {shieldsState.map((active, idx) => (
@@ -1857,14 +1851,13 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
               ) : (
                 <div className="flex-1 flex flex-col gap-4 animate-fadeIn">
                   <div className="bg-[#0e2118] border-2 border-emerald-500/30 p-2.5 rounded-lg flex items-center justify-between text-xs text-emerald-400 font-mono">
-                    <span className="font-bold">🛡️ SHIELD CELL ENERGETICS COMPLIANT [100% SECURE]</span>
+                    <span className="font-bold">SHIELD CELL ENERGETICS COMPLIANT [100% SECURE]</span>
                     <span>LIGHTHOUSE AUDIT MATRIX VERIFIED</span>
                   </div>
 
                   {/* High fidelity chrome lighthouse table readout */}
                   <div className="bg-[#0b1712] border border-emerald-500/20 p-4 rounded-xl space-y-3 font-mono">
                     <h4 className="text-white text-xs font-bold uppercase tracking-wide border-b border-dashed border-emerald-500/20 pb-1 flex items-center gap-2">
-                      <span>🚀</span>
                       <span>LIGHTHOUSE SYSTEM PROFILE // CORE PERFORMANCE LOCK</span>
                     </h4>
                     
