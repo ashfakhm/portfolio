@@ -56,7 +56,7 @@ export default function CommsTask({ onComplete, isCompleted }: CommsTaskProps) {
           </div>
 
           <div className="max-w-md space-y-2">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider" style={{ fontFamily: '"Press Start 2P"' }}>
+            <h3 className="text-[10px] sm:text-xs md:text-sm font-bold text-white uppercase tracking-wider" style={{ fontFamily: '"Press Start 2P"' }}>
               {downloadState === 'downloading' ? 'DOWNLOADING FILES' : 'INCOMING COMMS FREQUENCY'}
             </h3>
             <p className="text-xs text-gray-400">
@@ -82,7 +82,7 @@ export default function CommsTask({ onComplete, isCompleted }: CommsTaskProps) {
             {downloadState === 'idle' ? (
               <button 
                 onClick={startDownloading}
-                className="w-full p-2.5 bg-[#1a9eff] text-black hover:bg-[#38FEDE] font-bold text-xs uppercase tracking-wide rounded border-2 border-black active:translate-y-0.5 transition-all text-center cursor-pointer"
+                className="w-full p-2.5 bg-[#1a9eff] text-black hover:bg-[#38FEDE] font-bold text-[10px] sm:text-xs uppercase tracking-wide rounded border-2 border-black active:translate-y-0.5 transition-all text-center cursor-pointer"
                 style={{ fontFamily: '"Press Start 2P"' }}
               >
                 DOWNLOAD DATA

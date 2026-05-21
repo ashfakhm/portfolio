@@ -84,7 +84,7 @@ export default function MedbayTask({ onComplete, isCompleted, playerColor }: Med
             {scanState === 'idle' ? (
               <button 
                 onClick={startScanning}
-                className="mt-4 w-full p-2 bg-green-600 hover:bg-green-500 text-black font-extrabold text-xs tracking-wider uppercase rounded-md shadow border-2 border-black active:translate-y-0.5 cursor-pointer"
+                className="mt-4 w-full p-2 bg-green-600 hover:bg-green-500 text-black font-extrabold text-[10px] sm:text-xs tracking-wider uppercase rounded-md shadow border-2 border-black active:translate-y-0.5 cursor-pointer"
                 style={{ fontFamily: '"Press Start 2P"' }}
               >
                 SUBMIT SCAN

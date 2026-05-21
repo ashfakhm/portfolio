@@ -60,8 +60,8 @@ export default function AdminTask({ onComplete, isCompleted }: AdminTaskProps) {
   return (
     <div className="flex-1 flex flex-col">
       {!isCompleted ? (
-        <div className="flex-1 flex flex-col items-center justify-center p-2 space-y-6">
-          <div className="w-full max-w-[600px] h-full sm:h-auto min-h-[400px] bg-[#d3d3d3] border-[16px] border-[#9e9e9e] rounded-[30px] p-6 flex flex-col justify-between shadow-2xl relative">
+        <div className="flex-1 flex flex-col items-center justify-center p-2 space-y-4 md:space-y-6">
+          <div className="w-full max-w-[600px] h-full sm:h-auto min-h-[300px] md:min-h-[400px] bg-[#d3d3d3] border-[8px] md:border-[16px] border-[#9e9e9e] rounded-[20px] md:rounded-[30px] p-3 md:p-6 flex flex-col justify-between shadow-2xl relative">
             <div className="flex justify-between items-start gap-4">
               <div className="flex-1 h-24 bg-black border-[6px] border-[#6b6b6b] rounded-lg mb-4 flex items-center justify-center">
                 <div className="text-center font-mono font-bold tracking-wider uppercase text-sm">
@@ -104,9 +104,9 @@ export default function AdminTask({ onComplete, isCompleted }: AdminTaskProps) {
                     transition: cardGrabbed ? 'none' : 'left 0.3s ease-out'
                   }}
                 >
-                  <div className="w-full flex-1 flex gap-3">
-                     <div className="w-16 h-20 bg-gray-200 border border-gray-400 rounded flex items-center justify-center text-3xl overflow-hidden shadow-inner">
-                       <User size={32} className="text-gray-500" />
+                  <div className="w-full flex-1 flex gap-2 md:gap-3">
+                     <div className="w-12 md:w-16 h-16 md:h-20 bg-gray-200 border border-gray-400 rounded flex items-center justify-center text-2xl md:text-3xl overflow-hidden shadow-inner">
+                       <User size={24} className="text-gray-500 md:w-8 md:h-8" />
                      </div>
                      <div className="flex-1 flex flex-col pt-1">
                        <div className="w-full h-4 bg-red-600 mb-3 rounded-sm opacity-90 shadow-sm" />

@@ -69,13 +69,13 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
     >
       <div 
         id="task-inner-box"
-        className="w-full max-w-4xl bg-[#09090f]/80 backdrop-blur-3xl border border-white/10 rounded-[32px] flex flex-col shadow-[0_0_40px_rgba(0,0,0,0.5)] relative select-none ring-1 ring-inset ring-white/5"
+        className="w-full max-w-4xl bg-[#09090f]/80 backdrop-blur-3xl border border-white/10 rounded-[20px] md:rounded-[32px] flex flex-col shadow-[0_0_40px_rgba(0,0,0,0.5)] relative select-none ring-1 ring-inset ring-white/5"
         style={{ height: 'min(90vh, 700px)' }}
       >
         {/* Simple red X close button (Among Us Style) */}
         <button 
           onClick={() => onClose(taskCompleted)} 
-          className="absolute -top-4 -right-4 w-12 h-12 bg-red-600 border-2 border-red-400/50 rounded-full flex items-center justify-center text-white z-50 shadow-[0_4px_20px_rgba(220,38,38,0.4)] hover:scale-105 active:scale-95 cursor-pointer hover:bg-red-500 transition-all"
+          className="absolute -top-2 -right-2 md:-top-4 md:-right-4 w-10 h-10 md:w-12 md:h-12 bg-red-600 border-2 border-red-400/50 rounded-full flex items-center justify-center text-white z-50 shadow-[0_4px_20px_rgba(220,38,38,0.4)] hover:scale-105 active:scale-95 cursor-pointer hover:bg-red-500 transition-all"
         >
           <div className="w-6 h-6 relative">
              <div className="absolute top-1/2 left-0 w-full h-1.5 bg-white -translate-y-1/2 rotate-45 rounded-sm" />

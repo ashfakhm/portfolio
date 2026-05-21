@@ -55,7 +55,7 @@ export default function EmergencyTask({ onComplete, playerColor }: EmergencyTask
           </div>
           
           <p 
-            className="text-sm md:text-lg text-red-500 font-bold uppercase tracking-widest leading-relaxed max-w-xl"
+            className="text-[10px] md:text-sm text-red-500 font-bold uppercase tracking-widest leading-relaxed max-w-xl"
             style={{ fontFamily: '"Press Start 2P"' }}
           >
             {meetingEjectedText}

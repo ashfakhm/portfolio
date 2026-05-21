@@ -93,7 +93,7 @@ export default function StorageTask({ onComplete, isCompleted }: StorageTaskProp
                 onMouseLeave={stopRefueling}
                 onTouchStart={startRefueling}
                 onTouchEnd={stopRefueling}
-                className={`w-full py-3 bg-[#e67e22] hover:bg-[#d35400] text-black font-extrabold text-xs uppercase tracking-wider rounded border-2 border-black active:translate-y-0.5 cursor-pointer touch-none select-none text-center ${
+                className={`w-full py-3 bg-[#e67e22] hover:bg-[#d35400] text-black font-extrabold text-[10px] sm:text-xs uppercase tracking-wider rounded border-2 border-black active:translate-y-0.5 cursor-pointer touch-none select-none text-center ${
                   refuelState === 'refueling' ? 'animate-pulse bg-yellow-500' : ''
                 }`}
                 style={{ fontFamily: '"Press Start 2P"' }}

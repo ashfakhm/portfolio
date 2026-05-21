@@ -1949,7 +1949,7 @@ export default function App() {
             {/* Chat Cockpit Panel toggle */}
             <button 
               onClick={() => { setChatOpen(prev => !prev); synthSFX.playBeep(); }}
-              className={`p-2.5 sm:px-4 sm:py-2 bg-[#0b0b14]/90 backdrop-blur-md flex items-center justify-center gap-2 rounded-xl shadow-lg cursor-pointer transition-all active:scale-95 ${
+              className={`hidden md:flex p-2.5 sm:px-4 sm:py-2 bg-[#0b0b14]/90 backdrop-blur-md items-center justify-center gap-2 rounded-xl shadow-lg cursor-pointer transition-all active:scale-95 ${
                 chatOpen ? 'border-2 border-green-500/50 text-green-400 bg-green-500/10 shadow-[0_0_15px_rgba(34,197,94,0.3)]' : 'border border-white/10 hover:border-white/30 text-white hover:bg-white/5 ring-1 ring-inset ring-white/5'
               }`}
             >
@@ -1971,7 +1971,7 @@ export default function App() {
           <div className="w-full py-1 pointer-events-auto flex justify-end md:justify-between items-end gap-3">
             
             {/* Live customizer indicators */}
-            <div className="bg-[#0b0b14]/90 backdrop-blur-md border border-white/10 p-3 rounded-xl flex items-center gap-3 shadow-[0_8px_32px_rgba(0,0,0,0.5)] ring-1 ring-inset ring-white/5 max-w-sm hidden md:flex">
+            <div className="bg-[#0b0b14]/90 backdrop-blur-md border border-white/10 p-3 rounded-xl items-center gap-3 shadow-[0_8px_32px_rgba(0,0,0,0.5)] ring-1 ring-inset ring-white/5 max-w-sm hidden lg:flex">
               <div onClick={handleCrewClick} className="cursor-pointer group relative">
                 <CrewmateSprite color={playerColor} hat={playerHat} isMoving={playerMoving} direction={direction} size={50} />
                 <div className="absolute inset-0 bg-black/60 rounded opacity-0 group-hover:opacity-100 flex items-center justify-center text-[7px] font-bold text-red-500 font-mono text-center">TAP 5X!</div>
@@ -2062,7 +2062,7 @@ export default function App() {
             style={{ 
               width: '900px', 
               height: '800px', 
-              transform: `translate(calc(50vw - ${playerPos.x}px), calc(50vh - ${playerPos.y}px)) scale(1.6)`,
+              transform: `translate(calc(50vw - ${playerPos.x}px), calc(50vh - ${playerPos.y}px)) scale(${isPortrait ? 0.9 : 1.6})`,
               transformOrigin: `${playerPos.x}px ${playerPos.y}px`
             }}
           >
@@ -2336,17 +2336,17 @@ export default function App() {
       {/* 12. VICTORY CREWMATE OVERLAY */}
       {/* ==================================================== */}
       {showVictory && (
-        <div className="fixed inset-0 z-[100] bg-black/90 flex flex-col items-center justify-center animate-fadeIn select-none backdrop-blur-md">
+        <div className="fixed inset-0 z-[100] bg-black/90 flex flex-col items-center justify-center animate-fadeIn select-none backdrop-blur-md p-4">
           <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at center, #1a9eff 0%, transparent 70%)' }}></div>
-          <div className="text-[#38FEDE] text-5xl md:text-8xl font-black uppercase tracking-[0.1em] drop-shadow-[0_0_40px_rgba(56,254,222,0.8)] mb-8 z-10" style={{ fontFamily: '"Press Start 2P"', textShadow: '4px 4px 0px #0b5030, -2px -2px 0px #fff' }}>
+          <div className="text-[#38FEDE] text-5xl md:text-8xl font-black uppercase tracking-[0.1em] drop-shadow-[0_0_40px_rgba(56,254,222,0.8)] mb-8 z-10 text-center w-full max-w-lg" style={{ fontFamily: '"Press Start 2P"', textShadow: '4px 4px 0px #0b5030, -2px -2px 0px #fff' }}>
             VICTORY
           </div>
           <div className="flex gap-4 mb-8 z-10">
             <CrewmateSprite color={playerColor} hat={playerHat} isMoving={false} size={100} direction="right" name="Ashfakh" />
           </div>
-          <div className="bg-[#1a1a2e]/80 border-2 border-[#38FEDE] p-6 rounded-lg text-center shadow-[0_0_30px_rgba(56,254,222,0.2)] mb-8 max-w-sm z-10 backdrop-blur-sm relative overflow-hidden">
+          <div className="bg-[#1a1a2e]/80 border-2 border-[#38FEDE] p-4 md:p-6 rounded-lg text-center shadow-[0_0_30px_rgba(56,254,222,0.2)] mb-8 max-w-sm w-full z-10 backdrop-blur-sm relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-[#38FEDE] opacity-50"></div>
-            <p className="font-mono text-[#38FEDE] font-bold text-lg">ALL TASKS COMPLETED</p>
+            <p className="font-mono text-[#38FEDE] font-bold text-base md:text-lg">ALL TASKS COMPLETED</p>
             <p className="text-gray-300 text-xs mt-2 font-mono">Impostors have been eliminated. The system is secure.</p>
           </div>
           <button 

@@ -26,7 +26,7 @@ export default function ReactorTask({ onComplete, isCompleted }: ReactorTaskProp
           </div>
           
           <div className="max-w-md space-y-2">
-            <h3 className="text-sm sm:text-base font-bold text-yellow-400" style={{ fontFamily: '"Press Start 2P"' }}>STABILIZE REACTOR UNIT</h3>
+            <h3 className="text-[10px] sm:text-xs md:text-base font-bold text-yellow-400 px-2" style={{ fontFamily: '"Press Start 2P"' }}>STABILIZE REACTOR UNIT</h3>
             <p className="text-xs text-gray-400 leading-relaxed">
               Core temperature is fluctuating! Slide the lever to 100% manual power output to lock in the "Who I Am" bio logs.
             </p>
@@ -58,7 +58,7 @@ export default function ReactorTask({ onComplete, isCompleted }: ReactorTaskProp
         <div className="flex-1 flex flex-col gap-4 animate-fadeIn">
           <div className="border-2 border-green-500/40 bg-[#122c1b]/30 p-3 rounded flex items-center gap-3">
             <div className="p-1 px-2.5 bg-green-950 rounded text-green-400 text-xs font-bold border border-green-500">ONLINE</div>
-            <span className="text-xs font-mono text-green-400">REACTOR SYSTEMS STATUS: OPTIMAL COOLDOWN ACTIVE.</span>
+            <span className="text-[10px] sm:text-xs font-mono text-green-400 break-words">REACTOR SYSTEMS STATUS: OPTIMAL COOLDOWN ACTIVE.</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
