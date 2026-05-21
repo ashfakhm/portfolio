@@ -35,7 +35,13 @@ export default function App() {
   const [soundOn, setSoundOn] = useState(true);
 
   // Player Real-time coordinate states
-  const [playerPos, setPlayerPos] = useState({ x: 450, y: 100 });
+  const [playerPos, setPlayerPos] = useState(() => {
+    const saved = sessionStorage.getItem('playerPos');
+    if (saved) {
+      try { return JSON.parse(saved); } catch (e) {}
+    }
+    return { x: 450, y: 100 };
+  });
   const [direction, setDirection] = useState<'left' | 'right'>('right');
   const [playerMoving, setPlayerMoving] = useState(false);
   const [targetPos, setTargetPos] = useState<{ x: number; y: number } | null>(null);
@@ -60,19 +66,33 @@ export default function App() {
   const [customMessage, setCustomMessage] = useState('');
 
   // Game Tasks completion trackers
-  const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>({
-    cafeteria: false,
-    reactor: false,
-    admin: false,
-    comms: false,
-    medbay: false,
-    security: false,
-    storage: false,
-    weapons: false,
-    electrical: false,
-    navigation: false,
-    shields: false,
+  const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>(() => {
+    const saved = sessionStorage.getItem('completedTasks');
+    if (saved) {
+      try { return JSON.parse(saved); } catch (e) {}
+    }
+    return {
+      cafeteria: false,
+      reactor: false,
+      admin: false,
+      comms: false,
+      medbay: false,
+      security: false,
+      storage: false,
+      weapons: false,
+      electrical: false,
+      navigation: false,
+      shields: false,
+    };
   });
+
+  useEffect(() => {
+    sessionStorage.setItem('playerPos', JSON.stringify(playerPos));
+  }, [playerPos]);
+
+  useEffect(() => {
+    sessionStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+  }, [completedTasks]);
 
   // Proximity sliding doors
   const [doors, setDoors] = useState(INITIAL_DOORS);
@@ -2331,11 +2351,27 @@ export default function App() {
             <p className="text-gray-300 text-xs mt-2 font-mono">Impostors have been eliminated. The system is secure.</p>
           </div>
           <button 
-            onClick={() => setShowVictory(false)}
+            onClick={() => {
+              setShowVictory(false);
+              setPlayerPos({ x: 450, y: 100 });
+              setCompletedTasks({
+                cafeteria: false,
+                reactor: false,
+                admin: false,
+                comms: false,
+                medbay: false,
+                security: false,
+                storage: false,
+                weapons: false,
+                electrical: false,
+                navigation: false,
+                shields: false,
+              });
+            }}
             className="px-8 py-4 bg-[#1a9eff] text-white font-bold rounded-xl hover:bg-[#38FEDE] hover:text-black hover:scale-105 active:scale-95 transition-all shadow-[0_6px_0_#0d4d80] active:shadow-[0_2px_0_#0d4d80] active:translate-y-1 z-10 border-2 border-black tracking-widest uppercase text-xs"
             style={{ fontFamily: '"Press Start 2P"' }}
           >
-            PLAY FREEPLAY
+            PLAY AGAIN
           </button>
         </div>
       )}
