@@ -2,13 +2,20 @@
 
 Welcome to my interactive, "Among Us" inspired portfolio. This isn't just a static resume—it's a fully gamified, immersive experience. Explore my skills, projects, and work experience by completing "tasks" around the spaceship.
 
-## 🛸 Features
+## 🛸 The Story: Escape the Boogeyman!
 
-- **Gamified Experience:** Discover my background by completing interactive mini-game tasks (Wiring, Reactor, Navigation, etc.).
-- **3D Elements:** Features dynamic 3D elements powered by Three.js, including a floating astronaut and interactive environments.
-- **Sci-Fi UI/UX:** Built with modern glassmorphism, glowing accents, and terminal-style typography to simulate a spaceship control panel.
-- **Micro-Animations:** Fluid transitions and component animations powered by Framer Motion.
-- **Immersive Audio:** Integrated sound effects for interactions, task completions, and ambient spaceship noise.
+You start in **Dropship Holding Bay 04**, where you and your co-pilots wait for clearance to enter the main vehicle.
+As you sync your terminal, an alert triggers: The **Boogeyman** has infiltrated the ship.
+Your mission: Navigate through the spaceship, check the Hologram Maps and Vent Logs, and complete vital vehicle system tasks (like checking the Reactor or calibrating Navigation) before the Boogeyman strikes!
+
+## ✨ Features
+
+- **Gamified Experience:** Discover my background by completing interactive mini-game tasks (Wiring, Reactor, Navigation, Medbay, etc.).
+- **Cinematic Dropship Lobby:** Fully featured lobby screen to select your crewmate suit colors and hats with a live 3D preview.
+- **3D Elements:** Features dynamic 3D elements powered by Three.js, including a customizable 3D astronaut and moving star backgrounds.
+- **Sci-Fi UI/UX:** Built with modern glassmorphism, glowing accents, and terminal-style typography (`Press Start 2P`) to simulate a spaceship control panel.
+- **Ship Systems & Maps:** Use the Holographic Map (M) or Vent Map (V) to navigate your way around. Keep track of logs via the built-in simulated Crew Logs Chat.
+- **Immersive Audio:** Integrated synth sound effects for interactions, task completions, and ambient jumpscares.
 
 ## 🛠️ Technology Stack
 
@@ -24,20 +31,24 @@ Welcome to my interactive, "Among Us" inspired portfolio. This isn't just a stat
 To run the spaceship's systems on your local machine:
 
 **Prerequisites:**
+
 - Node.js (v18+ recommended)
 
-1. **Clone the repository** (if you haven't already):
+1. **Clone the repository:**
+
    ```bash
    git clone <your-repo-url>
    cd portfolio
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 3. **Boot up the server:**
+
    ```bash
    npm run dev
    ```
@@ -47,14 +58,56 @@ To run the spaceship's systems on your local machine:
 
 ## 🗂️ Project Structure
 
-- `src/components/portfolio/`: Contains the core resume components (Projects, Work Experience, Achievements, etc.).
-- `src/components/tasks/`: Contains the interactive mini-games (Electrical Wiring, Medbay Scan, Reactor, etc.).
-- `src/utils/`: Utility functions, including the sound engine (`sound.ts`).
-- `src/App.tsx`: The main application hub that orchestrates the UI, tasks, and state management.
+```text
+portfolio/
+├── public/
+│   └── favicon.png
+├── src/
+│   ├── components/
+│   │   ├── portfolio/         # Resume data (Achievements, Projects, Experience)
+│   │   │   ├── Achievements.tsx
+│   │   │   ├── DegreeCerts.tsx
+│   │   │   ├── Projects.tsx
+│   │   │   └── WorkExperience.tsx
+│   │   ├── tasks/             # Interactive mini-game tasks
+│   │   │   ├── hooks/         # Custom hooks for task logic
+│   │   │   ├── AdminTask.tsx
+│   │   │   ├── CafeteriaTask.tsx
+│   │   │   ├── CommsTask.tsx
+│   │   │   ├── ElectricalTask.tsx
+│   │   │   ├── EmergencyTask.tsx
+│   │   │   ├── MedbayTask.tsx
+│   │   │   ├── NavigationTask.tsx
+│   │   │   ├── ReactorTask.tsx
+│   │   │   ├── SecurityTask.tsx
+│   │   │   ├── ShieldsTask.tsx
+│   │   │   ├── StorageTask.tsx
+│   │   │   └── WeaponsTask.tsx
+│   │   ├── ChatSystem.tsx     # Simulated crew logs chat
+│   │   ├── CinematicSplash.tsx# Splash screens and Boogeyman alerts
+│   │   ├── CrewmateSprite.tsx # 2D Pixel sprites
+│   │   ├── HologramMap.tsx    # Blueprint map view
+│   │   ├── LobbyScreen.tsx    # Dropship holding bay and customizer
+│   │   ├── TaskModal.tsx      # Modal orchestrator for tasks
+│   │   ├── ThreeBackground.tsx# 3D starfield canvas
+│   │   ├── ThreeCrewmate.tsx  # 3D Crewmate renderer
+│   │   ├── TutorialModal.tsx  # Help instructions
+│   │   └── VentMap.tsx        # Quick travel via vents
+│   ├── utils/
+│   │   ├── shipRenderer.ts    # 2D Canvas rendering logic
+│   │   └── sound.ts           # Synthesizer audio engine
+│   ├── App.tsx                # Main orchestrator & game loop
+│   ├── gameConfig.ts          # Ship layouts, rooms, hitboxes
+│   ├── index.css              # Global styles
+│   └── main.tsx               # Entry point
+├── package.json
+└── README.md
+```
 
 ## 🤝 Contributing
+
 While this is a personal portfolio, feedback on code structure or UI/UX improvements is always welcome. Feel free to open an issue or submit a PR if you spot any bugs in the ship's systems!
 
 ---
 
-*“There is 1 highly skilled developer among us.”*
+_“There is 1 highly skilled developer among us.”_
