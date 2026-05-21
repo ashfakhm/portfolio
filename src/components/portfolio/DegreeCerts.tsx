@@ -51,9 +51,11 @@ export default function DegreeCerts() {
         </div>
 
         {/* Certifications Card */}
-        <div 
-          onClick={() => window.open('https://www.coursera.org/account/accomplishments/specialization/1NT0M98IZUEU', '_blank')}
-          className="bg-[#12121e]/90 backdrop-blur-xl border border-white/5 rounded-2xl p-6 hover:border-blue-500/40 hover:bg-[#1a1a2e] transition-all duration-300 group shadow-lg shadow-blue-900/10 flex flex-col justify-between cursor-pointer"
+        <a 
+          href="https://www.coursera.org/account/accomplishments/specialization/1NT0M98IZUEU"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-[#12121e]/90 backdrop-blur-xl border border-white/5 rounded-2xl p-6 hover:border-blue-500/40 hover:bg-[#1a1a2e] transition-all duration-300 group shadow-lg shadow-blue-900/10 flex flex-col justify-between cursor-pointer block"
         >
           <div className="space-y-4">
             <div className="flex items-center gap-4 border-b border-white/5 pb-4">
@@ -88,7 +90,7 @@ export default function DegreeCerts() {
               AUTHENTIC CREDENTIAL LOGGED
             </div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   );

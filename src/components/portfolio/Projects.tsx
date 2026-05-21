@@ -13,9 +13,9 @@ export default function Projects() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 mt-2">
         {/* Project 1 */}
-        <div 
-          onClick={() => window.open('https://github.com/ashfakhm/quiz-platform', '_blank')}
-          className="bg-[#12121e]/90 backdrop-blur-xl border border-white/5 rounded-2xl p-6 hover:border-rose-500/40 hover:bg-[#1a1a2e] transition-all duration-300 group shadow-lg shadow-rose-900/10 flex flex-col justify-between cursor-pointer">
+        <a 
+          href="https://github.com/ashfakhm/quiz-platform" target="_blank" rel="noopener noreferrer"
+          className="bg-[#12121e]/90 backdrop-blur-xl border border-white/5 rounded-2xl p-6 hover:border-rose-500/40 hover:bg-[#1a1a2e] transition-all duration-300 group shadow-lg shadow-rose-900/10 flex flex-col justify-between cursor-pointer block">
           <div className="space-y-4">
             <div className="flex justify-between items-start text-[10px] text-gray-500 mb-3 font-bold tracking-widest uppercase pb-2 border-b border-white/5">
               <span>PROJECT_ALPHA</span>
@@ -33,16 +33,16 @@ export default function Projects() {
           </div>
           <div className="mt-6 pt-3 border-t border-rose-500/10 flex justify-between font-mono text-[10px] items-center">
             <span className="text-rose-400">STATUS: DEPLOYED</span>
-            <a href="https://github.com/ashfakhm/quiz-platform" target="_blank" rel="noreferrer" className="hover:text-white text-slate-500 transition-colors flex items-center gap-1 group-hover:underline">
+            <span className="hover:text-white text-slate-500 transition-colors flex items-center gap-1 group-hover:underline">
               View on GitHub ↗
-            </a>
+            </span>
           </div>
-        </div>
+        </a>
 
         {/* Project 2 */}
-        <div 
-          onClick={() => window.open('https://github.com/ashfakhm/laundry-ease', '_blank')}
-          className="bg-[#12121e]/90 backdrop-blur-xl border border-white/5 rounded-2xl p-6 hover:border-orange-500/40 hover:bg-[#1a1a2e] transition-all duration-300 group shadow-lg shadow-orange-900/10 flex flex-col justify-between cursor-pointer">
+        <a 
+          href="https://github.com/ashfakhm/laundry-ease" target="_blank" rel="noopener noreferrer"
+          className="bg-[#12121e]/90 backdrop-blur-xl border border-white/5 rounded-2xl p-6 hover:border-orange-500/40 hover:bg-[#1a1a2e] transition-all duration-300 group shadow-lg shadow-orange-900/10 flex flex-col justify-between cursor-pointer block">
           <div className="space-y-4">
             <div className="flex justify-between items-start text-[10px] text-gray-500 mb-3 font-bold tracking-widest uppercase pb-2 border-b border-white/5">
               <span>PROJECT_BETA</span>
@@ -60,11 +60,11 @@ export default function Projects() {
           </div>
           <div className="mt-6 pt-3 border-t border-orange-500/10 flex justify-between font-mono text-[10px] items-center">
              <span className="text-orange-400">STATUS: SECURED</span>
-             <a href="https://github.com/ashfakhm/laundry-ease" target="_blank" rel="noreferrer" className="hover:text-white text-slate-500 transition-colors flex items-center gap-1 group-hover:underline">
+             <span className="hover:text-white text-slate-500 transition-colors flex items-center gap-1 group-hover:underline">
               View on GitHub ↗
-            </a>
+            </span>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   );

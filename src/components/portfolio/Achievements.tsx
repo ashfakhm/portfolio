@@ -34,9 +34,11 @@ export default function Achievements() {
         </div>
 
         {/* Achievements Item 2 */}
-        <div 
-          onClick={() => window.open('https://www.coursera.org/account/accomplishments/specialization/1NT0M98IZUEU', '_blank')}
-          className="bg-[#12121e]/90 backdrop-blur-xl border border-white/5 rounded-2xl p-6 hover:border-cyan-500/40 hover:bg-[#1a1a2e] transition-all duration-300 group shadow-lg shadow-cyan-900/10 flex flex-col justify-between cursor-pointer"
+        <a 
+          href="https://www.coursera.org/account/accomplishments/specialization/1NT0M98IZUEU"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-[#12121e]/90 backdrop-blur-xl border border-white/5 rounded-2xl p-6 hover:border-cyan-500/40 hover:bg-[#1a1a2e] transition-all duration-300 group shadow-lg shadow-cyan-900/10 flex flex-col justify-between cursor-pointer block"
         >
           <div className="space-y-4">
             <div className="flex items-center gap-3 mb-2">
@@ -55,7 +57,7 @@ export default function Achievements() {
           <div className="mt-6 pt-3 border-t border-cyan-500/10 flex justify-between font-mono text-[10px] items-center">
              <span className="text-cyan-400">STATUS: SECURE</span>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   );
