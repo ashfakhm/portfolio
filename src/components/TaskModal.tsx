@@ -413,12 +413,13 @@ export default function TaskModal({ room, onClose, playerColor }: TaskModalProps
     e.preventDefault();
     if (!contactName || !contactEmail || !contactMessage) return;
 
-    // Send email using mailto
+    // Send email using Gmail compose link in a new tab
     const subject = encodeURIComponent(`Emergency Meeting Broadcast from ${contactName}`);
     const body = encodeURIComponent(
       `Name: ${contactName}\nEmail: ${contactEmail}\n\nMessage:\n${contactMessage}`
     );
-    window.location.href = `mailto:ashfakhthedev@gmail.com?subject=${subject}&body=${body}`;
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ashfakhthedev@gmail.com&su=${subject}&body=${body}`;
+    window.open(gmailUrl, '_blank');
 
     // Trigger eject animation which holds stars moving
     setIsEjecting(true);
