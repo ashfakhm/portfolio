@@ -1,4 +1,3 @@
-import React from 'react';
 
 export type CrewmateColor = 'red' | 'cyan' | 'lime' | 'pink' | 'yellow' | 'orange' | 'purple' | 'blue' | 'white' | 'black';
 export type CrewmateHat = 'none' | 'sticky' | 'plant' | 'egg' | 'crown' | 'pompom' | 'toilet' | 'viking' | 'chef';

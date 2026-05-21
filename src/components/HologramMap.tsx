@@ -1,10 +1,8 @@
-import React from 'react';
 import CrewmateSprite, { CrewmateColor, CrewmateHat } from './CrewmateSprite';
 import { 
   SPACESHIP_ROOMS, 
   WALKABLE_REGIONS, 
-  FLOATING_VENTS, 
-  isWalkable 
+  FLOATING_VENTS
 } from '../gameConfig';
 import { synthSFX } from '../utils/sound';
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ThreeBackground from './components/ThreeBackground';
 import CrewmateSprite, { CrewmateColor, CrewmateHat, CREWMATE_COLORS, CREWMATE_HATS } from './components/CrewmateSprite';
 import ThreeCrewmate from './components/ThreeCrewmate';
@@ -7,14 +7,13 @@ import TutorialModal from './components/TutorialModal';
 import HologramMap from './components/HologramMap';
 import VentMap from './components/VentMap';
 import { 
-  Compass, Shield, Radio, KeyRound, User, BookOpen, AlertCircle, Play, Sparkles, Navigation2, Zap, 
-  Tv, Volume2, VolumeX, Smartphone, Trophy, Flame, HelpCircle, MessageSquare, Send, Map, X, CheckSquare,
+  Compass, Volume2, VolumeX, Trophy, HelpCircle, MessageSquare, Send, X, CheckSquare,
   Rocket, ChevronRight, ShieldCheck, CheckCircle2, AlertTriangle, Wind
 } from 'lucide-react';
 
 import { synthSFX } from './utils/sound';
 import { 
-  RoomConfig, SPACESHIP_ROOMS, FLOATING_VENTS, WALKABLE_REGIONS, INITIAL_DOORS, isWalkable, ChatMessage, Door 
+  RoomConfig, SPACESHIP_ROOMS, FLOATING_VENTS, WALKABLE_REGIONS, INITIAL_DOORS, isWalkable, ChatMessage 
 } from './gameConfig';
 
 export default function App() {
@@ -24,8 +23,6 @@ export default function App() {
 
   // Cinematic Splash states
   const [showCinematic, setShowCinematic] = useState(true);
-  const [cinematicText, setCinematicText] = useState('CREWMATE');
-  const [cinematicSubtext, setCinematicSubtext] = useState('Escape the Boogeyman! Finish tasks to win!');
 
   // Player custom states
   const [playerColor, setPlayerColor] = useState<CrewmateColor>('red');
@@ -48,7 +45,7 @@ export default function App() {
   const [targetRoomPath, setTargetRoomPath] = useState<string | null>(null);
 
   // Minimap control layout
-  const [minimapMaximized, setMinimapMaximized] = useState(false);
+  const [, setMinimapMaximized] = useState(false);
   const [showHologramMap, setShowHologramMap] = useState(false);
   const [cinematicPhase, setCinematicPhase] = useState<'shh' | 'reveal'>('shh');
   const [showTaskCompletedBanner, setShowTaskCompletedBanner] = useState<string | null>(null);
@@ -1091,7 +1088,6 @@ export default function App() {
         ctx.beginPath(); ctx.arc(room.cx, room.cy, 10, 0, Math.PI * 2); ctx.stroke();
         
         // Gunner Operator Chair
-        const minX = room.bounds.minX;
         ctx.fillStyle = '#7f8c8d';
         ctx.beginPath(); ctx.ellipse(room.cx - 35, room.cy, 12, 18, 0, 0, Math.PI * 2); ctx.fill();
         ctx.strokeStyle = '#000'; ctx.lineWidth = 2; ctx.stroke();

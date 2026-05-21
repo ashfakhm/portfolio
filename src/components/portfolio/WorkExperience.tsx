@@ -1,4 +1,3 @@
-import React from 'react';
 
 export default function WorkExperience() {
   return (
@@ -49,7 +48,7 @@ export default function WorkExperience() {
             color: 'text-[#38FEDE]',
             bg: 'bg-[#1a9eff]/10 border-[#1a9eff]/20'
           }
-        ].map((cam, idx) => (
+        ].map((cam) => (
           <div key={cam.id} className="bg-[#12121e]/90 backdrop-blur-xl border border-white/5 rounded-2xl p-6 hover:border-indigo-500/40 hover:bg-[#1a1a2e] transition-all duration-300 group shadow-lg shadow-indigo-900/10">
             <div className="flex justify-between items-start text-[10px] text-gray-500 mb-3 font-bold tracking-widest uppercase pb-2 border-b border-white/5">
               <span className="flex items-center gap-2">

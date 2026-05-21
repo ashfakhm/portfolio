@@ -1,4 +1,3 @@
-import React from 'react';
 import { BookOpen, Award } from 'lucide-react';
 
 export default function DegreeCerts() {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { FLOATING_VENTS } from '../gameConfig';
 
 interface VentMapProps {

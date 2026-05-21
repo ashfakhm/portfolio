@@ -1,3 +1,9 @@
+declare global {
+  interface Window {
+    webkitAudioContext: typeof AudioContext;
+  }
+}
+
 // Sound Manager class utilizing native browser Web Audio API Synthesizer (failsafe, no external file loads)
 export class SoundSynth {
   public ctx: AudioContext | null = null;
@@ -25,7 +31,7 @@ export class SoundSynth {
   public init() {
     if (!this.ctx) {
       try {
-        this.ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+        this.ctx = new (window.AudioContext || window.webkitAudioContext)();
       } catch (e) {
         console.warn('Web Audio API not supported on this platform');
       }

@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { CrewmateColor, CrewmateHat, CREWMATE_COLORS } from './CrewmateSprite';
+import { CrewmateColor, CrewmateHat } from './CrewmateSprite';
 
 interface ThreeCrewmateProps {
   color: CrewmateColor;
@@ -40,21 +40,7 @@ export default function ThreeCrewmate({ color, hat, size = 150 }: ThreeCrewmateP
     }
   };
 
-  const getShadowColorHex = (col: CrewmateColor): number => {
-    switch (col) {
-      case 'red': return 0x7A0808;
-      case 'cyan': return 0x1FADB3;
-      case 'lime': return 0x329A13;
-      case 'pink': return 0xAB3288;
-      case 'yellow': return 0xBAA21B;
-      case 'orange': return 0x9F5004;
-      case 'purple': return 0x441880;
-      case 'blue': return 0x09158E;
-      case 'white': return 0x8394A7;
-      case 'black': return 0x15181C;
-      default: return 0x7A0808;
-    }
-  };
+
 
   useEffect(() => {
     if (!mountRef.current) return;
@@ -102,9 +88,7 @@ export default function ThreeCrewmate({ color, hat, size = 150 }: ThreeCrewmateP
       shininess: 85,
     });
 
-    const subMat = new THREE.MeshToonMaterial({
-      color: getShadowColorHex(color),
-    });
+
 
     // 5a. Capsule Body (Built with Cylinder + Spheres)
     const bodyGroup = new THREE.Group();
@@ -345,7 +329,7 @@ export default function ThreeCrewmate({ color, hat, size = 150 }: ThreeCrewmateP
     if (!currentContext) return;
 
     const mainHex = getColorHex(color);
-    const shadowHex = getShadowColorHex(color);
+
 
     // Update body & oxygen mesh materials
     currentContext.bodyMesh.traverse((child) => {
