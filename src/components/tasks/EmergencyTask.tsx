@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import { Send, RefreshCw } from 'lucide-react';
 import CrewmateSprite, { CrewmateColor } from '../CrewmateSprite';
+import { useEmergencyTask } from './hooks/useEmergencyTask';
 
 interface EmergencyTaskProps {
   onComplete: () => void;
@@ -8,39 +8,22 @@ interface EmergencyTaskProps {
 }
 
 export default function EmergencyTask({ onComplete, playerColor }: EmergencyTaskProps) {
-  const [gameStarted, setGameStarted] = useState(false);
-  const [contactName, setContactName] = useState('');
-  const [contactEmail, setContactEmail] = useState('');
-  const [contactMessage, setContactMessage] = useState('');
-  const [meetingSubmitted, setMeetingSubmitted] = useState(false);
-  const [meetingEjectedText, setMeetingEjectedText] = useState('');
-  const [isEjecting, setIsEjecting] = useState(false);
+  const {
+    gameStarted,
+    setGameStarted,
+    contactName,
+    setContactName,
+    contactEmail,
+    setContactEmail,
+    contactMessage,
+    setContactMessage,
+    meetingSubmitted,
+    setMeetingSubmitted,
+    meetingEjectedText,
+    isEjecting,
+    handleVoteSubmit
+  } = useEmergencyTask({ onComplete });
 
-  const handleVoteSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!contactName || !contactEmail || !contactMessage) return;
-
-    const subject = encodeURIComponent(`Emergency Meeting Broadcast from ${contactName}`);
-    const body = encodeURIComponent(
-      `Name: ${contactName}\nEmail: ${contactEmail}\n\nMessage:\n${contactMessage}`
-    );
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ashfakhthedev@gmail.com&su=${subject}&body=${body}`;
-    window.open(gmailUrl, '_blank');
-
-    setIsEjecting(true);
-    setMeetingSubmitted(true);
-
-    const cleanName = contactName.substring(0, 15);
-    setMeetingEjectedText(`${cleanName} initiated Emergency Broadcast. Message successfully ejected to Ashfakh M.`);
-
-    setTimeout(() => {
-      onComplete();
-      setIsEjecting(false);
-      setContactName('');
-      setContactEmail('');
-      setContactMessage('');
-    }, 4500);
-  };
 
   return (
     <>

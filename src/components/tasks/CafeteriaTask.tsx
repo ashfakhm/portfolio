@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
 import CrewmateSprite, { CrewmateColor } from '../CrewmateSprite';
+import { useCafeteriaTask } from './hooks/useCafeteriaTask';
 
 interface CafeteriaTaskProps {
   onComplete: () => void;
@@ -7,10 +7,8 @@ interface CafeteriaTaskProps {
 }
 
 export default function CafeteriaTask({ onComplete, playerColor }: CafeteriaTaskProps) {
-  useEffect(() => {
-    // Cafeteria has no real task to complete, it completes immediately so the X button works
-    onComplete();
-  }, [onComplete]);
+  useCafeteriaTask({ onComplete });
+
 
   return (
     <div className="flex-1 flex flex-col md:flex-row gap-6 items-center justify-center p-2 animate-fadeIn">

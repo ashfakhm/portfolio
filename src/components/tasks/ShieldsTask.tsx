@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { synthSFX } from '../../utils/sound';
+import { useShieldsTask } from './hooks/useShieldsTask';
 
 interface ShieldsTaskProps {
   onComplete: () => void;
@@ -7,21 +6,7 @@ interface ShieldsTaskProps {
 }
 
 export default function ShieldsTask({ onComplete, isCompleted }: ShieldsTaskProps) {
-  const [shieldsState, setShieldsState] = useState<boolean[]>([false, false, false, false, false, false]);
-
-  const playShieldClick = () => synthSFX.playTone(400, 'triangle', 0.1, 0.05);
-  const playSuccessTune = () => {
-    synthSFX.playTone(523.25, 'sine', 0.3, 0.04);
-    setTimeout(() => synthSFX.playTone(659.25, 'sine', 0.3, 0.04), 100);
-    setTimeout(() => synthSFX.playTone(783.99, 'sine', 0.5, 0.04), 200);
-  };
-
-  // Handle skip game via props
-  useEffect(() => {
-    if (isCompleted && shieldsState.includes(false)) {
-      setShieldsState([true, true, true, true, true, true]);
-    }
-  }, [isCompleted, shieldsState]);
+  const { shieldsState, toggleShield } = useShieldsTask({ onComplete, isCompleted });
 
   return (
     <div className="flex-1 flex flex-col">
@@ -36,18 +21,7 @@ export default function ShieldsTask({ onComplete, isCompleted }: ShieldsTaskProp
               {shieldsState.map((active, idx) => (
                 <button
                   key={idx}
-                  onClick={() => {
-                    playShieldClick();
-                    setShieldsState(prev => {
-                      const next = [...prev];
-                      next[idx] = !next[idx]; // toggle shield
-                      if (!next.includes(false)) {
-                        onComplete();
-                        playSuccessTune();
-                      }
-                      return next;
-                    });
-                  }}
+                  onClick={() => toggleShield(idx)}
                   className={`w-14 h-16 relative flex items-center justify-center cursor-pointer transition-transform duration-100 hover:scale-105 select-none ${
                     active ? 'text-[#3498db] filter drop-shadow-[0_0_8px_#3498db]' : 'text-red-600 filter drop-shadow-[0_0_4px_#ef4444]'
                   }`}

@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
 import Achievements from '../portfolio/Achievements';
+import { useSecurityTask } from './hooks/useSecurityTask';
 
 interface SecurityTaskProps {
   onComplete: () => void;
 }
 
 export default function SecurityTask({ onComplete }: SecurityTaskProps) {
-  useEffect(() => {
-    // Security has no real task to complete, it completes immediately so the X button works
-    onComplete();
-  }, [onComplete]);
+  useSecurityTask({ onComplete });
+
 
   return (
     <div className="flex-1 flex flex-col gap-4">

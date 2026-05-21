@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { synthSFX } from '../../utils/sound';
+import { useElectricalTask } from './hooks/useElectricalTask';
 
 interface ElectricalTaskProps {
   onComplete: () => void;
@@ -7,32 +6,13 @@ interface ElectricalTaskProps {
 }
 
 export default function ElectricalTask({ onComplete, isCompleted }: ElectricalTaskProps) {
-  const [wireConnections, setWireConnections] = useState<Record<string, string>>({});
-  const [activeWireDrag, setActiveWireDrag] = useState<string | null>(null);
-  const [rightWireColors, setRightWireColors] = useState<string[]>(['blue', 'pink', 'yellow', 'red']);
-
-  const playWireSpark = () => synthSFX.playTone(80, 'sawtooth', 0.1, 0.05);
-  const playBeep = () => synthSFX.playBeep();
-  const playLocalSound = (freq: number, type: 'sine' | 'square' | 'triangle' | 'sawtooth', duration: number, volume = 0.05) => {
-    synthSFX.playTone(freq, type, duration, volume);
-  };
-  const playSuccessTune = () => {
-    synthSFX.playTone(523.25, 'sine', 0.3, 0.04);
-    setTimeout(() => synthSFX.playTone(659.25, 'sine', 0.3, 0.04), 100);
-    setTimeout(() => synthSFX.playTone(783.99, 'sine', 0.5, 0.04), 200);
-  };
-
-  useEffect(() => {
-    // Shuffle right wires randomly
-    setRightWireColors(['red', 'blue', 'yellow', 'pink'].sort(() => Math.random() - 0.5));
-  }, []);
-
-  // Handle skip game via props
-  useEffect(() => {
-    if (isCompleted && Object.keys(wireConnections).length < 4) {
-      setWireConnections({ red: 'red', blue: 'blue', yellow: 'yellow', pink: 'pink' });
-    }
-  }, [isCompleted, wireConnections]);
+  const {
+    wireConnections,
+    activeWireDrag,
+    rightWireColors,
+    handleLeftWireClick,
+    handleRightWireClick
+  } = useElectricalTask({ onComplete, isCompleted });
 
   return (
     <div className="flex-1 flex flex-col">
@@ -50,10 +30,7 @@ export default function ElectricalTask({ onComplete, isCompleted }: ElectricalTa
                 return (
                   <button
                     key={color}
-                    onClick={() => {
-                      playWireSpark();
-                      setActiveWireDrag(color);
-                    }}
+                    onClick={() => handleLeftWireClick(color)}
                     disabled={isConnected}
                     className={`px-3 py-1.5 rounded border-2 font-mono text-[9px] uppercase font-bold text-black transition-all flex items-center gap-2 select-none ${
                       isConnected ? 'opacity-40 cursor-not-allowed bg-green-500 border-green-700 text-white' :
@@ -108,24 +85,7 @@ export default function ElectricalTask({ onComplete, isCompleted }: ElectricalTa
                 return (
                   <button
                     key={color}
-                    onClick={() => {
-                      if (!activeWireDrag) return;
-                      if (activeWireDrag === color) {
-                        setWireConnections(prev => {
-                          const next = { ...prev, [color]: color };
-                          if (Object.keys(next).length === 4) {
-                            onComplete();
-                            playSuccessTune();
-                          }
-                          return next;
-                        });
-                        playBeep();
-                        setActiveWireDrag(null);
-                      } else {
-                        playLocalSound(160, 'square', 0.2, 0.05);
-                        setActiveWireDrag(null);
-                      }
-                    }}
+                    onClick={() => handleRightWireClick(color)}
                     disabled={isMatched}
                     className={`px-3 py-1.5 rounded border-2 font-mono text-[9px] uppercase font-bold text-black transition-all flex items-center gap-2 select-none ${
                       isMatched ? 'opacity-40 cursor-not-allowed bg-green-500 border-green-700 text-white' :

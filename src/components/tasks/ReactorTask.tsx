@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import { Zap, User } from 'lucide-react';
+import { useReactorTask } from './hooks/useReactorTask';
 
 interface ReactorTaskProps {
   onComplete: () => void;
@@ -7,14 +7,8 @@ interface ReactorTaskProps {
 }
 
 export default function ReactorTask({ onComplete, isCompleted }: ReactorTaskProps) {
-  const [reactorPower, setReactorPower] = useState(25);
+  const { reactorPower, handleReactorAlignment } = useReactorTask({ onComplete });
 
-  const handleReactorAlignment = (val: number) => {
-    setReactorPower(val);
-    if (val === 100) {
-      onComplete();
-    }
-  };
 
   return (
     <div className="flex-1 flex flex-col">
