@@ -100,7 +100,12 @@ portfolio/
 │   ├── gameConfig.ts          # Ship layouts, rooms, hitboxes
 │   ├── index.css              # Global styles
 │   └── main.tsx               # Entry point
+├── index.html
+├── metadata.json
+├── package-lock.json
 ├── package.json
+├── tsconfig.json
+├── vite.config.ts
 └── README.md
 ```
 
