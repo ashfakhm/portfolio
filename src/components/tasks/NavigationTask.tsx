@@ -206,7 +206,7 @@ export default function NavigationTask({ onComplete, isCompleted }: NavigationTa
               Target locked! Ashfakh operates natively from Kozhikode/Malappuram hub base inside Kerala (India), delivering remote software code globally with precise latency specs.
             </p>
             <div className="bg-[#0a0d14] p-2 rounded text-[10px] text-blue-400 border border-blue-950">
-              GPS COORDINATES: 11.0510° N, 76.0711° E (Malappuram Dev Lab)
+              STATUS: I am currently in Malappuram district and ready to relocate if the task or website needs it.
             </div>
           </div>
         </div>
