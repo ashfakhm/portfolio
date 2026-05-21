@@ -25,7 +25,7 @@ export default function App() {
   // Cinematic Splash states
   const [showCinematic, setShowCinematic] = useState(true);
   const [cinematicText, setCinematicText] = useState('CREWMATE');
-  const [cinematicSubtext, setCinematicSubtext] = useState('There is 1 Impostor among us');
+  const [cinematicSubtext, setCinematicSubtext] = useState('Escape the Boogeyman! Finish tasks to win!');
 
   // Player custom states
   const [playerColor, setPlayerColor] = useState<CrewmateColor>('red');
@@ -59,8 +59,8 @@ export default function App() {
   // Chat System
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
-    { id: '1', senderName: 'Captain Blue', senderColor: 'blue', message: 'Welcome crewmates, make sure to read Ashfakh\'s files!' },
-    { id: '2', senderName: 'Pink', senderColor: 'pink', message: 'I saw Red (Ashfakh) doing medical scans. Highly qualified!' },
+    { id: '1', senderName: 'Captain Blue', senderColor: 'blue', message: 'Welcome crewmates, make sure to read my files!' },
+    { id: '2', senderName: 'Pink', senderColor: 'pink', message: 'I saw you doing medical scans. Highly qualified!' },
     { id: '3', senderName: 'Lime Tech', senderColor: 'lime', message: 'Projects in Comms download are fully solid! Razorpay hook tested.' }
   ]);
   const [customMessage, setCustomMessage] = useState('');
@@ -245,8 +245,8 @@ export default function App() {
 
   // Predefined Chat options
   const chatPresets = [
-    { text: 'Who is the Impostor?', q: 'impostor' },
-    { text: 'Is Ashfakh safe?', q: 'safe' },
+    { text: 'Who is the Boogeyman?', q: 'impostor' },
+    { text: 'Am I safe?', q: 'safe' },
     { text: 'Show skills pass!', q: 'skills' },
     { text: 'Any live code?', q: 'code' }
   ];
@@ -268,11 +268,11 @@ export default function App() {
       let responderColor: CrewmateColor = 'lime';
 
       if (preset.q === 'impostor') {
-        reply = 'There is 1 Impostor, but Red is safe. Ashfakh is doing Next.js tasks!';
+        reply = 'There is 1 Boogeyman, but you are safe. You are doing Next.js tasks!';
         responderName = 'Orange Buddy';
         responderColor = 'orange';
       } else if (preset.q === 'safe') {
-        reply = 'Saw Ashfakh in Medbay scanner. BSc CS Farook College Class of \'26 validated!';
+        reply = 'Saw you in Medbay scanner. BSc CS Farook College Class of \'26 validated!';
         responderName = 'Captain Blue';
         responderColor = 'blue';
       } else if (preset.q === 'skills') {
@@ -314,7 +314,7 @@ export default function App() {
       const answers = [
         "Sounds good! Complete your tasks to unlock all portfolio sections.",
         "Red is definitely clean! I saw him coding all day.",
-        "Ashfakh's Lighthouse performance is literally meta.",
+        "Your Lighthouse performance is literally meta.",
         "Yes! Let's clear the cafeteria terminal. Tap Emergency to contact him!"
       ];
       const names: { n: string, c: CrewmateColor }[] = [
@@ -1133,10 +1133,11 @@ export default function App() {
         const bounceAmount = Math.sin(Date.now() / 150) * 4;
         ctx.fillStyle = '#ebaf17';
         ctx.strokeStyle = '#000000';
-        ctx.lineWidth = 2.5;
-        ctx.font = 'bold 15px "Press Start 2P"';
+        ctx.lineWidth = 2;
+        ctx.font = 'bold 8px "Press Start 2P"';
         ctx.textAlign = 'center';
-        ctx.fillText('!', room.cx, room.cy - 16 + bounceAmount);
+        ctx.strokeText('TASK', room.cx, room.cy - 30 + bounceAmount);
+        ctx.fillText('TASK', room.cx, room.cy - 30 + bounceAmount);
       }
 
       ctx.restore();
@@ -1303,7 +1304,7 @@ export default function App() {
             id: String(Date.now()),
             senderName: 'SYSTEM LOG',
             senderColor: 'white',
-            message: `★ Red (Ashfakh) stabilized node: ${completedRoomInfo.name}`,
+            message: `★ You stabilized node: ${completedRoomInfo.name}`,
             isSystem: true
           }]);
         }
@@ -1486,7 +1487,7 @@ export default function App() {
                     </div>
                     <div className="font-mono text-left truncate flex-1 leading-normal">
                       <div className="font-black text-rose-500 text-[11px] uppercase tracking-wide flex items-center gap-1">
-                        <span>ASHFAKH M</span>
+                        <span>YOU</span>
                         <span className="text-[8px] bg-sky-900 text-sky-200 px-1 py-0 rounded border border-sky-400">YOU</span>
                       </div>
                       <span className="text-[9px] text-[#50F01E] block font-bold">★ LOBBY HOST</span>
@@ -1736,7 +1737,7 @@ export default function App() {
                 className="text-red-500 font-bold uppercase text-[10px] sm:text-xs tracking-[0.2em]"
                 style={{ fontFamily: '"Press Start 2P"' }}
               >
-                There is 1 Impostor among us
+                Escape the Boogeyman! Finish tasks to win!
               </div>
             </div>
           ) : (
@@ -1789,12 +1790,12 @@ export default function App() {
                 {completedCount === totalTasks ? (
                   <span className="text-yellow-400">ALL VEHICLE SYSTEMS SHIELD STABILIZED</span>
                 ) : (
-                  <span className="text-white">There is <span className="text-red-500">1 Impostor</span> among us</span>
+                  <span className="text-white">Escape the <span className="text-red-500">Boogeyman</span>! Finish tasks to win!</span>
                 )}
               </p>
 
               <div className="bg-[#121926]/80 backdrop-blur-md border border-slate-700/50 px-5 py-3 rounded-xl text-[9px] font-mono text-slate-400 max-w-lg mt-3 uppercase tracking-wider flex items-center gap-2 shadow-lg">
-                <ShieldCheck size={14} className="text-[#38FEDE]" /> GOAL: REPAIR WIRE NODES · CALIBRATE CORES · VENT SENSOR CHECKS
+                <ShieldCheck size={14} className="text-[#38FEDE]" /> GOAL: REPAIR WIRE NODES · CALIBRATE CORES · PASSAGE SENSOR CHECKS
               </div>
             </div>
           )}
@@ -1816,10 +1817,10 @@ export default function App() {
               className="text-white text-3xl sm:text-5xl font-black uppercase tracking-widest max-w-xl leading-tight"
               style={{ fontFamily: '"Press Start 2P"', textShadow: '0 4px 15px rgba(0,0,0,0.5)' }}
             >
-              ASHFAKH IS IMPOSTOR!
+              BOOGEYMAN IS COMING!
             </h1>
             <p className="font-mono text-xs tracking-widest text-red-200 uppercase pt-2 bg-black/40 px-4 py-2 rounded-lg border border-red-500/30 backdrop-blur-sm">
-              He has infiltrated national computer structures solo. Tap to resume!
+              The Boogeyman has infiltrated the ship. Tap to resume!
             </p>
           </div>
         </div>
@@ -1859,7 +1860,7 @@ export default function App() {
                   className="absolute inset-x-0 inset-y-0 text-[8px] font-black tracking-widest text-white leading-none flex items-center justify-center animate-bounce uppercase drop-shadow-md"
                   style={{ fontFamily: '"Press Start 2P"' }}
                 >
-                  <Rocket size={10} className="mr-2" /> ALL SYSTEMS STABILIZED BY ASHFAKH! <Trophy size={10} className="ml-2 text-yellow-300" />
+                  <Rocket size={10} className="mr-2" /> ALL SYSTEMS STABILIZED! <Trophy size={10} className="ml-2 text-yellow-300" />
                 </div>
               ) : null}
             </div>
@@ -1875,7 +1876,7 @@ export default function App() {
               
               {[
                 { id: 'cafeteria', label: 'Cafeteria: Deck Profile' },
-                { id: 'reactor', label: 'Reactor: About Ashfakh' },
+                { id: 'reactor', label: 'Reactor: About Me' },
                 { id: 'admin', label: 'Admin Desk: Swipe Pass' },
                 { id: 'comms', label: 'Comms Dish: Decrypt Data' },
                 { id: 'medbay', label: 'MedBay Lab: Submit Scan' },
@@ -1987,7 +1988,7 @@ export default function App() {
                   className="p-3 sm:px-4 sm:py-3 bg-[#4e5564]/80 backdrop-blur-sm hover:bg-[#5f697c]/90 border border-slate-400/50 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.1)] active:scale-95 transition-all text-center font-bold text-[9px] tracking-widest uppercase text-[#38FEDE] flex items-center gap-1.5"
                   style={{ fontFamily: '"Press Start 2P"' }}
                 >
-                  <Wind size={16} className="sm:w-3 sm:h-3" /> <span className="hidden sm:inline">VENT</span>
+                  <Wind size={16} className="sm:w-3 sm:h-3" /> <span className="hidden sm:inline">PASSAGE</span>
                 </button>
               )}
 
@@ -2070,7 +2071,7 @@ export default function App() {
                   isMoving={playerMoving} 
                   direction={direction} 
                   size={55}
-                  name="Ashfakh" 
+                  name="You" 
                 />
               </div>
             </div>
@@ -2315,12 +2316,12 @@ export default function App() {
             VICTORY
           </div>
           <div className="flex gap-4 mb-8 z-10 transform scale-125">
-            <CrewmateSprite color={playerColor} hat={playerHat} isMoving={false} size={105} direction="right" name="Ashfakh" />
+            <CrewmateSprite color={playerColor} hat={playerHat} isMoving={false} size={105} direction="right" name="You" />
           </div>
           <div className="bg-[#1a1a2e]/80 border-2 border-[#38FEDE] p-4 md:p-6 rounded-lg text-center shadow-[0_0_30px_rgba(56,254,222,0.2)] mb-8 max-w-sm w-full z-10 backdrop-blur-sm relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-[#38FEDE] opacity-50"></div>
             <p className="font-mono text-[#38FEDE] font-bold text-base md:text-lg">ALL TASKS COMPLETED</p>
-            <p className="text-gray-300 text-xs mt-2 font-mono">Impostors have been eliminated. The system is secure.</p>
+            <p className="text-gray-300 text-xs mt-2 font-mono">The Boogeyman has been defeated. The system is secure.</p>
           </div>
           <button 
             onClick={() => {
@@ -2342,7 +2343,7 @@ export default function App() {
             <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500 animate-pulse" />
             <span>PORT 3000 // CO-PILOT TERMINAL STABLE</span>
           </div>
-          <span>DEVELOPER PORTFOLIO : ASHFAKH M</span>
+          <span>DEVELOPER PORTFOLIO : YOU</span>
         </div>
       )}
 

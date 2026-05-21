@@ -25,7 +25,7 @@ export const SPACESHIP_ROOMS: Record<string, RoomConfig> = {
   reactor: {
     id: 'reactor',
     name: 'Reactor Core',
-    section: 'About Ashfakh',
+    section: 'About Me',
     cx: 90,
     cy: 360,
     color: '#FFD700',
@@ -126,10 +126,10 @@ export const SPACESHIP_ROOMS: Record<string, RoomConfig> = {
 
 // Floor vents coordinates for speed-vent crawling
 export const FLOATING_VENTS = [
-  { id: 'vent1', label: 'Cafeteria Vent', rx: 'cafeteria', x: 440, y: 100 },
-  { id: 'vent2', label: 'Reactor Vent', rx: 'reactor', x: 60, y: 310 },
-  { id: 'vent3', label: 'Admin Vent', rx: 'admin', x: 530, y: 360 },
-  { id: 'vent4', label: 'Security Vent', rx: 'security', x: 190, y: 310 }
+  { id: 'vent1', label: 'Cafeteria Passage', rx: 'cafeteria', x: 440, y: 100 },
+  { id: 'vent2', label: 'Reactor Passage', rx: 'reactor', x: 60, y: 310 },
+  { id: 'vent3', label: 'Admin Passage', rx: 'admin', x: 530, y: 360 },
+  { id: 'vent4', label: 'Security Passage', rx: 'security', x: 190, y: 310 }
 ];
 
 export interface Rect { x: number; y: number; w: number; h: number; name?: string }

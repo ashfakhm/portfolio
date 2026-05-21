@@ -15,10 +15,12 @@ export default function CafeteriaTask({ onComplete, playerColor }: CafeteriaTask
   return (
     <div className="flex-1 flex flex-col md:flex-row gap-6 items-center justify-center p-2 animate-fadeIn">
       <div className="flex flex-col items-center justify-center py-4 bg-[#1a1a2e] border-2 border-[#3a3a5e] p-6 rounded-lg w-full md:w-5/12 text-center relative overflow-hidden">
-        <div className="absolute top-2 left-2 rotate-[5deg] bg-red-600 px-2 py-0.5 text-[8px] rounded font-bold animate-pulse">ASHFAKH M</div>
-        <div className="mb-4">
-          <CrewmateSprite color={playerColor} hat="plant" isMoving={true} direction="right" size={120} name="Ashfakh" />
+        <div className="absolute top-2 left-2 rotate-[5deg] bg-red-600 px-2 py-0.5 text-[8px] rounded font-bold animate-pulse">YOU</div>
+        
+        <div className="scale-125 mb-4 drop-shadow-[0_10px_20px_rgba(255,0,0,0.4)]">
+          <CrewmateSprite color={playerColor} hat="plant" isMoving={true} direction="right" size={120} name="You" />
         </div>
+        
         <div className="space-y-1.5 w-full">
           <div className="text-[10px] text-gray-400 uppercase">LOCATION</div>
           <div className="text-xs font-semibold text-red-400">Malappuram, Kerala, India</div>
