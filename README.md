@@ -4,9 +4,9 @@ Welcome to my interactive, "Among Us" inspired portfolio. This isn't just a stat
 
 ## 🛸 The Story: Escape the Boogeyman!
 
-You start in **Dropship Holding Bay 04**, where you and your co-pilots wait for clearance to enter the main vehicle.
-As you sync your terminal, an alert triggers: The **Boogeyman** has infiltrated the ship.
-Your mission: Navigate through the spaceship, check the Hologram Maps and Vent Logs, and complete vital vehicle system tasks (like checking the Reactor or calibrating Navigation) before the Boogeyman strikes!
+The **Boogeyman** is a mythical creature often used by mothers to frighten children into doing their chores and tasks. In this interactive experience, someone is coming to get you—so you must finish your tasks! (Actually, there is no Boogeyman... but play along and complete your mission!)
+
+Your mission is to finish all your tasks before this imaginary character arrives. If you successfully complete your tasks, you win. Otherwise, the Boogeyman wins!
 
 ## ✨ Features
 
