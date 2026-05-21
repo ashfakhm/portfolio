@@ -16,7 +16,7 @@ export default function Achievements() {
         <div className="bg-[#12121e]/90 backdrop-blur-xl border border-white/5 rounded-2xl p-6 hover:border-amber-500/40 hover:bg-[#1a1a2e] transition-all duration-300 group shadow-lg shadow-amber-900/10 flex flex-col justify-between">
           <div className="space-y-4">
             <div className="flex items-center gap-3 mb-2">
-              <span className="text-2xl transform group-hover:scale-110 transition-transform">🏆</span>
+              <span className="text-2xl transform group-hover:scale-110 transition-transform">⚙️</span>
               <h4 className="text-sm font-black text-amber-400 uppercase tracking-widest font-mono">Performance Optimization</h4>
             </div>
             <p className="text-xs text-slate-300 leading-relaxed font-sans max-w-3xl">
@@ -40,11 +40,11 @@ export default function Achievements() {
         >
           <div className="space-y-4">
             <div className="flex items-center gap-3 mb-2">
-              <span className="text-2xl transform group-hover:scale-110 transition-transform">💎</span>
+              <span className="text-2xl transform group-hover:scale-110 transition-transform">📜</span>
               <h4 className="text-sm font-black text-cyan-400 uppercase tracking-widest font-mono">META FRONT-END BADGE</h4>
             </div>
             <p className="text-xs text-slate-300 leading-relaxed font-sans max-w-3xl">
-              Awarded official credentials after rigorous testing parameters. Covers modern viewport states, UI design principles, responsive flex grid structures, and accessibility mandates.
+              Earned official certification after rigorous testing parameters. Covers modern viewport states, UI design principles, responsive flex grid structures, and accessibility mandates.
             </p>
             <div className="flex flex-wrap gap-2 text-[10px] font-mono mt-4">
               <span className="px-2.5 py-1 bg-white/10 text-slate-100 rounded-md font-mono border border-white/20 shadow-sm">React</span>
