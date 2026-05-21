@@ -353,6 +353,13 @@ export default function App() {
         triggerModal(nearestRoom.id);
       }
 
+      // 'V' hotkey triggers Vent Map
+      if (e.key.toLowerCase() === 'v' && nearVent && ventingStatus === 'idle') {
+        e.preventDefault();
+        setVentMapOpen(true);
+        synthSFX.playBeep();
+      }
+
       // 'M' or 'TAB' hotkey triggers Holographic Map
       if (e.key.toLowerCase() === 'm' || e.key === 'Tab') {
         e.preventDefault();
@@ -513,7 +520,7 @@ export default function App() {
       window.removeEventListener('keyup', handleKeyUp);
       cancelAnimationFrame(frameIdRef.current);
     };
-  }, [inLobby, showCinematic, openModalRoom, targetPos, joystickActive, joystickOffset, targetRoomPath, ventMapOpen, doors, nearestRoom]);
+  }, [inLobby, showCinematic, openModalRoom, targetPos, joystickActive, joystickOffset, targetRoomPath, ventMapOpen, doors, nearestRoom, nearVent, ventingStatus]);
 
   // Redraw Ship Layout Canvas Details with high fidelity graphics!
   useEffect(() => {
