@@ -21,8 +21,8 @@ export default function WeaponsTask({ onComplete, isCompleted }: WeaponsTaskProp
   useEffect(() => {
     if (asteroidsShot < 5) {
       setTargets([
-        { id: 1, x: 50, y: 50, speedX: 1, speedY: 1, size: 24 },
-        { id: 2, x: 200, y: 100, speedX: -1.5, speedY: 0.5, size: 30 },
+        { id: 1, x: 50, y: 50, speedX: 0.5, speedY: 0.5, size: 40 },
+        { id: 2, x: 200, y: 100, speedX: -0.8, speedY: 0.3, size: 45 },
       ]);
     }
   }, []);
@@ -98,9 +98,9 @@ export default function WeaponsTask({ onComplete, isCompleted }: WeaponsTaskProp
                             id: Date.now(),
                             x: Math.random() * 260 + 40,
                             y: Math.random() * 120 + 30,
-                            speedX: (Math.random() - 0.5) * 4.5,
-                            speedY: (Math.random() - 0.5) * 4.5,
-                            size: Math.random() * 18 + 18
+                            speedX: (Math.random() - 0.5) * 1.5,
+                            speedY: (Math.random() - 0.5) * 1.5,
+                            size: Math.random() * 20 + 35
                           }
                         ];
                       }

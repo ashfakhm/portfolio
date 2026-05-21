@@ -111,30 +111,21 @@ export default function StorageTask({ onComplete, isCompleted }: StorageTaskProp
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Instagram Node */}
-            <a href="https://instagram.com/ashfakhthedev" target="_blank" rel="noreferrer" className="bg-[#10101f] border border-[#3a3a5e] p-6 rounded-lg flex items-center gap-4 hover:border-pink-500/50 hover:bg-[#1a1a2e] transition-all group">
-              <div className="w-12 h-12 rounded-full bg-pink-500/10 flex items-center justify-center text-pink-500 group-hover:bg-pink-500/20 group-hover:scale-110 transition-all border border-pink-500/20">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-              </div>
-              <div>
-                <h4 className="text-white font-bold tracking-widest text-sm uppercase font-mono group-hover:text-pink-400 transition-colors">Instagram Node</h4>
-                <p className="text-xs text-gray-500 font-mono mt-1">@ashfakhthedev</p>
-              </div>
-            </a>
+
 
             {/* LinkedIn Node */}
-            <a href="https://linkedin.com/in/ashfakh-m" target="_blank" rel="noreferrer" className="bg-[#10101f] border border-[#3a3a5e] p-6 rounded-lg flex items-center gap-4 hover:border-blue-500/50 hover:bg-[#1a1a2e] transition-all group">
+            <a href="https://linkedin.com/in/ashfakhm/" target="_blank" rel="noreferrer" className="bg-[#10101f] border border-[#3a3a5e] p-6 rounded-lg flex items-center gap-4 hover:border-blue-500/50 hover:bg-[#1a1a2e] transition-all group">
               <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500/20 group-hover:scale-110 transition-all border border-blue-500/20">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
               </div>
               <div>
                 <h4 className="text-white font-bold tracking-widest text-sm uppercase font-mono group-hover:text-blue-400 transition-colors">LinkedIn Hub</h4>
-                <p className="text-xs text-gray-500 font-mono mt-1">/in/ashfakh-m</p>
+                <p className="text-xs text-gray-500 font-mono mt-1">/in/ashfakhm/</p>
               </div>
             </a>
 
             {/* GitHub Node */}
-            <a href="https://github.com/ashfakhm" target="_blank" rel="noreferrer" className="bg-[#10101f] border border-[#3a3a5e] p-6 rounded-lg flex items-center gap-4 hover:border-slate-400 hover:bg-[#1a1a2e] transition-all group md:col-span-2">
+            <a href="https://github.com/ashfakhm" target="_blank" rel="noreferrer" className="bg-[#10101f] border border-[#3a3a5e] p-6 rounded-lg flex items-center gap-4 hover:border-slate-400 hover:bg-[#1a1a2e] transition-all group">
               <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 group-hover:bg-slate-700 group-hover:scale-110 transition-all border border-slate-600">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
               </div>
