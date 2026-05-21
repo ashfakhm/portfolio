@@ -1861,17 +1861,17 @@ export default function App() {
           {/* Top HUD bar with Task completion bar */}
           <div className="w-full max-w-2xl mx-auto pointer-events-auto bg-[#0b0b14]/90 backdrop-blur-md border border-white/10 p-2 sm:p-2.5 rounded-2xl flex flex-col space-y-2 shadow-[0_8px_32px_rgba(0,0,0,0.5)] ring-1 ring-inset ring-white/5">
             <div className="flex items-center justify-between text-[10px] font-mono font-bold tracking-wider text-green-400">
-              <span className="flex items-center gap-1.5"><CheckCircle2 size={12} /> TOTAL SHIP TASKS STATUS:</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 size={12} /> <span className="hidden sm:inline">TOTAL SHIP TASKS STATUS:</span><span className="sm:hidden">TASKS:</span></span>
               <div className="flex items-center gap-3">
-                <span>{progressPercent}% COMPLETED ({completedCount}/{totalTasks})</span>
+                <span>{progressPercent}% <span className="hidden sm:inline">COMPLETED ({completedCount}/{totalTasks})</span></span>
                 <button
                   onClick={() => {
                     setShowTutorial(true);
                     synthSFX.playBeep();
                   }}
-                  className="bg-sky-500/20 hover:bg-sky-500/30 border border-sky-500/50 text-[9px] font-semibold text-sky-300 px-2.5 py-1 rounded-md cursor-pointer uppercase transition-all tracking-wider font-mono hover:scale-105 active:scale-95 leading-none flex items-center gap-1"
+                  className="bg-sky-500/20 hover:bg-sky-500/30 border border-sky-500/50 text-[9px] font-semibold text-sky-300 p-1.5 sm:px-2.5 sm:py-1 rounded-md cursor-pointer uppercase transition-all tracking-wider font-mono hover:scale-105 active:scale-95 leading-none flex items-center gap-1"
                 >
-                  <HelpCircle size={10} /> Help
+                  <HelpCircle size={12} /> <span className="hidden sm:inline">Help</span>
                 </button>
               </div>
             </div>
@@ -1935,43 +1935,43 @@ export default function App() {
           </div>
 
           {/* Right HUD minimized collage widgets + Hologram map button */}
-          <div className="absolute right-4 top-24 pointer-events-auto flex flex-col items-end space-y-3">
+          <div className="absolute right-3 top-16 sm:right-4 sm:top-24 pointer-events-auto flex flex-col items-end space-y-2 sm:space-y-3">
             
             {/* Hologram blueprint panel toggle */}
             <button 
               onClick={() => { setShowHologramMap(true); synthSFX.playBeep(); }}
-              className="px-4 py-2 bg-[#0b0b14]/90 backdrop-blur-md border border-[#1a9eff]/40 hover:border-[#38FEDE] hover:bg-[#1a9eff]/10 text-white hover:text-[#38FEDE] flex items-center justify-center gap-2 rounded-xl shadow-lg cursor-pointer transition-all active:scale-95 ring-1 ring-inset ring-[#1a9eff]/20"
+              className="p-2.5 sm:px-4 sm:py-2 bg-[#0b0b14]/90 backdrop-blur-md border border-[#1a9eff]/40 hover:border-[#38FEDE] hover:bg-[#1a9eff]/10 text-white hover:text-[#38FEDE] flex items-center justify-center gap-2 rounded-xl shadow-lg cursor-pointer transition-all active:scale-95 ring-1 ring-inset ring-[#1a9eff]/20"
             >
-              <Compass size={18} className="animate-spin-slow text-[#1a9eff]" />
-              <span className="text-[10px] uppercase tracking-wider font-mono font-bold">Holographic Map (M)</span>
+              <Compass size={20} className="animate-spin-slow text-[#1a9eff]" />
+              <span className="hidden sm:inline text-[10px] uppercase tracking-wider font-mono font-bold">Holographic Map (M)</span>
             </button>
 
             {/* Chat Cockpit Panel toggle */}
             <button 
               onClick={() => { setChatOpen(prev => !prev); synthSFX.playBeep(); }}
-              className={`px-4 py-2 bg-[#0b0b14]/90 backdrop-blur-md flex items-center justify-center gap-2 rounded-xl shadow-lg cursor-pointer transition-all active:scale-95 ${
+              className={`p-2.5 sm:px-4 sm:py-2 bg-[#0b0b14]/90 backdrop-blur-md flex items-center justify-center gap-2 rounded-xl shadow-lg cursor-pointer transition-all active:scale-95 ${
                 chatOpen ? 'border-2 border-green-500/50 text-green-400 bg-green-500/10 shadow-[0_0_15px_rgba(34,197,94,0.3)]' : 'border border-white/10 hover:border-white/30 text-white hover:bg-white/5 ring-1 ring-inset ring-white/5'
               }`}
             >
-              <MessageSquare size={16} />
-              <span className="text-[10px] uppercase tracking-wider font-mono font-bold">Crew Logs Chat</span>
+              <MessageSquare size={18} />
+              <span className="hidden sm:inline text-[10px] uppercase tracking-wider font-mono font-bold">Crew Logs Chat</span>
             </button>
 
             {/* Quick sound switch trigger */}
             <button
               onClick={() => { setSoundOn(!soundOn); synthSFX.enabled = !soundOn; }}
-              className="px-3 py-2 bg-[#0b0b14]/80 backdrop-blur-md border border-white/10 hover:border-white/20 hover:bg-white/5 text-slate-300 rounded-xl shadow-lg cursor-pointer transition-all active:scale-95 flex items-center justify-center gap-1.5 opacity-80 hover:opacity-100 text-[10px] font-mono tracking-wider ring-1 ring-inset ring-white/5"
+              className="p-2.5 sm:px-3 sm:py-2 bg-[#0b0b14]/80 backdrop-blur-md border border-white/10 hover:border-white/20 hover:bg-white/5 text-slate-300 rounded-xl shadow-lg cursor-pointer transition-all active:scale-95 flex items-center justify-center gap-1.5 opacity-80 hover:opacity-100 text-[10px] font-mono tracking-wider ring-1 ring-inset ring-white/5"
             >
-              {soundOn ? <Volume2 size={12} className="text-green-400" /> : <VolumeX size={12} />}
-              <span>{soundOn ? 'SOUND ON' : 'MUTED'}</span>
+              {soundOn ? <Volume2 size={16} className="text-green-400" /> : <VolumeX size={16} />}
+              <span className="hidden sm:inline">{soundOn ? 'SOUND ON' : 'MUTED'}</span>
             </button>
           </div>
 
           {/* Bottom HUD Bar Wardrobe customizations */}
-          <div className="w-full py-1 pointer-events-auto flex flex-col md:flex-row justify-between items-center gap-3">
+          <div className="w-full py-1 pointer-events-auto flex justify-end md:justify-between items-end gap-3">
             
             {/* Live customizer indicators */}
-            <div className="bg-[#0b0b14]/90 backdrop-blur-md border border-white/10 p-3 rounded-xl flex items-center gap-3 shadow-[0_8px_32px_rgba(0,0,0,0.5)] ring-1 ring-inset ring-white/5 max-w-sm">
+            <div className="bg-[#0b0b14]/90 backdrop-blur-md border border-white/10 p-3 rounded-xl flex items-center gap-3 shadow-[0_8px_32px_rgba(0,0,0,0.5)] ring-1 ring-inset ring-white/5 max-w-sm hidden md:flex">
               <div onClick={handleCrewClick} className="cursor-pointer group relative">
                 <CrewmateSprite color={playerColor} hat={playerHat} isMoving={playerMoving} direction={direction} size={50} />
                 <div className="absolute inset-0 bg-black/60 rounded opacity-0 group-hover:opacity-100 flex items-center justify-center text-[7px] font-bold text-red-500 font-mono text-center">TAP 5X!</div>
@@ -2007,40 +2007,40 @@ export default function App() {
             </div>
 
             {/* Action Buttons Desk */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               {nearVent && (
                 <button
                   onClick={() => { setVentMapOpen(true); synthSFX.playBeep(); }}
-                  className="px-4 py-3 bg-[#4e5564]/80 backdrop-blur-sm hover:bg-[#5f697c]/90 border border-slate-400/50 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.1)] active:scale-95 transition-all text-center font-bold text-[9px] tracking-widest uppercase text-[#38FEDE] flex items-center gap-1.5"
+                  className="p-3 sm:px-4 sm:py-3 bg-[#4e5564]/80 backdrop-blur-sm hover:bg-[#5f697c]/90 border border-slate-400/50 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.1)] active:scale-95 transition-all text-center font-bold text-[9px] tracking-widest uppercase text-[#38FEDE] flex items-center gap-1.5"
                   style={{ fontFamily: '"Press Start 2P"' }}
                 >
-                  <Wind size={12} /> VENT
+                  <Wind size={16} className="sm:w-3 sm:h-3" /> <span className="hidden sm:inline">VENT</span>
                 </button>
               )}
 
               <button
                 onClick={() => triggerModal('emergency')}
-                className="px-5 py-4 bg-red-500/20 hover:bg-red-500/30 text-red-100 rounded-2xl border border-red-500/50 text-center shadow-[0_0_20px_rgba(220,38,38,0.2)] active:scale-95 transition-all w-[120px] flex flex-col items-center justify-center backdrop-blur-md"
+                className="p-3 sm:px-5 sm:py-4 bg-red-500/20 hover:bg-red-500/30 text-red-100 rounded-2xl border border-red-500/50 text-center shadow-[0_0_20px_rgba(220,38,38,0.2)] active:scale-95 transition-all w-16 sm:w-[120px] flex flex-col items-center justify-center backdrop-blur-md"
                 style={{ fontFamily: '"Press Start 2P"' }}
               >
-                <div className="flex flex-col items-center gap-1.5">
-                  <AlertTriangle size={14} className="text-red-400" />
-                  <span className="text-red-300 text-[7px] tracking-[0.2em] mb-0 font-bold leading-none select-none opacity-80">EMERGENCY</span>
-                  <span className="font-bold text-[9px] md:text-xs tracking-widest uppercase leading-none select-none text-white drop-shadow-md">REPORT</span>
+                <div className="flex flex-col items-center gap-1 sm:gap-1.5">
+                  <AlertTriangle size={18} className="text-red-400 sm:w-3.5 sm:h-3.5" />
+                  <span className="hidden sm:block text-red-300 text-[7px] tracking-[0.2em] mb-0 font-bold leading-none select-none opacity-80">EMERGENCY</span>
+                  <span className="font-bold text-[7px] sm:text-[9px] md:text-xs tracking-widest uppercase leading-none select-none text-white drop-shadow-md">REPORT</span>
                 </div>
               </button>
 
               <button
                 onClick={() => { if (nearestRoom) triggerModal(nearestRoom.id); }}
                 disabled={!nearestRoom}
-                className={`py-4 px-6 md:py-4 md:px-8 rounded-2xl border text-center cursor-pointer font-bold uppercase transition-all flex flex-col items-center justify-center relative overflow-hidden w-[140px] backdrop-blur-md ${
+                className={`p-3 sm:py-4 sm:px-6 md:py-4 md:px-8 rounded-2xl border text-center cursor-pointer font-bold uppercase transition-all flex flex-col items-center justify-center relative overflow-hidden w-16 sm:w-[140px] backdrop-blur-md ${
                   nearestRoom 
                     ? 'bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-300 border-yellow-500/50 shadow-[0_0_20px_rgba(234,179,8,0.2)] active:scale-95' 
                     : 'bg-slate-800/30 text-slate-500 border-slate-700/50 cursor-not-allowed opacity-80 shadow-none'
                 }`}
               >
-                <span className="text-[10px] sm:text-[11px] font-black tracking-widest block drop-shadow-md text-white" style={{ fontFamily: '"Press Start 2P"' }}>USE</span>
-                {nearestRoom && <span className="text-[7px] font-mono mt-1 tracking-wider uppercase font-extrabold text-yellow-200/80">{nearestRoom.name}</span>}
+                <span className="text-[9px] sm:text-[11px] font-black tracking-widest block drop-shadow-md text-white" style={{ fontFamily: '"Press Start 2P"' }}>USE</span>
+                {nearestRoom && <span className="hidden sm:block text-[7px] font-mono mt-1 tracking-wider uppercase font-extrabold text-yellow-200/80">{nearestRoom.name}</span>}
               </button>
             </div>
           </div>
@@ -2147,8 +2147,7 @@ export default function App() {
       {/* 6. COCKPIT CREWLOGS CHAT CHANNEL OVERLAY */}
       {/* ==================================================== */}
       {chatOpen && !inLobby && !showCinematic && (
-        <div className="absolute top-24 right-4 bottom-28 w-80 bg-[#0b0b14]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.7)] flex flex-col overflow-hidden z-20 font-mono transition-all ring-1 ring-inset ring-white/10">
-          
+        <div className="absolute top-16 right-3 bottom-20 sm:top-24 sm:right-4 sm:bottom-28 w-64 sm:w-80 bg-[#0b0b14]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.7)] flex flex-col overflow-hidden z-20 font-mono transition-all ring-1 ring-inset ring-white/10">
           <div className="bg-white/[0.03] px-4 py-3 border-b border-white/10 flex items-center justify-between text-xs font-bold">
             <span className="text-[#38FEDE] flex items-center gap-1">💬 COCKPIT CREW LOGS</span>
             <button onClick={() => setChatOpen(false)} className="text-gray-400 hover:text-white">
@@ -2255,7 +2254,7 @@ export default function App() {
             onTouchStart={handleJoystickTouchStart}
             onTouchMove={handleJoystickTouchMove}
             onTouchEnd={handleJoystickTouchEnd}
-            className="w-44 h-44 rounded-full bg-[#10102633] border-2 border-dashed border-slate-600/30 flex items-center justify-center relative cursor-grab active:cursor-grabbing select-none"
+            className="w-32 h-32 sm:w-44 sm:h-44 rounded-full bg-[#10102633] border-2 border-dashed border-slate-600/30 flex items-center justify-center relative cursor-grab active:cursor-grabbing select-none"
           >
             {joystickActive && joystickCenter && joystickCurrent ? (
               <div 
@@ -2365,9 +2364,9 @@ export default function App() {
 
       {/* MAIN SYSTEM FOOTER STATUS */}
       {!inLobby && !showCinematic && (
-        <div className="w-full bg-[#06060f] border-t-2 border-[#1c1c38] px-4 py-1.5 flex items-center justify-between text-[8px] text-[#3a3a5c] md:text-[9px] font-mono z-10 relative">
+        <div className="w-full bg-[#06060f] border-t-2 border-[#1c1c38] px-4 py-1.5 flex items-center justify-between text-[6px] sm:text-[8px] text-[#3a3a5c] md:text-[9px] font-mono z-10 relative">
           <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500 animate-pulse" />
             <span>PORT 3000 // CO-PILOT TERMINAL STABLE</span>
           </div>
           <span>DEVELOPER PORTFOLIO : ASHFAKH M</span>
