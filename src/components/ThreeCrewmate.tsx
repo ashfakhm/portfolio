@@ -172,6 +172,9 @@ export default function ThreeCrewmate({ color, hat, size = 150 }: ThreeCrewmateP
     hatGroup.position.set(0, 2.8, 0);
     crewmateGroup.add(hatGroup);
 
+    // Apply the requested dimensions adjustments: taller and thinner
+    crewmateGroup.scale.set(0.7, 1.3, 0.7);
+
     scene.add(crewmateGroup);
 
     // Store references in contextual structure

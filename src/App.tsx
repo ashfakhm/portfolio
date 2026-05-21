@@ -1713,50 +1713,23 @@ export default function App() {
               </div>
 
               {/* Crewmate putting a white gloved finger in front of visor outline */}
-              <div className="my-2 relative flex items-center justify-center">
-                <svg viewBox="0 0 140 140" className="w-[170px] h-[170px] drop-shadow-[0_0_22px_rgba(239,68,68,0.7)]">
-                  <defs>
-                    <radialGradient id="shhVisor" cx="30%" cy="30%" r="70%">
-                      <stop offset="0%" stopColor="#ADF5FF" />
-                      <stop offset="40%" stopColor="#38E3FD" />
-                      <stop offset="90%" stopColor="#1E93AF" />
-                      <stop offset="100%" stopColor="#0B4B5A" />
-                    </radialGradient>
-                  </defs>
-                  {/* Aura warning circle */}
-                  <circle cx="70" cy="70" r="58" fill="rgba(197, 17, 17, 0.28)" stroke="#ea580c" strokeWidth="4" strokeDasharray="6,4" className="animate-spin-slow" />
+              <div className="my-10 relative flex items-center justify-center transform scale-125 drop-shadow-[0_0_22px_rgba(239,68,68,0.7)]">
+                {/* Spotlight background glow circle */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] rounded-full bg-slate-400/20 blur-xl z-0"></div>
+                
+                <div className="relative z-10">
+                  <CrewmateSprite color="red" hat="none" isMoving={false} direction="left" size={105} />
                   
-                  {/* Oxygen tank behind */}
-                  <rect x="32" y="58" width="16" height="34" rx="4" fill="#7A0808" stroke="#000" strokeWidth="3" />
-                  
-                  {/* Main Red Crewmate body */}
-                  <path d="M 50 102 A 20 20 0 0 1 50 42 L 90 42 A 20 20 0 0 1 90 102 Z" fill="#7A0808" stroke="#000" strokeWidth="3" />
-                  <path d="M 52 100 A 18 18 0 0 1 52 46 L 88 46 A 18 18 0 0 1 88 100 Z" fill="#C51111" />
-                  
-                  {/* Visor */}
-                  <path d="M 75 72 Q 65 72 65 60 Q 65 48 75 48 L 95 48 Q 105 48 105 60 Q 105 72 95 72 Z" fill="#000" stroke="#000" strokeWidth="3.5" />
-                  <path d="M 75 70 Q 67 70 67 60 Q 67 50 75 50 L 95 50 Q 103 50 103 60 Q 103 70 95 70 Z" fill="url(#shhVisor)" />
-                  <path d="M 78 54 Q 85 54 89 54 Q 88 58 84 58 Q 80 58 78 54 Z" fill="#FFFFFF" opacity="0.65" />
-                  
-                  {/* Left Back Leg */}
-                  <rect x="52" y="94" width="12" height="15" rx="3" fill="#000" />
-                  <rect x="54" y="96" width="8" height="12" rx="2" fill="#7A0808" />
-
-                  {/* Right Front Leg */}
-                  <rect x="76" y="94" width="12" height="15" rx="3" fill="#000" />
-                  <rect x="78" y="96" width="8" height="12" rx="2" fill="#C51111" />
-
-                  {/* Glove/Hand lift doing SHH! with extended white finger */}
-                  <g transform="translate(68, 54)">
-                    {/* Shadow Arm sleeve */}
-                    <path d="M0,32 Q10,29 14,27 Q15,22 14,18 Q5,21 0,23 Z" fill="#7A0808" stroke="#000" strokeWidth="2.5" />
-                    <path d="M0,30 Q10,27 13,25 Q14,20 13,16 Q5,19 0,21 Z" fill="#C51111" />
-                    {/* White glove */}
-                    <circle cx="15" cy="14" r="5.5" fill="#FFF" stroke="#000" strokeWidth="2.5" />
-                    {/* Extended finger */}
-                    <rect x="12" y="-5" width="5.5" height="16" rx="2.5" fill="#FFF" stroke="#000" strokeWidth="2.5" />
-                  </g>
-                </svg>
+                  {/* Glove/Hand doing SHH! Overlay */}
+                  <div className="absolute top-[42%] left-[30%] w-12 h-16 z-20 transform -translate-x-1/2 -translate-y-1/2 scale-x-[-1]">
+                    <svg viewBox="-2 -10 25 50" className="w-full h-full drop-shadow-md pointer-events-none">
+                      <path d="M0,32 Q10,29 14,27 Q15,22 14,18 Q5,21 0,23 Z" fill="#7A0808" stroke="#000" strokeWidth="2.5" />
+                      <path d="M0,30 Q10,27 13,25 Q14,20 13,16 Q5,19 0,21 Z" fill="#C51111" />
+                      <circle cx="15" cy="14" r="5.5" fill="#FFF" stroke="#000" strokeWidth="2.5" />
+                      <rect x="12" y="-5" width="5.5" height="16" rx="2.5" fill="#FFF" stroke="#000" strokeWidth="2.5" />
+                    </svg>
+                  </div>
+                </div>
               </div>
 
               <div 
@@ -2341,8 +2314,8 @@ export default function App() {
           <div className="text-[#38FEDE] text-5xl md:text-8xl font-black uppercase tracking-[0.1em] drop-shadow-[0_0_40px_rgba(56,254,222,0.8)] mb-8 z-10 text-center w-full max-w-lg" style={{ fontFamily: '"Press Start 2P"', textShadow: '4px 4px 0px #0b5030, -2px -2px 0px #fff' }}>
             VICTORY
           </div>
-          <div className="flex gap-4 mb-8 z-10">
-            <CrewmateSprite color={playerColor} hat={playerHat} isMoving={false} size={100} direction="right" name="Ashfakh" />
+          <div className="flex gap-4 mb-8 z-10 transform scale-125">
+            <CrewmateSprite color={playerColor} hat={playerHat} isMoving={false} size={105} direction="right" name="Ashfakh" />
           </div>
           <div className="bg-[#1a1a2e]/80 border-2 border-[#38FEDE] p-4 md:p-6 rounded-lg text-center shadow-[0_0_30px_rgba(56,254,222,0.2)] mb-8 max-w-sm w-full z-10 backdrop-blur-sm relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-[#38FEDE] opacity-50"></div>

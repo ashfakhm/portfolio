@@ -160,7 +160,7 @@ export default function CrewmateSprite({
   return (
     <div
       className={`relative select-none flex flex-col items-center justify-center ${className} ${wobbleClass}`}
-      style={{ width: `${size}px`, height: `${size + 15}px`, transition: 'all 0.15s ease' }}
+      style={{ width: `${size * 0.7}px`, height: `${(size + 15) * 1.3}px`, transition: 'all 0.15s ease' }}
     >
       {/* Floating Name Overlay */}
       {name && (
@@ -175,6 +175,7 @@ export default function CrewmateSprite({
       {/* Main Crewmate SVG container */}
       <svg
         viewBox="-15 -30 70 85"
+        preserveAspectRatio="none"
         className={`w-full h-full drop-shadow-[0_4px_6px_rgba(0,0,0,0.55)] ${walkBounceClass}`}
         style={{ transform: direction === 'left' ? 'scaleX(-1)' : 'scaleX(1)' }}
       >
