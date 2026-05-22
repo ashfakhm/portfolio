@@ -118,13 +118,13 @@ export default function App() {
   const [joystickOffset, setJoystickOffset] = useState({ x: 0, y: 0 });
   const [joystickCenter, setJoystickCenter] = useState<{ x: number; y: number } | null>(null);
   const [joystickCurrent, setJoystickCurrent] = useState<{ x: number; y: number } | null>(null);
-  const [isPortrait, setIsPortrait] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Monitor screen orientation to prompt mobile landscape rotations
+  // Monitor screen width to show mobile layout fallback
   useEffect(() => {
     const checkOrientation = () => {
-      const portraitCheck = window.innerHeight > window.innerWidth && window.innerWidth < 1024;
-      setIsPortrait(portraitCheck);
+      const mobileCheck = window.innerWidth < 1024;
+      setIsMobile(mobileCheck);
     };
     checkOrientation();
     window.addEventListener('resize', checkOrientation);
@@ -623,17 +623,17 @@ export default function App() {
   return (
     <div className="relative w-screen h-screen flex flex-col justify-between overflow-hidden bg-[#070712] text-[#E8E8FF] select-none text-sans">
       
-      {/* 0. MOBILE PORTRAIT ORIENTATION FALLBACK ENFORCER */}
-      {isPortrait && (
+      {/* 0. MOBILE DEVICE FALLBACK ENFORCER */}
+      {isMobile && (
         <div className="fixed inset-0 bg-[#07070F] z-[100] flex flex-col items-center justify-center p-8 text-center select-none animate-fadeIn">
           <div className="w-16 h-16 mb-6 rounded-full bg-slate-900 border-2 border-dashed border-sky-400 flex items-center justify-center text-3xl animate-bounce">
             📱
           </div>
           <h2 className="text-[#38FEDE] text-sm font-bold uppercase tracking-widest mb-3 font-mono">
-            Rotate Your Phone to Start
+            Desktop Recommended
           </h2>
           <p className="text-[10px] text-slate-400 max-w-xs leading-relaxed font-mono uppercase tracking-[0.1em]">
-            Please rotate your phone to Landscape Mode to align ship panels and explore the spaceship crew mission!
+            I am currently working on the mobile responsive layout. For now, please use a desktop, laptop, or PC.
           </p>
         </div>
       )}
@@ -879,7 +879,7 @@ export default function App() {
             style={{ 
               width: '900px', 
               height: '800px', 
-              transform: `translate(calc(50vw - ${playerPos.x}px), calc(50vh - ${playerPos.y}px)) scale(${isPortrait ? 0.9 : 1.6})`,
+              transform: `translate(calc(50vw - ${playerPos.x}px), calc(50vh - ${playerPos.y}px)) scale(${isMobile ? 0.9 : 1.6})`,
               transformOrigin: `${playerPos.x}px ${playerPos.y}px`
             }}
           >
