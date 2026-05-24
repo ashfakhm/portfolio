@@ -1,21 +1,21 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 interface UseReactorTaskProps {
-  onComplete: () => void;
+	onComplete: () => void;
 }
 
 export function useReactorTask({ onComplete }: UseReactorTaskProps) {
-  const [reactorPower, setReactorPower] = useState(25);
+	const [reactorPower, setReactorPower] = useState(25);
 
-  const handleReactorAlignment = (val: number) => {
-    setReactorPower(val);
-    if (val === 100) {
-      onComplete();
-    }
-  };
+	const handleReactorAlignment = (val: number) => {
+		setReactorPower(val);
+		if (val === 100) {
+			onComplete();
+		}
+	};
 
-  return {
-    reactorPower,
-    handleReactorAlignment
-  };
+	return {
+		reactorPower,
+		handleReactorAlignment,
+	};
 }
