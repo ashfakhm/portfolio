@@ -209,6 +209,21 @@ export default function App() {
           playerColor={playerColor}
           playerHat={playerHat}
           onPlayAgain={() => {
+            useEngineStore.setState({
+              playerPos: { x: 450, y: 100 },
+              direction: "right",
+              playerMoving: false,
+              targetPos: null,
+              targetRoomPath: null,
+              nearestRoom: null,
+              nearVent: null,
+            });
+            useGameStore.setState({
+              completedTasks: {},
+              completedCount: 0,
+              showVictory: false,
+              chatOpen: false,
+            });
             sessionStorage.clear();
             window.location.reload();
           }}
