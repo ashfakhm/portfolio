@@ -1,7 +1,12 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import type { CrewmateColor, CrewmateHat } from "../components/CrewmateSprite";
-import { type ChatMessage, SPACESHIP_ROOMS } from "../gameConfig";
+import {
+	type ChatMessage,
+	createInitialCompletedTasks,
+	INITIAL_COMPLETED_TASKS,
+	SPACESHIP_ROOMS,
+} from "../gameConfig";
 import { synthSFX } from "../utils/sound";
 
 interface GameState {
@@ -56,6 +61,7 @@ interface GameState {
 	totalTasks: number;
 
 	startIntroSequence: () => void;
+	resetGameProgress: () => void;
 }
 
 export const useGameStore = create<GameState>()(
@@ -130,12 +136,13 @@ export const useGameStore = create<GameState>()(
 				})),
 
 			// Gameplay Tasks
-			completedTasks: {},
+			completedTasks: createInitialCompletedTasks(),
 			setCompletedTasks: (updater) =>
 				set((state) => {
 					const nextTasks =
 						typeof updater === "function" ? updater(state.completedTasks) : updater;
-					const completedCount = Object.keys(nextTasks).length;
+					const completedCount =
+						Object.values(nextTasks).filter(Boolean).length;
 					const totalTasks = Object.keys(SPACESHIP_ROOMS).length;
 
 					// Check victory condition
@@ -147,6 +154,16 @@ export const useGameStore = create<GameState>()(
 				}),
 			completedCount: 0,
 			totalTasks: Object.keys(SPACESHIP_ROOMS).length,
+
+			resetGameProgress: () =>
+				set({
+					completedTasks: createInitialCompletedTasks(),
+					completedCount: 0,
+					showVictory: false,
+					showTaskCompletedBanner: null,
+					openModalRoom: null,
+					chatOpen: false,
+				}),
 
 			startIntroSequence: () => {
 				set({ showCinematic: true });
@@ -165,6 +182,22 @@ export const useGameStore = create<GameState>()(
 				completedCount: state.completedCount,
 				totalTasks: state.totalTasks,
 			}),
+			merge: (persisted, current) => {
+				const saved = persisted as Partial<GameState> | undefined;
+				const mergedTasks = {
+					...INITIAL_COMPLETED_TASKS,
+					...(saved?.completedTasks ?? {}),
+				};
+				const completedCount =
+					Object.values(mergedTasks).filter(Boolean).length;
+				return {
+					...current,
+					...saved,
+					completedTasks: mergedTasks,
+					completedCount,
+					totalTasks: Object.keys(SPACESHIP_ROOMS).length,
+				};
+			},
 		},
 	),
 );

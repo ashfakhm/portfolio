@@ -83,7 +83,7 @@ export function useWeaponsTask({
 
 		setTimeout(() => {
 			setTargets((prev) => {
-				if (prev.length < 3 && asteroidsShotRef.current < 4) {
+				if (prev.length < 3 && asteroidsShotRef.current < 5) {
 					return [
 						...prev,
 						{

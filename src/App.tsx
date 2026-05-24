@@ -218,13 +218,8 @@ export default function App() {
               nearestRoom: null,
               nearVent: null,
             });
-            useGameStore.setState({
-              completedTasks: {},
-              completedCount: 0,
-              showVictory: false,
-              chatOpen: false,
-            });
-            sessionStorage.clear();
+            useGameStore.getState().resetGameProgress();
+            sessionStorage.removeItem("game-completed-tasks");
             window.location.reload();
           }}
         />

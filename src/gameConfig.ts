@@ -124,6 +124,16 @@ export const SPACESHIP_ROOMS: Record<string, RoomConfig> = {
 	},
 };
 
+/** All ship task rooms start incomplete so map TASK hints and HUD checkboxes work. */
+export const INITIAL_COMPLETED_TASKS: Record<string, boolean> =
+	Object.fromEntries(
+		Object.keys(SPACESHIP_ROOMS).map((roomId) => [roomId, false]),
+	);
+
+export function createInitialCompletedTasks(): Record<string, boolean> {
+	return { ...INITIAL_COMPLETED_TASKS };
+}
+
 // Floor vents coordinates for speed-vent crawling
 export const FLOATING_VENTS = [
 	{ id: "vent1", label: "Cafeteria Passage", rx: "cafeteria", x: 440, y: 100 },
