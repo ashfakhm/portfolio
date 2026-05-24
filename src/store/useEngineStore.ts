@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { INITIAL_DOORS, type RoomConfig } from "../gameConfig";
 
 interface EngineState {
@@ -47,65 +48,61 @@ interface EngineState {
 	setJoystickCurrent: (current: { x: number; y: number } | null) => void;
 }
 
-const getInitialPlayerPos = () => {
-	const saved = sessionStorage.getItem("playerPos");
-	if (saved) {
-		try {
-			return JSON.parse(saved);
-		} catch (_e) {}
-	}
-	return { x: 450, y: 100 };
-};
+export const useEngineStore = create<EngineState>()(
+	persist(
+		(set) => ({
+			// Player Position
+			playerPos: { x: 450, y: 100 },
+			setPlayerPos: (pos) => set({ playerPos: pos }),
+			direction: "right",
+			setDirection: (dir) => set({ direction: dir }),
+			playerMoving: false,
+			setPlayerMoving: (moving) => set({ playerMoving: moving }),
 
-export const useEngineStore = create<EngineState>((set) => ({
-	// Player Position
-	playerPos: getInitialPlayerPos(),
-	setPlayerPos: (pos) => {
-		sessionStorage.setItem("playerPos", JSON.stringify(pos));
-		set({ playerPos: pos });
-	},
-	direction: "right",
-	setDirection: (dir) => set({ direction: dir }),
-	playerMoving: false,
-	setPlayerMoving: (moving) => set({ playerMoving: moving }),
+			// Navigation
+			targetPos: null,
+			setTargetPos: (pos) => set({ targetPos: pos }),
+			targetRoomPath: null,
+			setTargetRoomPath: (path) => set({ targetRoomPath: path }),
 
-	// Navigation
-	targetPos: null,
-	setTargetPos: (pos) => set({ targetPos: pos }),
-	targetRoomPath: null,
-	setTargetRoomPath: (path) => set({ targetRoomPath: path }),
+			// Environment
+			doors: INITIAL_DOORS,
+			setDoors: (updater) =>
+				set((state) => ({
+					doors: typeof updater === "function" ? updater(state.doors) : updater,
+				})),
+			doorProgress: {
+				door1: 0,
+				door2: 0,
+				door3: 0,
+				door4: 0,
+				door5: 0,
+				door6: 0,
+			},
+			setDoorProgress: (updater) =>
+				set((state) => ({
+					doorProgress:
+						typeof updater === "function" ? updater(state.doorProgress) : updater,
+				})),
+			nearestRoom: null,
+			setNearestRoom: (room) => set({ nearestRoom: room }),
+			nearVent: null,
+			setNearVent: (vent) => set({ nearVent: vent }),
 
-	// Environment
-	doors: INITIAL_DOORS,
-	setDoors: (updater) =>
-		set((state) => ({
-			doors: typeof updater === "function" ? updater(state.doors) : updater,
-		})),
-	doorProgress: {
-		door1: 0,
-		door2: 0,
-		door3: 0,
-		door4: 0,
-		door5: 0,
-		door6: 0,
-	},
-	setDoorProgress: (updater) =>
-		set((state) => ({
-			doorProgress:
-				typeof updater === "function" ? updater(state.doorProgress) : updater,
-		})),
-	nearestRoom: null,
-	setNearestRoom: (room) => set({ nearestRoom: room }),
-	nearVent: null,
-	setNearVent: (vent) => set({ nearVent: vent }),
-
-	// Joystick
-	joystickActive: false,
-	setJoystickActive: (active) => set({ joystickActive: active }),
-	joystickOffset: { x: 0, y: 0 },
-	setJoystickOffset: (offset) => set({ joystickOffset: offset }),
-	joystickCenter: null,
-	setJoystickCenter: (center) => set({ joystickCenter: center }),
-	joystickCurrent: null,
-	setJoystickCurrent: (current) => set({ joystickCurrent: current }),
-}));
+			// Joystick
+			joystickActive: false,
+			setJoystickActive: (active) => set({ joystickActive: active }),
+			joystickOffset: { x: 0, y: 0 },
+			setJoystickOffset: (offset) => set({ joystickOffset: offset }),
+			joystickCenter: null,
+			setJoystickCenter: (center) => set({ joystickCenter: center }),
+			joystickCurrent: null,
+			setJoystickCurrent: (current) => set({ joystickCurrent: current }),
+		}),
+		{
+			name: "player-engine-storage",
+			storage: createJSONStorage(() => sessionStorage),
+			partialize: (state) => ({ playerPos: state.playerPos }),
+		},
+	),
+);
