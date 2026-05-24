@@ -428,24 +428,13 @@ export default function ThreeCrewmate({
 
     const mainHex = getColorHex(color);
 
-    // Update body & oxygen mesh materials
-    currentContext.bodyMesh.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        (child.material as THREE.MeshToonMaterial).color.setHex(mainHex);
-      }
-    });
-
-    currentContext.backpackMesh.material = new THREE.MeshToonMaterial({
-      color: mainHex,
-    });
-
-    currentContext.leftLegMesh.material = new THREE.MeshToonMaterial({
-      color: mainHex,
-    });
-
-    currentContext.rightLegMesh.material = new THREE.MeshToonMaterial({
-      color: mainHex,
-    });
+    // Body, backpack, and legs all share the same bodyMat instance initially.
+    // By updating color on bodyMesh.material directly, we update all meshes sharing it
+    // without instantiating new materials (which prevents GPU memory leaks).
+    const bodyMat = currentContext.bodyMesh.material as THREE.MeshToonMaterial;
+    if (bodyMat) {
+      bodyMat.color.setHex(mainHex);
+    }
 
     build3DHat(currentContext.hatGroup, hat);
   }, [color, hat]);

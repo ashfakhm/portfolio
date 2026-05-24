@@ -20,7 +20,10 @@ export function useWeaponsTask({
 			speedX: number;
 			speedY: number;
 		}[]
-	>([]);
+	>([
+		{ id: 1, x: 50, y: 50, speedX: 0.5, speedY: 0.5, size: 40 },
+		{ id: 2, x: 200, y: 100, speedX: -0.8, speedY: 0.3, size: 45 },
+	]);
 
 	const playLaser = () => synthSFX.playLaser();
 	const playSuccessTune = () => {
@@ -29,17 +32,12 @@ export function useWeaponsTask({
 		setTimeout(() => synthSFX.playTone(783.99, "sine", 0.5, 0.04), 200);
 	};
 
-	useEffect(() => {
-		if (asteroidsShot < 5) {
-			setTargets([
-				{ id: 1, x: 50, y: 50, speedX: 0.5, speedY: 0.5, size: 40 },
-				{ id: 2, x: 200, y: 100, speedX: -0.8, speedY: 0.3, size: 45 },
-			]);
-		}
-	}, [asteroidsShot]); // eslint-disable-line react-hooks/exhaustive-deps
+	const isGameFinished = isCompleted || asteroidsShot >= 5;
 
 	// Simple animation loop for targets
 	useEffect(() => {
+		if (isGameFinished) return;
+
 		let frameId: number;
 		const animateTargets = () => {
 			setTargets((prev) =>
@@ -63,20 +61,13 @@ export function useWeaponsTask({
 			);
 			frameId = requestAnimationFrame(animateTargets);
 		};
-		if (asteroidsShot < 5 && !isCompleted) {
-			frameId = requestAnimationFrame(animateTargets);
-		}
-		return () => cancelAnimationFrame(frameId);
-	}, [asteroidsShot, isCompleted]);
 
-	// Handle skip game via props
-	useEffect(() => {
-		if (isCompleted && asteroidsShot < 5) {
-			setAsteroidsShot(5);
-		}
-	}, [isCompleted, asteroidsShot]);
+		frameId = requestAnimationFrame(animateTargets);
+		return () => cancelAnimationFrame(frameId);
+	}, [isGameFinished]);
 
 	const shootTarget = (tId: number) => {
+		if (isGameFinished) return;
 		playLaser();
 		setTargets((prev) => prev.filter((tar) => tar.id !== tId));
 		setAsteroidsShot((prev) => {
@@ -112,5 +103,6 @@ export function useWeaponsTask({
 		asteroidsShot,
 		targets,
 		shootTarget,
+		isGameFinished,
 	};
 }

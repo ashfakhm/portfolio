@@ -1,3 +1,4 @@
+import { memo } from "react";
 import {
   FLOATING_VENTS,
   SPACESHIP_ROOMS,
@@ -18,7 +19,7 @@ interface HologramMapProps {
   setTargetRoomPath: (roomId: string | null) => void;
 }
 
-export function HologramMapView({
+export const HologramMapView = memo(function HologramMapView({
   playerPos,
   playerMoving,
   direction,
@@ -397,7 +398,7 @@ export function HologramMapView({
       </div>
     </div>
   );
-}
+});
 
 interface HologramMapContainerProps {
   initiateAutoWalkToRoom: (roomId: string) => void;

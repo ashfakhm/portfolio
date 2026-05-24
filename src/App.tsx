@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { CheckSquare } from "lucide-react";
 import { useShallow } from "zustand/react/shallow";
 import ChatSystem from "./components/ChatSystem";
@@ -92,7 +93,7 @@ export default function App() {
     setVentMapOpen,
   });
 
-  const handleMapClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const handleMapClick = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
     if (openModalRoom || ventMapOpen) return;
     const rect = (e.target as HTMLCanvasElement).getBoundingClientRect();
     if (!rect) return;
@@ -101,16 +102,16 @@ export default function App() {
     setTargetPos({ x: clickX, y: clickY });
     setTargetRoomPath(null);
     synthSFX.playBeep();
-  };
+  }, [openModalRoom, ventMapOpen, setTargetPos, setTargetRoomPath]);
 
-  const initiateAutoWalkToRoom = (roomId: string) => {
+  const initiateAutoWalkToRoom = useCallback((roomId: string) => {
     const targetRoom = SPACESHIP_ROOMS[roomId];
     if (!targetRoom) return;
     setShowHologramMap(false);
     setTargetPos({ x: targetRoom.cx, y: targetRoom.cy });
     setTargetRoomPath(roomId);
     synthSFX.playBeep();
-  };
+  }, [setShowHologramMap, setTargetPos, setTargetRoomPath]);
 
   return (
     <div className="relative w-screen h-screen flex flex-col justify-between overflow-hidden bg-app-bg text-text-main select-none text-sans">

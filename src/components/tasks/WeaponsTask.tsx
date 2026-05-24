@@ -10,14 +10,14 @@ export default function WeaponsTask({
 	onComplete,
 	isCompleted,
 }: WeaponsTaskProps) {
-	const { asteroidsShot, targets, shootTarget } = useWeaponsTask({
+	const { asteroidsShot, targets, shootTarget, isGameFinished } = useWeaponsTask({
 		isCompleted,
 		onComplete,
 	});
 
 	return (
 		<div className="flex-1 flex flex-col">
-			{asteroidsShot < 5 ? (
+			{!isGameFinished ? (
 				<div className="flex-1 flex flex-col items-center justify-center p-1 space-y-4">
 					<div className="text-[10px] text-gray-400 font-bold uppercase tracking-wider text-center">
 						DESTROY 5 INCOMING METEORS (SHOT: {asteroidsShot}/5)

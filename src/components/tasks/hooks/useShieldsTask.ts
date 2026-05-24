@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { synthSFX } from "../../../utils/sound";
 
 interface UseShieldsTaskProps {
@@ -26,13 +26,6 @@ export function useShieldsTask({
 		setTimeout(() => synthSFX.playTone(783.99, "sine", 0.5, 0.04), 200);
 	};
 
-	// Handle skip game via props
-	useEffect(() => {
-		if (isCompleted && shieldsState.includes(false)) {
-			setShieldsState([true, true, true, true, true, true]);
-		}
-	}, [isCompleted, shieldsState]);
-
 	const toggleShield = (idx: number) => {
 		playShieldClick();
 		setShieldsState((prev) => {
@@ -46,8 +39,12 @@ export function useShieldsTask({
 		});
 	};
 
+	const displayedShields = isCompleted
+		? [true, true, true, true, true, true]
+		: shieldsState;
+
 	return {
-		shieldsState,
+		shieldsState: displayedShields,
 		toggleShield,
 	};
 }
