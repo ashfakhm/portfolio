@@ -23,18 +23,21 @@ export function useCommsTask({ onComplete, isCompleted }: UseCommsTaskProps) {
 			timer = setInterval(() => {
 				setDownloadSpeed(Math.floor(Math.random() * 80) + 120); // 120-200 kB/s
 				setDownloadProgress((prev) => {
-					if (prev >= 100) {
-						clearInterval(timer);
-						setDownloadState("completed");
-						onComplete();
-						return 100;
-					}
-					return prev + 5;
+					const next = prev + 5;
+					return next >= 100 ? 100 : next;
 				});
 			}, 150);
 		}
 		return () => clearInterval(timer);
-	}, [downloadState, onComplete]);
+	}, [downloadState]);
+
+	// Separate effect to handle task completion side-effects cleanly
+	useEffect(() => {
+		if (downloadProgress >= 100 && downloadState === "downloading") {
+			setDownloadState("completed");
+			onComplete();
+		}
+	}, [downloadProgress, downloadState, onComplete]);
 
 	// Handle skip game via props
 	useEffect(() => {

@@ -109,7 +109,7 @@ export default function ReactorTask({
 								<div className="text-green-400">
 									NEXT_JS_EXPERTISE = 100/100
 								</div>
-								<div className="#38FEDE">WEBHOOKS_IDEMPOTENT = true</div>
+								<div className="text-[#38fede]">WEBHOOKS_IDEMPOTENT = true</div>
 								<div className="text-red-400">META_CERTIFIED = true</div>
 							</div>
 						</div>

@@ -28,16 +28,16 @@ export function useMedbayTask({ onComplete, isCompleted }: UseMedbayTaskProps) {
 				setScanProgress((prev) => {
 					const next = prev + 2;
 
-					if (next === 20) {
+					if (prev < 20 && next >= 20) {
 						setScanDiagnostics((d) => [...d, "STATION STATUS: EXCELLENT"]);
-					} else if (next === 45) {
+					} else if (prev < 45 && next >= 45) {
 						setScanDiagnostics((d) => [
 							...d,
 							"COMPILING DEGREE: BSC COMPUTER SCIENCE",
 						]);
-					} else if (next === 70) {
+					} else if (prev < 70 && next >= 70) {
 						setScanDiagnostics((d) => [...d, "ISSUER: FAROOK COLLEGE, KERALA"]);
-					} else if (next === 90) {
+					} else if (prev < 90 && next >= 90) {
 						setScanDiagnostics((d) => [
 							...d,
 							"VERIFYING CREDENTIAL: META FRONT-END PROFESSIONAL",
