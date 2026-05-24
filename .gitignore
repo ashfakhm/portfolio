@@ -8,3 +8,5 @@ coverage/
 !.env.example
 .claude/
 
+tasks/
+!src/components/tasks
