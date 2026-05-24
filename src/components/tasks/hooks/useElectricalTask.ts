@@ -44,18 +44,6 @@ export function useElectricalTask({
 		);
 	}, []);
 
-	// Handle skip game via props
-	useEffect(() => {
-		if (isCompleted && Object.keys(wireConnections).length < 4) {
-			setWireConnections({
-				red: "red",
-				blue: "blue",
-				yellow: "yellow",
-				pink: "pink",
-			});
-		}
-	}, [isCompleted, wireConnections]);
-
 	const handleLeftWireClick = (color: string) => {
 		playWireSpark();
 		setActiveWireDrag(color);
@@ -80,8 +68,12 @@ export function useElectricalTask({
 		}
 	};
 
+	const displayedConnections = isCompleted
+		? { red: "red", blue: "blue", yellow: "yellow", pink: "pink" }
+		: wireConnections;
+
 	return {
-		wireConnections,
+		wireConnections: displayedConnections,
 		activeWireDrag,
 		rightWireColors,
 		handleLeftWireClick,

@@ -192,6 +192,7 @@ export default function App() {
 
       {openModalRoom && (
         <TaskModal
+          key={openModalRoom}
           room={openModalRoom}
           playerColor={playerColor}
           onClose={handleModalClose}

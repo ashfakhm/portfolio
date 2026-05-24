@@ -59,19 +59,16 @@ export function useMedbayTask({ onComplete, isCompleted }: UseMedbayTaskProps) {
 		return () => clearInterval(timer);
 	}, [scanState, onComplete]);
 
-	// Handle skip game via props
-	useEffect(() => {
-		if (isCompleted && scanState !== "completed") {
-			setScanState("completed");
-			setScanProgress(100);
-			setScanDiagnostics(["BYPASS CRITICAL DATA LOCK", "QUALIFICATIONS SHOWN"]);
-		}
-	}, [isCompleted, scanState]);
+	const displayedProgress = isCompleted ? 100 : scanProgress;
+	const displayedState = isCompleted ? "completed" : scanState;
+	const displayedDiagnostics = isCompleted
+		? ["BYPASS CRITICAL DATA LOCK", "QUALIFICATIONS SHOWN"]
+		: scanDiagnostics;
 
 	return {
-		scanProgress,
-		scanDiagnostics,
-		scanState,
+		scanProgress: displayedProgress,
+		scanDiagnostics: displayedDiagnostics,
+		scanState: displayedState,
 		startScanning,
 	};
 }

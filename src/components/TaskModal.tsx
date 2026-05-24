@@ -24,12 +24,9 @@ export default function TaskModal({
 	onClose,
 	playerColor,
 }: TaskModalProps) {
-	const [taskCompleted, setTaskCompleted] = useState(false);
-
-	useEffect(() => {
-		// Reset completion status when room changes.
-		setTaskCompleted(room === "cafeteria" || room === "security");
-	}, [room]);
+	const [taskCompleted, setTaskCompleted] = useState(
+		room === "cafeteria" || room === "security",
+	);
 
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {

@@ -1,4 +1,4 @@
-import { type PointerEvent, useCallback, useEffect, useState } from "react";
+import { type PointerEvent, useCallback, useState } from "react";
 import { synthSFX } from "../../../utils/sound";
 
 export const NODES = [
@@ -36,16 +36,10 @@ export function useNavigationTask({
 		setTimeout(() => synthSFX.playTone(783.99, "sine", 0.5, 0.04), 200);
 	}, []);
 
-	// Handle skip game via props
-	useEffect(() => {
-		if (isCompleted && currentNodeIndex < NODES.length) {
-			setCurrentNodeIndex(NODES.length);
-			setShipPos({
-				x: NODES[NODES.length - 1].x,
-				y: NODES[NODES.length - 1].y,
-			});
-		}
-	}, [isCompleted, currentNodeIndex]);
+	const displayedNodeIndex = isCompleted ? NODES.length : currentNodeIndex;
+	const displayedShipPos = isCompleted
+		? { x: NODES[NODES.length - 1].x, y: NODES[NODES.length - 1].y }
+		: shipPos;
 
 	const updateShipPosition = (e: PointerEvent<HTMLDivElement>) => {
 		const rect = e.currentTarget.getBoundingClientRect();
@@ -114,8 +108,8 @@ export function useNavigationTask({
 	};
 
 	return {
-		currentNodeIndex,
-		shipPos,
+		currentNodeIndex: displayedNodeIndex,
+		shipPos: displayedShipPos,
 		isDragging,
 		handlePointerDown,
 		handlePointerMove,

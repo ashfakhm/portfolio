@@ -67,17 +67,12 @@ export function useStorageTask({
 		};
 	}, []);
 
-	// Handle skip game via props
-	useEffect(() => {
-		if (isCompleted && refuelState !== "completed") {
-			setRefuelState("completed");
-			setFuelLevel(100);
-		}
-	}, [isCompleted, refuelState]);
+	const displayedFuelLevel = isCompleted ? 100 : fuelLevel;
+	const displayedState = isCompleted ? "completed" : refuelState;
 
 	return {
-		fuelLevel,
-		refuelState,
+		fuelLevel: displayedFuelLevel,
+		refuelState: displayedState,
 		startRefueling,
 		stopRefueling,
 	};

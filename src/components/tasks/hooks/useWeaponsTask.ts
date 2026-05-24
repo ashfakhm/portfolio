@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { synthSFX } from "../../../utils/sound";
 
 interface UseWeaponsTaskProps {
@@ -11,6 +11,7 @@ export function useWeaponsTask({
 	onComplete,
 }: UseWeaponsTaskProps) {
 	const [asteroidsShot, setAsteroidsShot] = useState(0);
+	const asteroidsShotRef = useRef(0);
 	const [targets, setTargets] = useState<
 		{
 			id: number;
@@ -70,18 +71,19 @@ export function useWeaponsTask({
 		if (isGameFinished) return;
 		playLaser();
 		setTargets((prev) => prev.filter((tar) => tar.id !== tId));
-		setAsteroidsShot((prev) => {
-			const next = prev + 1;
-			if (next >= 5) {
-				onComplete();
-				playSuccessTune();
-			}
-			return next;
-		});
+		
+		const nextShot = asteroidsShotRef.current + 1;
+		asteroidsShotRef.current = nextShot;
+		setAsteroidsShot(nextShot);
+
+		if (nextShot >= 5) {
+			onComplete();
+			playSuccessTune();
+		}
 
 		setTimeout(() => {
 			setTargets((prev) => {
-				if (prev.length < 3 && asteroidsShot < 4) {
+				if (prev.length < 3 && asteroidsShotRef.current < 4) {
 					return [
 						...prev,
 						{
