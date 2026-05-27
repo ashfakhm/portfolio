@@ -5,7 +5,7 @@ declare global {
 }
 
 // Sound Manager class utilizing native browser Web Audio API Synthesizer (failsafe, no external file loads)
-export class SoundSynth {
+class SoundSynth {
 	public ctx: AudioContext | null = null;
 	public enabled = true;
 	private interacted = false;
@@ -25,7 +25,7 @@ export class SoundSynth {
 		};
 		window.addEventListener("click", unlock);
 		window.addEventListener("keydown", unlock);
-		window.addEventListener("touchstart", unlock);
+		window.addEventListener("touchstart", unlock, { passive: true });
 	}
 
 	public init() {

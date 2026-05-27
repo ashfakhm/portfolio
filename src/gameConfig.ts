@@ -208,7 +208,7 @@ export interface Obstacle {
 	type: "rect" | "circle";
 }
 
-export const STATIC_OBSTACLES: Obstacle[] = [
+const STATIC_OBSTACLES: Obstacle[] = [
 	// Cafeteria center table
 	{ type: "circle", x: 450, y: 150, r: 26 },
 	// Cafeteria other tables

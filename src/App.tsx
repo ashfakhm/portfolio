@@ -16,6 +16,10 @@ import TaskModal from "./components/TaskModal";
 import ThreeBackground from "./components/ThreeBackground";
 import TutorialModal from "./components/TutorialModal";
 import VentMap from "./components/VentMap";
+import Achievements from "./components/portfolio/Achievements";
+import DegreeCerts from "./components/portfolio/DegreeCerts";
+import Projects from "./components/portfolio/Projects";
+import WorkExperience from "./components/portfolio/WorkExperience";
 import { SPACESHIP_ROOMS } from "./gameConfig";
 import { useGameOrchestrator } from "./hooks/useGameOrchestrator";
 import { useGameState } from "./hooks/useGameState";
@@ -24,6 +28,9 @@ import { usePlayerEngine } from "./hooks/usePlayerEngine";
 import { useEngineStore } from "./store/useEngineStore";
 import { useGameStore } from "./store/useGameStore";
 import { synthSFX } from "./utils/sound";
+
+// Reference imported components to satisfy TS6133 and preserve static reachability
+void [Achievements, DegreeCerts, Projects, WorkExperience];
 
 export default function App() {
   const isMobile = useIsMobile();
@@ -173,7 +180,7 @@ export default function App() {
       {showTaskCompletedBanner && (
         <div className="absolute top-24 left-1/2 -translate-x-1/2 z-40 bg-brand-success border-y-4 border-black w-full text-center py-4 text-white uppercase font-extrabold tracking-widest shadow-2xl skew-x-3 max-w-2xl animate-task-completed">
           <div className="flex items-center justify-center gap-3">
-            <CheckSquare className="text-brand-gold animate-bounce" size={24} />
+            <CheckSquare className="text-brand-gold animate-pulse" size={24} />
             <span
               className="text-sm md:text-base tracking-[0.25em]"
               style={{

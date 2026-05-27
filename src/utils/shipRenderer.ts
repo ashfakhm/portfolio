@@ -250,6 +250,64 @@ export function drawShip(
 
 			ctx.fillStyle = "#455566";
 			ctx.fillRect(minX + 10, minY + 10, width - 20, height - 20);
+
+			// High fidelity metallic grid mesh lines
+			ctx.strokeStyle = "#34495e";
+			ctx.lineWidth = 1;
+			for (let x = minX + 30; x < maxX - 10; x += 25) {
+				ctx.beginPath();
+				ctx.moveTo(x, minY + 10);
+				ctx.lineTo(x, maxY - 10);
+				ctx.stroke();
+			}
+			for (let y = minY + 30; y < maxY - 10; y += 25) {
+				ctx.beginPath();
+				ctx.moveTo(minX + 10, y);
+				ctx.lineTo(maxX - 10, y);
+				ctx.stroke();
+			}
+
+			// Wall-mounted shield status computer panel
+			ctx.fillStyle = "#1c2833";
+			ctx.fillRect(maxX - 38, minY + 22, 24, 26);
+			ctx.strokeStyle = "#000000";
+			ctx.lineWidth = 2.5;
+			ctx.strokeRect(maxX - 38, minY + 22, 24, 26);
+
+			// Blue shield status graphic
+			ctx.fillStyle = "#1a1a2e";
+			ctx.fillRect(maxX - 34, minY + 26, 16, 10);
+			ctx.fillStyle = "#3498db";
+			ctx.fillRect(maxX - 32, minY + 28, 12, 6);
+			// Glowing scanner sweep line on terminal
+			ctx.strokeStyle = "#00ffff";
+			ctx.lineWidth = 1;
+			const sweep = (minY + 26) + ((Date.now() / 50) % 10);
+			ctx.beginPath();
+			ctx.moveTo(maxX - 34, sweep);
+			ctx.lineTo(maxX - 18, sweep);
+			ctx.stroke();
+
+			// Glowing pink shield energy cells in the corners of Shields room
+			const cells = [
+				{ x: minX + 25, y: minY + 25 },
+				{ x: minX + 25, y: maxY - 25 },
+				{ x: maxX - 25, y: maxY - 25 },
+			];
+			cells.forEach((cell) => {
+				ctx.fillStyle = "#2c3e50";
+				ctx.fillRect(cell.x - 8, cell.y - 8, 16, 16);
+				ctx.strokeStyle = "#000000";
+				ctx.lineWidth = 2;
+				ctx.strokeRect(cell.x - 8, cell.y - 8, 16, 16);
+
+				// Glowing core
+				const pulse = Math.abs(Math.sin(Date.now() / 300 + cell.x));
+				ctx.fillStyle = `rgba(255, 105, 180, ${0.4 + pulse * 0.6})`;
+				ctx.beginPath();
+				ctx.arc(cell.x, cell.y, 4, 0, Math.PI * 2);
+				ctx.fill();
+			});
 		} else if (room.id === "o2") {
 			// Soft white cream tiling
 			ctx.fillStyle = "#dee5e5";
@@ -691,6 +749,19 @@ export function drawShip(
 			// A small cyan strip on the block
 			ctx.fillStyle = "#00ffff";
 			ctx.fillRect(room.cx - 10, room.cy - 12, 20, 6);
+
+			// Emitter ring around Shields console
+			ctx.strokeStyle = "rgba(0, 255, 255, 0.25)";
+			ctx.lineWidth = 2.5;
+			ctx.beginPath();
+			ctx.arc(room.cx, room.cy, 35, 0, Math.PI * 2);
+			ctx.stroke();
+
+			// Extra control toggle switches (red and green indicator lights)
+			ctx.fillStyle = "#e74c3c";
+			ctx.fillRect(room.cx - 12, room.cy + 6, 6, 6);
+			ctx.fillStyle = "#2ecc71";
+			ctx.fillRect(room.cx + 6, room.cy + 6, 6, 6);
 		} else if (room.id === "weapons") {
 			// Artillery Seating / Desk Console near center
 			ctx.fillStyle = "#2c3e50";

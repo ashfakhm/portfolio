@@ -26,20 +26,20 @@ export function usePlayerEngine({
   ventMapOpen,
   ventingStatus,
   triggerModal,
-  setShowHologramMap,
-  setVentMapOpen,
+  setShowHologramMap: toggleHologramMap,
+  setVentMapOpen: toggleVentMapOpen,
 }: UsePlayerEngineProps) {
   // Actions are stable and safe to read once from getState()
   const {
-    setPlayerPos,
-    setDirection,
-    setPlayerMoving,
-    setTargetPos,
-    setTargetRoomPath,
-    setDoors,
-    setDoorProgress,
-    setNearestRoom,
-    setNearVent,
+    setPlayerPos: updatePlayerPos,
+    setDirection: updateDirection,
+    setPlayerMoving: updatePlayerMoving,
+    setTargetPos: updateTargetPos,
+    setTargetRoomPath: updateTargetRoomPath,
+    setDoors: updateDoors,
+    setDoorProgress: updateDoorProgress,
+    setNearestRoom: updateNearestRoom,
+    setNearVent: updateNearVent,
   } = useEngineStore.getState();
 
   const frameIdRef = useRef<number>(0);
@@ -55,7 +55,7 @@ export function usePlayerEngine({
     if (showCinematic) return;
 
     const interval = setInterval(() => {
-      setDoors((prevDoors) => {
+      updateDoors((prevDoors) => {
         let changed = false;
         const currentPos = useEngineStore.getState().playerPos;
         const nextDoors = prevDoors.map((door) => {
@@ -78,7 +78,7 @@ export function usePlayerEngine({
         return changed ? nextDoors : prevDoors;
       });
 
-      setDoorProgress((prev) => {
+      updateDoorProgress((prev) => {
         const next = { ...prev };
         let changed = false;
         const currentDoors = useEngineStore.getState().doors;
@@ -100,12 +100,12 @@ export function usePlayerEngine({
     }, GameConstants.DOORS.ANIMATION_INTERVAL_MS);
 
     return () => clearInterval(interval);
-  }, [showCinematic, setDoorProgress, setDoors]);
+  }, [showCinematic, updateDoorProgress, updateDoors]);
 
   useEffect(() => {
     if (showCinematic || openModalRoom || ventMapOpen) {
       keysActiveRef.current = {};
-      setPlayerMoving(false);
+      updatePlayerMoving(false);
       return;
     }
 
@@ -122,8 +122,8 @@ export function usePlayerEngine({
       ];
       if (walkKeys.includes(e.key.toLowerCase())) {
         keysActiveRef.current[e.key.toLowerCase()] = true;
-        setTargetPos(null);
-        setTargetRoomPath(null);
+        updateTargetPos(null);
+        updateTargetRoomPath(null);
       }
 
       const engineState = useEngineStore.getState();
@@ -141,13 +141,13 @@ export function usePlayerEngine({
         ventingStatusRef.current === "idle"
       ) {
         e.preventDefault();
-        setVentMapOpen(true);
+        toggleVentMapOpen(true);
         synthSFX.playBeep();
       }
 
       if (e.key.toLowerCase() === "m" || e.key === "Tab") {
         e.preventDefault();
-        setShowHologramMap(!useGameStore.getState().showHologramMap);
+        toggleHologramMap(!useGameStore.getState().showHologramMap);
         synthSFX.playBeep();
       }
     };
@@ -227,8 +227,8 @@ export function usePlayerEngine({
         currentX = nextX;
         currentY = nextY;
 
-        if (dx < 0) setDirection("left");
-        else if (dx > 0) setDirection("right");
+        if (dx < 0) updateDirection("left");
+        else if (dx > 0) updateDirection("right");
       } else if (engineState.targetPos) {
         const distToTargetX = engineState.targetPos.x - engineState.playerPos.x;
         const distToTargetY = engineState.targetPos.y - engineState.playerPos.y;
@@ -277,20 +277,20 @@ export function usePlayerEngine({
             nextX === engineState.playerPos.x &&
             nextY === engineState.playerPos.y
           ) {
-            setTargetPos(null);
-            setTargetRoomPath(null);
+            updateTargetPos(null);
+            updateTargetRoomPath(null);
           } else {
             currentX = nextX;
             currentY = nextY;
           }
 
-          if (distToTargetX < 0) setDirection("left");
-          else setDirection("right");
+          if (distToTargetX < 0) updateDirection("left");
+          else updateDirection("right");
         } else {
-          setTargetPos(null);
+          updateTargetPos(null);
           if (engineState.targetRoomPath) {
             triggerModal(engineState.targetRoomPath);
-            setTargetRoomPath(null);
+            updateTargetRoomPath(null);
           }
         }
       }
@@ -305,8 +305,8 @@ export function usePlayerEngine({
           Math.min(GameConstants.MOVEMENT.BOUNDS.MAX_Y, currentY),
         );
 
-        setPlayerPos({ x: currentX, y: currentY });
-        setPlayerMoving(true);
+        updatePlayerPos({ x: currentX, y: currentY });
+        updatePlayerMoving(true);
 
         const nowTime = Date.now();
         if (
@@ -317,7 +317,7 @@ export function usePlayerEngine({
           lastStepTimeRef.current = nowTime;
         }
       } else {
-        setPlayerMoving(false);
+        updatePlayerMoving(false);
       }
 
       let closestRoom: RoomConfig | null = null;
@@ -334,7 +334,7 @@ export function usePlayerEngine({
       }
 
       if (engineState.nearestRoom?.id !== closestRoom?.id) {
-        setNearestRoom(closestRoom);
+        updateNearestRoom(closestRoom);
       }
 
       let nearestVent: (typeof FLOATING_VENTS)[number] | null = null;
@@ -347,7 +347,7 @@ export function usePlayerEngine({
         }
       }
       if (engineState.nearVent?.id !== nearestVent?.id) {
-        setNearVent(nearestVent);
+        updateNearVent(nearestVent);
       }
 
       frameIdRef.current = requestAnimationFrame(tickMovement);
@@ -365,15 +365,15 @@ export function usePlayerEngine({
     openModalRoom,
     ventMapOpen,
     triggerModal,
-    setShowHologramMap,
-    setVentMapOpen,
-    setNearVent,
-    setTargetRoomPath,
-    setNearestRoom,
-    setTargetPos,
-    setPlayerPos,
-    setPlayerMoving,
-    setDirection,
+    toggleHologramMap,
+    toggleVentMapOpen,
+    updateNearVent,
+    updateTargetRoomPath,
+    updateNearestRoom,
+    updateTargetPos,
+    updatePlayerPos,
+    updatePlayerMoving,
+    updateDirection,
   ]);
 
   return null;
