@@ -13,7 +13,7 @@ export default function CinematicSplash() {
 			{showCinematic && (
 				<div className="absolute inset-0 z-50 bg-[#000] flex flex-col items-center justify-center text-center p-6 select-none transition-all overflow-hidden">
 					{/* STAGE 1: THE ACCLAIMED "SHH!" RED SCREEN WITH GLOW CIRCLE */}
-					<div className="flex flex-col items-center justify-center space-y-6 max-w-xl animate-scaleIn">
+					<div className="flex flex-col items-center justify-center gap-6 max-w-xl animate-scaleIn">
 						<div
 							className="text-[#ff1c1c] text-6xl md:text-8xl font-black uppercase tracking-widest animate-shake-big"
 							style={{
@@ -27,7 +27,7 @@ export default function CinematicSplash() {
 						{/* Crewmate putting a white gloved finger in front of visor outline */}
 						<div className="my-10 relative flex items-center justify-center transform scale-125 drop-shadow-[0_0_22px_rgba(239,68,68,0.7)]">
 							{/* Spotlight background glow circle */}
-							<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] rounded-full bg-slate-400/20 blur-xl z-0"></div>
+							<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 size-[180px] rounded-full bg-slate-400/20 blur-xl z-0"></div>
 
 							<div className="relative z-10">
 								<CrewmateSprite
@@ -91,13 +91,21 @@ export default function CinematicSplash() {
 			{/* 3. IMPOSTOR RED JUMPSCARE ALERTER */}
 			{/* ==================================================== */}
 			{showImpostorAlert && (
-				<div
+				<button
+					type="button"
+					aria-label="Dismiss jumpscare alert"
 					onClick={() => setShowImpostorAlert(false)}
-					className="absolute inset-0 z-50 bg-[#c51111ee] animate-pulse flex flex-col items-center justify-center text-center cursor-pointer p-4 transition-all"
+					onKeyDown={(e) => {
+						if (e.key === "Enter" || e.key === " ") {
+							e.preventDefault();
+							setShowImpostorAlert(false);
+						}
+					}}
+					className="absolute inset-0 w-full h-full z-50 bg-[#c51111ee] animate-pulse flex flex-col items-center justify-center text-center cursor-pointer p-4 transition-all focus:outline-none border-none outline-none"
 				>
-					<div className="space-y-5 flex flex-col items-center justify-center animate-bounce">
+					<div className="gap-5 flex flex-col items-center justify-center animate-pulse">
 						<AlertTriangle
-							className="text-white mx-auto drop-shadow-lg"
+							className="text-white mx-auto drop-shadow-lg animate-pulse"
 							size={56}
 						/>
 						<h1
@@ -110,10 +118,10 @@ export default function CinematicSplash() {
 							BOOGEYMAN IS COMING!
 						</h1>
 						<p className="font-mono text-xs tracking-widest text-red-200 uppercase pt-2 bg-black/40 px-4 py-2 rounded-lg border border-red-500/30 backdrop-blur-sm">
-							The Boogeyman has infiltrated the ship. Tap to resume!
+							The Boogeyman has infiltrated the ship. Tap or press enter to resume!
 						</p>
 					</div>
-				</div>
+				</button>
 			)}
 		</>
 	);

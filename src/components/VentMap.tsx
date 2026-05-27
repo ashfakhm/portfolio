@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { FLOATING_VENTS } from "../gameConfig";
 import { useShallow } from "zustand/react/shallow";
 import { useGameStore } from "../store/useGameStore";
@@ -9,22 +9,25 @@ interface VentMapProps {
   triggerVentTravel: (targetRoomId: string) => void;
 }
 
-export function VentMapView({
+function VentMapView({
   isOpen,
   onClose,
   triggerVentTravel,
 }: VentMapProps) {
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        onClose();
+        onCloseRef.current();
       }
     };
     if (isOpen) {
       window.addEventListener("keydown", handleKeyDown);
     }
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -45,6 +48,7 @@ export function VentMapView({
           {FLOATING_VENTS.map((v) => (
             <button
               key={v.id}
+              type="button"
               onClick={() => triggerVentTravel(v.rx)}
               className="p-3 bg-[#0a0a16] hover:bg-[#38FEDE]/10 border-2 border-slate-800 hover:border-[#38FEDE] text-white hover:text-[#38FEDE] rounded transition-all cursor-pointer font-bold flex flex-col items-center"
             >
@@ -57,6 +61,7 @@ export function VentMapView({
         </div>
 
         <button
+          type="button"
           onClick={onClose}
           className="mt-4 text-[10px] text-gray-500 underline hover:text-white cursor-pointer"
         >

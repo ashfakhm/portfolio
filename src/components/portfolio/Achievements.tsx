@@ -1,9 +1,9 @@
 export default function Achievements() {
 	return (
 		<div className="flex-1 flex flex-col gap-4 animate-fadeIn">
-			<div className="bg-amber-500/5 backdrop-blur-md border border-amber-500/20 shadow-[0_0_20px_rgba(245,158,11,0.15)] p-4 rounded-xl shadow-lg border-l-4 border-l-amber-500 flex items-center justify-between">
+			<div className="bg-amber-500/5 backdrop-blur-md border border-amber-500/20 shadow-[0_0_20px_rgba(245,158,11,0.15)] p-4 rounded-xl shadow-lg flex items-center justify-between">
 				<div className="flex items-center gap-3">
-					<div className="w-3 h-3 rounded-full bg-amber-500 animate-pulse" />
+					<div className="size-3 rounded-full bg-amber-500 animate-pulse" />
 					<span className="font-bold text-amber-400 font-mono tracking-widest text-sm">
 						ARCHIVE RECORDS OPENED
 					</span>

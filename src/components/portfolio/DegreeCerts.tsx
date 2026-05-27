@@ -3,9 +3,9 @@ import { Award, BookOpen } from "lucide-react";
 export default function DegreeCerts() {
 	return (
 		<div className="flex-1 flex flex-col gap-4 animate-fadeIn">
-			<div className="bg-emerald-500/5 backdrop-blur-md border border-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.15)] p-4 rounded-xl shadow-lg border-l-4 border-l-emerald-500 flex items-center justify-between">
+			<div className="bg-emerald-500/5 backdrop-blur-md border border-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.15)] p-4 rounded-xl shadow-lg flex items-center justify-between">
 				<div className="flex items-center gap-3">
-					<div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
+					<div className="size-3 rounded-full bg-emerald-500 animate-pulse" />
 					<span className="font-bold text-emerald-400 font-mono tracking-widest text-sm">
 						BIO-SCAN PASSED: CREDENTIALS VERIFIED
 					</span>
@@ -59,7 +59,7 @@ export default function DegreeCerts() {
 
 					<div className="mt-6 pt-3 border-t border-emerald-500/10 text-[10px] text-emerald-400 font-bold tracking-widest uppercase flex items-center justify-between">
 						<div className="flex items-center gap-2">
-							<span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+							<span className="size-2 bg-emerald-500 rounded-full animate-pulse" />
 							STATUS: VALIDATED
 						</div>
 					</div>
@@ -115,7 +115,7 @@ export default function DegreeCerts() {
 
 					<div className="mt-6 pt-3 border-t border-blue-500/10 text-[10px] text-blue-400 font-bold tracking-widest uppercase flex items-center justify-between">
 						<div className="flex items-center gap-2">
-							<span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+							<span className="size-2 bg-blue-500 rounded-full animate-pulse" />
 							AUTHENTIC CREDENTIAL LOGGED
 						</div>
 					</div>

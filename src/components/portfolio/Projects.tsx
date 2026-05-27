@@ -1,9 +1,9 @@
 export default function Projects() {
 	return (
 		<div className="flex-1 flex flex-col gap-4 animate-fadeIn">
-			<div className="bg-rose-500/5 backdrop-blur-md border border-rose-500/20 shadow-[0_0_20px_rgba(244,63,94,0.15)] p-4 rounded-xl shadow-lg border-l-4 border-l-rose-500 flex items-center justify-between">
+			<div className="bg-rose-500/5 backdrop-blur-md border border-rose-500/20 shadow-[0_0_20px_rgba(244,63,94,0.15)] p-4 rounded-xl shadow-lg flex items-center justify-between">
 				<div className="flex items-center gap-3">
-					<div className="w-3 h-3 rounded-full bg-rose-500 animate-pulse" />
+					<div className="size-3 rounded-full bg-rose-500 animate-pulse" />
 					<span className="font-bold text-rose-400 font-mono tracking-widest text-sm">
 						PROJECT CATALOG
 					</span>

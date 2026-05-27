@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { synthSFX } from "../utils/sound";
 
 interface TutorialModalProps {
@@ -8,35 +8,49 @@ interface TutorialModalProps {
 }
 
 export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
-	const [isMobileDevice, setIsMobileDevice] = useState(false);
+	const [isMobileDevice, setIsMobileDevice] = useState(() => {
+		if (typeof window === "undefined") return false;
+		const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+		const isSmallScreen = window.innerWidth < 1024;
+		return isTouch || isSmallScreen;
+	});
+
+	const isPermanentlyMinimizedRef = useRef(
+		typeof window !== "undefined" && localStorage.getItem("tutorialMinimized") === "true"
+	);
+
 	const [isMinimized, setIsMinimized] = useState(() => {
-		return localStorage.getItem("tutorialMinimized") === "true";
+		return isPermanentlyMinimizedRef.current;
 	});
 
 	useEffect(() => {
-		// Detect typical touch / mobile dimensions
 		const checkMobile = () => {
 			const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 			const isSmallScreen = window.innerWidth < 1024;
 			setIsMobileDevice(isTouch || isSmallScreen);
 		};
-		checkMobile();
 		window.addEventListener("resize", checkMobile);
 		return () => window.removeEventListener("resize", checkMobile);
 	}, []);
 
-	// Minimize slowly after presentation if not permanently dismissed
-	useEffect(() => {
+	const prevIsOpenRef = useRef<boolean | null>(null);
+	if (isOpen !== prevIsOpenRef.current) {
+		prevIsOpenRef.current = isOpen;
 		if (isOpen) {
-			const isPermanentlyMinimized =
-				localStorage.getItem("tutorialMinimized") === "true";
-			if (!isPermanentlyMinimized) {
+			if (!isPermanentlyMinimizedRef.current) {
 				setIsMinimized(false);
+			}
+		}
+	}
+
+	useEffect(() => {
+		if (isOpen && !isMinimized) {
+			if (!isPermanentlyMinimizedRef.current) {
 				const t = setTimeout(() => setIsMinimized(true), 8000);
 				return () => clearTimeout(t);
 			}
 		}
-	}, [isOpen]);
+	}, [isOpen, isMinimized]);
 
 	if (!isOpen) return null;
 
@@ -50,31 +64,37 @@ export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
 				<div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-[#3a3a5e] via-[#38FEDE] to-[#3a3a5e]" />
 
 				{/* Header (Always Visible) */}
-				<div
-					className="flex items-center justify-between p-3 cursor-pointer bg-slate-900/50 hover:bg-slate-800/50 transition-colors"
-					onClick={() => {
-						const next = !isMinimized;
-						setIsMinimized(next);
-						localStorage.setItem("tutorialMinimized", String(next));
-					}}
-				>
-					<div className="flex items-center gap-2 flex-1">
-						<span className="text-lg animate-bounce">🎮</span>
-						<div
-							className="text-[#38FEDE] text-[10px] font-black uppercase tracking-widest"
-							style={{ fontFamily: '"Press Start 2P"' }}
-						>
-							CO-PILOT MANUAL
+				<div className="flex items-center justify-between bg-slate-900/50 hover:bg-slate-800/50 transition-colors">
+					<button
+						type="button"
+						aria-label={isMinimized ? "Expand tutorial manual" : "Minimize tutorial manual"}
+						className="flex-1 flex items-center justify-between p-3 text-left border-none bg-transparent hover:bg-white/5 transition-colors cursor-pointer"
+						onClick={() => {
+							const next = !isMinimized;
+							setIsMinimized(next);
+							localStorage.setItem("tutorialMinimized", String(next));
+							isPermanentlyMinimizedRef.current = next;
+						}}
+					>
+						<div className="flex items-center gap-2 flex-1">
+							<span className="text-lg animate-pulse">🎮</span>
+							<div
+								className="text-[#38FEDE] text-[10px] font-black uppercase tracking-widest"
+								style={{ fontFamily: '"Press Start 2P"' }}
+							>
+								CO-PILOT MANUAL
+							</div>
 						</div>
-					</div>
-					<div className="flex items-center gap-1">
+					</button>
+					<div className="p-3">
 						<button
-							onClick={(e) => {
-								e.stopPropagation();
+							type="button"
+							onClick={() => {
 								onClose();
 								synthSFX.playBeep();
 							}}
-							className="text-slate-400 hover:text-white hover:bg-rose-500/20 p-1 rounded transition-colors"
+							aria-label="Close tutorial manual"
+							className="text-white hover:text-white hover:bg-rose-500/20 p-1 rounded transition-colors cursor-pointer"
 						>
 							<X size={14} />
 						</button>
@@ -83,15 +103,15 @@ export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
 
 				{/* Body (Hidden when minimized) */}
 				{!isMinimized && (
-					<div className="flex-1 p-4 pt-0 space-y-4 text-xs font-mono text-slate-300 overflow-y-auto mt-2 custom-scrollbar">
+					<div className="flex-1 p-4 pt-0 gap-4 text-xs font-mono text-slate-300 overflow-y-auto mt-2 custom-scrollbar">
 						<p className="text-[9px] text-[#38FEDE] uppercase tracking-wider font-bold select-none leading-relaxed">
 							The Boogeyman is coming to kill you! Finish your tasks quickly. If
 							you finish them all, you win. Otherwise, the Boogeyman wins!
 						</p>
 
 						{/* Grid content */}
-						<div className="space-y-3 text-left">
-							<div className="bg-[#141724] border border-slate-700 p-2.5 rounded space-y-1.5 flex gap-2.5">
+						<div className="gap-3 text-left">
+							<div className="bg-[#141724] border border-slate-700 p-2.5 rounded gap-1.5 flex gap-2.5">
 								<div className="text-lg">🕹️</div>
 								<div className="flex-1">
 									<div className="font-bold text-white uppercase text-[#ffd700] tracking-wider text-[10px] font-sans border-b border-slate-700 pb-1 mb-1.5">
@@ -160,7 +180,7 @@ export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
 								</div>
 							</div>
 
-							<div className="bg-[#141724] border border-slate-700 p-2.5 rounded space-y-1.5 flex gap-2.5">
+							<div className="bg-[#141724] border border-slate-700 p-2.5 rounded gap-1.5 flex gap-2.5">
 								<div className="text-lg">🚀</div>
 								<div className="flex-1">
 									<div className="font-bold text-white uppercase text-[#ffd700] tracking-wider text-[10px] font-sans border-b border-slate-700 pb-1 mb-1.5">
@@ -190,7 +210,7 @@ export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
 								</div>
 							</div>
 
-							<div className="bg-[#141724] border border-slate-700 p-2.5 rounded space-y-1.5 flex gap-2.5">
+							<div className="bg-[#141724] border border-slate-700 p-2.5 rounded gap-1.5 flex gap-2.5">
 								<div className="text-lg">🚇</div>
 								<div className="flex-1">
 									<div className="font-bold text-white uppercase text-[#ffd700] tracking-wider text-[10px] font-sans border-b border-slate-700 pb-1 mb-1.5">
@@ -222,6 +242,7 @@ export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
 						{/* Horizontal Confirm Bar */}
 						<div className="mt-4 pb-2">
 							<button
+								type="button"
 								onClick={(e) => {
 									e.stopPropagation();
 									setIsMinimized(true);

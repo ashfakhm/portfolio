@@ -5,7 +5,7 @@ import type { ChatMessage } from "../gameConfig";
 import { useShallow } from "zustand/react/shallow";
 import { useGameStore } from "../store/useGameStore";
 import { synthSFX } from "../utils/sound";
-import { CREWMATE_COLORS, type CrewmateColor } from "./CrewmateSprite";
+import { CREWMATE_COLORS, type CrewmateColor } from "./CrewmateTypes";
 
 const chatPresets = [
   { text: "Who is the Boogeyman?", q: "impostor" },
@@ -136,8 +136,10 @@ export default function ChatSystem() {
           💬 COCKPIT CREW LOGS
         </span>
         <button
+          type="button"
           onClick={() => setChatOpen(false)}
           className="text-gray-400 hover:text-white"
+          aria-label="Close chat"
         >
           <X size={16} />
         </button>
@@ -158,15 +160,15 @@ export default function ChatSystem() {
             {!msg.isSystem && (
               <div className="flex items-center gap-1 font-bold mb-0.5">
                 <span
-                  className="w-1.5 h-1.5 rounded-full"
+                  className="size-1.5 rounded-full"
                   style={{
                     backgroundColor:
-                      CREWMATE_COLORS[msg.senderColor]?.fill || "#FFF",
+                      CREWMATE_COLORS[msg.senderColor as CrewmateColor]?.fill || "#FFF",
                   }}
                 />
                 <span
                   style={{
-                    color: CREWMATE_COLORS[msg.senderColor]?.fill || "#FFF",
+                    color: CREWMATE_COLORS[msg.senderColor as CrewmateColor]?.fill || "#FFF",
                   }}
                 >
                   {msg.senderName}
@@ -185,9 +187,10 @@ export default function ChatSystem() {
           Preset Crew Messages:
         </span>
         <div className="grid grid-cols-2 gap-1 text-[9px]">
-          {chatPresets.map((p, idx) => (
+          {chatPresets.map((p) => (
             <button
-              key={idx}
+              key={p.q}
+              type="button"
               onClick={() => handleSendPreset(p)}
               className="p-1.5 border border-white/5 hover:border-brand-blue/50 bg-white/5 hover:bg-white/10 rounded-md text-slate-300 text-left truncate cursor-pointer transition-all hover:text-white flex items-center gap-1"
             >
@@ -206,6 +209,7 @@ export default function ChatSystem() {
           value={customMessage}
           onChange={(e) => setCustomMessage(e.target.value)}
           placeholder="Send coordinate log..."
+          aria-label="Send coordinate log"
           className="flex-1 bg-black/50 border border-white/10 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-brand-blue focus:bg-white/5 transition-colors"
         />
         <button

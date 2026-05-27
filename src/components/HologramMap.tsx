@@ -19,7 +19,7 @@ interface HologramMapProps {
   setTargetRoomPath: (roomId: string | null) => void;
 }
 
-export const HologramMapView = memo(function HologramMapView({
+const HologramMapView = memo(function HologramMapView({
   playerPos,
   playerMoving,
   direction,
@@ -57,11 +57,13 @@ export const HologramMapView = memo(function HologramMapView({
       >
         {/* Signature Red Exit Button */}
         <button
+          type="button"
           onClick={() => {
             setShowHologramMap(false);
             synthSFX.playBeep();
           }}
-          className="absolute -top-3 -right-3 w-12 h-12 bg-[#dc2626] hover:bg-[#ef4444] text-white rounded-full border-4 border-black flex items-center justify-center font-black text-xl cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-[0_4px_0_#000] active:translate-y-1 active:shadow-none z-50 text-center select-none animate-bounce"
+          aria-label="Close hologram map"
+          className="absolute -top-3 -right-3 size-12 bg-[#dc2626] hover:bg-[#ef4444] text-white rounded-full border-4 border-black flex items-center justify-center font-black text-xl cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-[0_4px_0_#000] active:translate-y-1 active:shadow-none z-50 text-center select-none animate-pulse"
           style={{ fontFamily: '"Press Start 2P"' }}
         >
           X
@@ -70,7 +72,7 @@ export const HologramMapView = memo(function HologramMapView({
         {/* Header branding */}
         <div className="w-full flex items-center justify-between border-b-4 border-black pb-2.5 mb-1.5 bg-[#0e121d] px-4 py-2 rounded-xl">
           <div className="flex items-center gap-3">
-            <div className="w-3.5 h-3.5 rounded-full bg-green-500 animate-pulse border-2 border-black" />
+            <div className="size-3.5 rounded-full bg-green-500 animate-pulse border-2 border-black" />
             <h3
               className="text-[10px] md:text-xs font-extrabold text-[#e2e8f0] tracking-widest uppercase"
               style={{ fontFamily: '"Press Start 2P"' }}
@@ -110,102 +112,108 @@ export const HologramMapView = memo(function HologramMapView({
               </defs>
 
               {/* 1. DRAW COUMMUNICATION HALWAYS / CORRIDORS FIRST */}
-              {WALKABLE_REGIONS.filter((region) => !region.name).map(
-                (hall, idx) => (
-                  <rect
-                    key={`hall-${idx}`}
-                    x={hall.x}
-                    y={hall.y}
-                    width={hall.w}
-                    height={hall.h}
-                    fill="#202a3d"
-                    stroke="#000000"
-                    strokeWidth={5}
-                    strokeLinejoin="round"
-                  />
-                ),
-              )}
-
-              {/* 2. DRAW ROOM CHAMBERS ON TOP */}
-              {WALKABLE_REGIONS.filter((region) => region.name).map((room) => {
-                const roomId = room.name!;
-                const isTaskRoom = completedTasks[roomId] !== undefined;
-                const isDone = isTaskRoom ? completedTasks[roomId] : true;
-
-                // Style rooms based on their completion status
-                let roomFill = "#2d3a52"; // default iron grey
-                if (isTaskRoom) {
-                  roomFill = isDone ? "#1c2b1e" : "#2d3a52"; // Green hue if done
-                }
-
-                return (
-                  <g
-                    key={`room-group-${roomId}`}
-                    className="map-room-group cursor-pointer"
-                    onClick={() => {
-                      if (SPACESHIP_ROOMS[roomId]) {
-                        initiateAutoWalkToRoom(roomId);
-                      } else {
-                        // Dynamic midpoint auto walk for custom sections
-                        const cx = Math.floor(room.x + room.w / 2);
-                        const cy = Math.floor(room.y + room.h / 2);
-                        setTargetPos({ x: cx, y: cy });
-                        setTargetRoomPath(roomId);
-                        setShowHologramMap(false);
-                        synthSFX.playBeep();
-                      }
-                    }}
-                  >
-                    {/* Shadow base room card */}
+              {WALKABLE_REGIONS.reduce<React.ReactNode[]>((acc, hall, idx) => {
+                if (!hall.name) {
+                  acc.push(
                     <rect
-                      x={room.x}
-                      y={room.y}
-                      width={room.w}
-                      height={room.h}
-                      rx={10}
-                      ry={10}
-                      fill="#000000"
-                    />
-                    {/* Core room block */}
-                    <rect
-                      x={room.x}
-                      y={room.y}
-                      width={room.w}
-                      height={room.h}
-                      rx={8}
-                      ry={8}
-                      className="map-room-rect"
-                      fill={roomFill}
+                      key={`hall-${idx}`}
+                      x={hall.x}
+                      y={hall.y}
+                      width={hall.w}
+                      height={hall.h}
+                      fill="#202a3d"
                       stroke="#000000"
                       strokeWidth={5}
                       strokeLinejoin="round"
                     />
-                    {/* Metallic gloss highlight inside card */}
-                    <rect
-                      x={room.x + 4}
-                      y={room.y + 4}
-                      width={room.w - 8}
-                      height={room.h - 8}
-                      rx={6}
-                      ry={6}
-                      fill="none"
-                      stroke="rgba(255, 255, 255, 0.04)"
-                      strokeWidth={1.5}
-                    />
+                  );
+                }
+                return acc;
+              }, [])}
 
-                    {/* Interactive glow hint on hover */}
-                    <text
-                      x={room.x + room.w - 18}
-                      y={room.y + 18}
-                      className="opacity-0 group-hover:opacity-100 fill-[#38FEDE] text-[8px] font-bold"
-                      textAnchor="end"
-                      dominantBaseline="central"
+              {/* 2. DRAW ROOM CHAMBERS ON TOP */}
+              {WALKABLE_REGIONS.reduce<React.ReactNode[]>((acc, room) => {
+                if (room.name) {
+                  const roomId = room.name;
+                  const isTaskRoom = completedTasks[roomId] !== undefined;
+                  const isDone = isTaskRoom ? completedTasks[roomId] : true;
+
+                  // Style rooms based on their completion status
+                  let roomFill = "#2d3a52"; // default iron grey
+                  if (isTaskRoom) {
+                    roomFill = isDone ? "#1c2b1e" : "#2d3a52"; // Green hue if done
+                  }
+
+                  acc.push(
+                    <g
+                      key={`room-group-${roomId}`}
+                      className="map-room-group cursor-pointer"
+                      onClick={() => {
+                        if (SPACESHIP_ROOMS[roomId]) {
+                          initiateAutoWalkToRoom(roomId);
+                        } else {
+                          // Dynamic midpoint auto walk for custom sections
+                          const cx = Math.floor(room.x + room.w / 2);
+                          const cy = Math.floor(room.y + room.h / 2);
+                          setTargetPos({ x: cx, y: cy });
+                          setTargetRoomPath(roomId);
+                          setShowHologramMap(false);
+                          synthSFX.playBeep();
+                        }
+                      }}
                     >
-                      ✦
-                    </text>
-                  </g>
-                );
-              })}
+                      {/* Shadow base room card */}
+                      <rect
+                        x={room.x}
+                        y={room.y}
+                        width={room.w}
+                        height={room.h}
+                        rx={10}
+                        ry={10}
+                        fill="#000000"
+                      />
+                      {/* Core room block */}
+                      <rect
+                        x={room.x}
+                        y={room.y}
+                        width={room.w}
+                        height={room.h}
+                        rx={8}
+                        ry={8}
+                        className="map-room-rect"
+                        fill={roomFill}
+                        stroke="#000000"
+                        strokeWidth={5}
+                        strokeLinejoin="round"
+                      />
+                      {/* Metallic gloss highlight inside card */}
+                      <rect
+                        x={room.x + 4}
+                        y={room.y + 4}
+                        width={room.w - 8}
+                        height={room.h - 8}
+                        rx={6}
+                        ry={6}
+                        fill="none"
+                        stroke="rgba(255, 255, 255, 0.04)"
+                        strokeWidth={1.5}
+                      />
+
+                      {/* Interactive glow hint on hover */}
+                      <text
+                        x={room.x + room.w - 18}
+                        y={room.y + 18}
+                        className="opacity-0 group-hover:opacity-100 fill-[#38FEDE] text-[8px] font-bold"
+                        textAnchor="end"
+                        dominantBaseline="central"
+                      >
+                        ✦
+                      </text>
+                    </g>
+                  );
+                }
+                return acc;
+              }, [])}
 
               {/* 3. DRAW EXPLICIT LOCATION LABELS INSIDE ROOMS */}
               {Object.entries({
@@ -241,7 +249,6 @@ export const HologramMapView = memo(function HologramMapView({
                       textAnchor="middle"
                       dominantBaseline="central"
                       className="fill-[#05070c] font-sans font-black tracking-widest text-[11px] md:text-[13px] uppercase opacity-90"
-                      style={{ letterSpacing: "0.14em" }}
                     >
                       {label.name}
                     </text>
@@ -252,7 +259,6 @@ export const HologramMapView = memo(function HologramMapView({
                       textAnchor="middle"
                       dominantBaseline="central"
                       className="fill-[#f1f5f9] font-sans font-black tracking-widest text-[11px] md:text-[13px] uppercase"
-                      style={{ letterSpacing: "0.14em" }}
                     >
                       {label.name}
                     </text>
@@ -382,7 +388,7 @@ export const HologramMapView = memo(function HologramMapView({
 
           {/* Dynamic feedback panel overlay */}
           <div className="absolute bottom-4 left-4 bg-black/85 border-2 border-slate-700/80 px-3.5 py-2 rounded-xl text-[9px] text-[#22c55e] uppercase tracking-wider flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-ping" />
+            <span className="size-2 rounded-full bg-green-500 animate-ping" />
             <span>
               Nav GPS: Real-time Coordinates Tracking ({playerPos.x},{" "}
               {playerPos.y})
