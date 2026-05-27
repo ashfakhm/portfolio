@@ -9,7 +9,7 @@ interface MobileJoystickHUDProps {
 	onTouchEnd: () => void;
 }
 
-export function MobileJoystickHUDView({
+function MobileJoystickHUDView({
 	joystickActive,
 	joystickCenter,
 	joystickCurrent,
@@ -27,7 +27,7 @@ export function MobileJoystickHUDView({
 			>
 				{joystickActive && joystickCenter && joystickCurrent ? (
 					<div
-						className="w-20 h-20 rounded-full bg-slate-900/60 border-2 border-brand-blue/50 flex items-center justify-center shadow-[0_0_15px_rgba(26,158,255,0.2)]"
+						className="size-20 rounded-full bg-slate-900/60 border-2 border-brand-blue/50 flex items-center justify-center shadow-[0_0_15px_rgba(26,158,255,0.2)]"
 						style={{
 							position: "fixed",
 							left: joystickCenter.x - 40,
@@ -48,7 +48,7 @@ export function MobileJoystickHUDView({
 							const thumbY = Math.sin(angle) * intensity * 20;
 							return (
 								<div
-									className="w-8 h-8 rounded-full bg-brand-blue border border-white flex items-center justify-center shadow shadow-brand-blue/80 pointer-events-none select-none"
+									className="size-8 rounded-full bg-brand-blue border border-white flex items-center justify-center shadow shadow-brand-blue/80 pointer-events-none select-none"
 									style={{
 										transform: `translate(${thumbX}px, ${thumbY}px)`,
 									}}

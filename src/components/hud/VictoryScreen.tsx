@@ -52,6 +52,7 @@ export default function VictoryScreen({
 				</p>
 			</div>
 			<button
+				type="button"
 				onClick={onPlayAgain}
 				aria-label="Play Again"
 				className="px-8 py-4 bg-brand-blue text-white font-bold rounded-xl hover:bg-brand-cyan hover:text-black hover:scale-105 active:scale-95 transition-all shadow-[0_6px_0_#0d4d80] active:shadow-[0_2px_0_#0d4d80] active:translate-y-1 z-10 border-2 border-black tracking-widest uppercase text-xs"

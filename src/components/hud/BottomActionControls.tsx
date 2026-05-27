@@ -3,12 +3,13 @@ import type { RoomConfig } from "../../gameConfig";
 import { useShallow } from "zustand/react/shallow";
 import { useEngineStore } from "../../store/useEngineStore";
 import { useGameStore } from "../../store/useGameStore";
-import CrewmateSprite, {
+import CrewmateSprite from "../CrewmateSprite";
+import {
   CREWMATE_COLORS,
   CREWMATE_HATS,
   type CrewmateColor,
   type CrewmateHat,
-} from "../CrewmateSprite";
+} from "../CrewmateTypes";
 
 interface BottomActionControlsProps {
   playerColor: CrewmateColor;
@@ -25,7 +26,7 @@ interface BottomActionControlsProps {
   onUseClick: () => void;
 }
 
-export function BottomActionControlsView({
+function BottomActionControlsView({
   playerColor,
   playerHat,
   playerMoving,
@@ -44,6 +45,7 @@ export function BottomActionControlsView({
       {/* Live customizer */}
       <div className="bg-hud-bg/90 backdrop-blur-md border border-white/10 p-3 rounded-xl items-center gap-3 shadow-[0_8px_32px_rgba(0,0,0,0.5)] ring-1 ring-inset ring-white/5 max-w-sm hidden lg:flex">
         <button
+          type="button"
           onClick={onCrewClick}
           aria-label="Tap crewmate"
           className="cursor-pointer group relative bg-transparent border-none p-0"
@@ -59,7 +61,7 @@ export function BottomActionControlsView({
             TAP 5X!
           </div>
         </button>
-        <div className="flex flex-col space-y-1 font-mono text-xs">
+        <div className="flex flex-col gap-y-1 font-mono text-xs">
           <div className="font-bold text-white flex items-center gap-1">
             <span>Suit Designator</span>
           </div>
@@ -67,10 +69,11 @@ export function BottomActionControlsView({
             {(["red", "lime", "cyan", "pink", "yellow"] as CrewmateColor[]).map(
               (col) => (
                 <button
+                  type="button"
                   key={col}
                   onClick={() => setPlayerColor(col)}
                   aria-label={`Select ${col} color`}
-                  className={`w-4 h-4 rounded-full border cursor-pointer hover:scale-110 active:scale-95 transition-all`}
+                  className={`size-4 rounded-full border cursor-pointer hover:scale-110 active:scale-95 transition-all`}
                   style={{
                     backgroundColor: CREWMATE_COLORS[col].fill,
                     borderColor: playerColor === col ? "#FFF" : "#222",
@@ -81,6 +84,7 @@ export function BottomActionControlsView({
             <span className="text-[10px] text-slate-500 pl-1.5">Hats:</span>
             {(["none", "plant", "egg", "crown"] as CrewmateHat[]).map((h) => (
               <button
+                type="button"
                 key={h}
                 onClick={() => setPlayerHat(h)}
                 aria-label={`Select ${h} hat`}
@@ -99,6 +103,7 @@ export function BottomActionControlsView({
       <div className="flex items-center gap-2 sm:gap-3">
         {nearVent && (
           <button
+            type="button"
             onClick={onVentClick}
             aria-label="Use vent passage"
             className="p-3 sm:px-4 sm:py-3 bg-[#4e5564]/80 backdrop-blur-sm hover:bg-[#5f697c]/90 border border-slate-400/50 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.1)] active:scale-95 transition-all text-center font-bold text-[9px] tracking-widest uppercase text-brand-cyan flex items-center gap-1.5"
@@ -110,6 +115,7 @@ export function BottomActionControlsView({
         )}
 
         <button
+          type="button"
           onClick={onEmergencyClick}
           aria-label="Report emergency"
           className="p-3 sm:px-5 sm:py-4 bg-red-500/20 hover:bg-red-500/30 text-red-100 rounded-2xl border border-red-500/50 text-center shadow-[0_0_20px_rgba(220,38,38,0.2)] active:scale-95 transition-all w-16 sm:w-[120px] flex flex-col items-center justify-center backdrop-blur-md"
@@ -130,6 +136,7 @@ export function BottomActionControlsView({
         </button>
 
         <button
+          type="button"
           onClick={onUseClick}
           disabled={!nearestRoom}
           aria-label="Use station"

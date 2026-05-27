@@ -33,7 +33,7 @@ interface GameViewportProps {
   completedTasks: Record<string, boolean>;
 }
 
-export function GameViewportView({
+function GameViewportView({
   isMobile,
   playerPos,
   targetPos,
@@ -86,7 +86,7 @@ export function GameViewportView({
   return (
     <div
       id="game-viewport-sandbox"
-      className="absolute inset-0 w-full h-full overflow-hidden bg-black z-0"
+      className="absolute inset-0 w-full h-full overflow-hidden bg-zinc-950 z-0"
     >
       <div
         className="absolute bg-viewport-bg rounded-2xl shadow-[0_0_50px_rgba(0,0,0,1)] cursor-crosshair overflow-hidden"
@@ -131,6 +131,7 @@ export function GameViewportView({
         </div>
 
         <button
+          type="button"
           onClick={onEmergencyClick}
           aria-label="Trigger Emergency Meeting"
           className="absolute pointer-events-auto bg-[#c5111115] border-2 border-red-500/20 rounded-full cursor-pointer flex items-center justify-center hover:bg-red-500/20 transition-all z-0"
@@ -142,7 +143,7 @@ export function GameViewportView({
           }}
           title="Click Emergency Table!"
         >
-          <div className="w-3.5 h-3.5 rounded-full bg-red-600 border border-black animate-pulse" />
+          <div className="size-3.5 rounded-full bg-red-600 border border-black animate-pulse" />
         </button>
 
         {Object.values(spaceshipRooms).map((room) => {
@@ -150,12 +151,15 @@ export function GameViewportView({
           return (
             <button
               key={room.id}
+              type="button"
               onClick={() => onRoomClick(room.id)}
               aria-label={`Go to ${room.name}`}
               className="absolute pointer-events-auto text-[8px] bg-slate-900/90 border border-slate-700 hover:border-brand-cyan text-slate-300 px-1.5 py-0.5 rounded tracking-wide font-mono flex items-center gap-1 shadow-md hover:scale-105 active:scale-95 transition-all select-none cursor-pointer"
               style={{
                 left: `${room.bounds.minX + rectWidth / 2 - 40}px`,
-                top: `${room.bounds.minY + 12}px`,
+                top: ["electrical", "comms", "shields", "storage"].includes(room.id)
+                  ? `${room.bounds.maxY - 28}px`
+                  : `${room.bounds.minY + 12}px`,
               }}
             >
               <span>{room.icon}</span>
