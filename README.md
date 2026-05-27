@@ -12,7 +12,7 @@ Your mission is to finish all your tasks before this imaginary character arrives
 
 - **Gamified Experience:** Discover my background by completing interactive mini-game tasks (Wiring, Reactor, Navigation, Medbay, etc.).
 - **Live Customizer Panel:** Built into the HUD controls to dynamically select crewmate suit colors and hats with live previews.
-- **3D Elements:** Features dynamic 3D elements powered by Three.js, including a customizable 3D astronaut and moving star backgrounds.
+- **3D Elements:** Features dynamic 3D elements powered by Three.js, including moving star backgrounds.
 - **Sci-Fi UI/UX:** Built with modern glassmorphism, glowing accents, and terminal-style typography (`Press Start 2P`) to simulate a spaceship control panel.
 - **Ship Systems & Maps:** Use the Holographic Map (M) or Vent Map (V) to navigate your way around. Keep track of logs via the built-in simulated Crew Logs Chat.
 - **Immersive Audio:** Integrated synth sound effects for interactions, task completions, and ambient jumpscares.
@@ -24,8 +24,7 @@ The codebase is engineered to follow professional standards, featuring clean, ro
 - **Zero Re-render Loops & Optimized Zustand Subscriptions:** All Zustand subscriptions use `useShallow` selectors or individual selectors to prevent unnecessary re-renders of HUD components. Re-render frequency drops from 60fps to 0fps when the crewmate is idle.
 - **Condition-based Overlay Rendering:** Interactive overlays (such as `HologramMap`, `VentMap`, and `ChatSystem`) are conditionally mounted inside `App.tsx` instead of constantly being rendered and hidden, minimizing active state listeners and reducing memory footprint.
 - **Interactive SVG Map Memoization:** The `HologramMapView` interactive SVG component is wrapped in `React.memo` and coordinates auto-walk callbacks referentially through stable dependencies, minimizing SVG DOM mutations during walking.
-- **WebGL Resource Lifecycle & Material Reuse:** Solved WebGL and GPU memory leaks in `ThreeCrewmate.tsx` by updating material properties on existing meshes rather than instantiating new material buffers on crewmate suit color changes.
-- **Proper Memory Cleanup:** Modularized 3D hat rendering logic in `ThreeCrewmate.tsx` with proper cleanup to dispose of geometries and materials on unmount/re-render.
+- **Modularized Sprite Hat Rendering:** Extracted crewmate customization properties into a clean `CrewmateTypes.ts` mapping layer and decoupled rendering from parent loops to improve render times.
 - **Effect-Free React Architecture:** Avoided fragile `useEffect` state syncing bugs by using derived states (e.g., in Shields and Weapons tasks) to ensure a robust, side-effect-free, and predictable user experience.
 
 ## 🛠️ Technology Stack
@@ -35,7 +34,6 @@ The codebase is engineered to follow professional standards, featuring clean, ro
 - **Styling:** Tailwind CSS v4 (with custom glassmorphism & glowing tokens via the `@tailwindcss/vite` plugin)
 - **State Management:** Zustand v5 (utilizing shallow selectors for high-performance React binding)
 - **3D Graphics:** Three.js v0.184
-- **Animations:** Motion (Framer Motion v12)
 - **Icons:** Lucide React
 
 ## 📦 Running Locally
@@ -65,7 +63,13 @@ To run the spaceship's systems on your local machine:
    npm run dev
    ```
 
-4. **Access the terminal:**
+4. **Run React Doctor audits locally:**
+
+   ```bash
+   npm run doctor
+   ```
+
+5. **Access the terminal:**
    Open your browser and navigate to `http://localhost:3000` (or the port specified by Vite).
 
 ## 🗂️ Project Structure
@@ -105,12 +109,12 @@ portfolio/
 │   │   │   └── WeaponsTask.tsx
 │   │   ├── ChatSystem.tsx     # Simulated crew logs chat
 │   │   ├── CinematicSplash.tsx# Splash screens and Boogeyman alerts
-│   │   ├── CrewmateSprite.tsx # 2D Pixel sprites
+│   │   ├── CrewmateSprite.tsx # 2D pixel sprites
+│   │   ├── CrewmateTypes.ts   # Crewmate color/hat customization definitions
 │   │   ├── HologramMap.tsx    # Blueprint map view
 │   │   ├── MobileFallback.tsx # Mobile fallback screen
 │   │   ├── TaskModal.tsx      # Modal orchestrator for tasks
 │   │   ├── ThreeBackground.tsx# 3D starfield canvas
-│   │   ├── ThreeCrewmate.tsx  # 3D Crewmate renderer
 │   │   ├── TutorialModal.tsx  # Help instructions
 │   │   └── VentMap.tsx        # Quick travel via vents
 │   ├── hooks/                 # Core engine and orchestrator hooks
