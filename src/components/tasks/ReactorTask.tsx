@@ -17,8 +17,8 @@ export default function ReactorTask({
 	return (
 		<div className="flex-1 flex flex-col">
 			{!isCompleted ? (
-				<div className="flex-1 flex flex-col items-center justify-center text-center space-y-6">
-					<div className="w-24 h-24 rounded-full border-4 border-yellow-500 flex items-center justify-center bg-yellow-950/30 animate-pulse relative">
+				<div className="flex-1 flex flex-col items-center justify-center text-center gap-6">
+					<div className="size-24 rounded-full border-4 border-yellow-500 flex items-center justify-center bg-yellow-950/30 animate-pulse relative">
 						<div className="absolute inset-2 border-2 border-dashed border-yellow-500 rounded-full animate-spin" />
 						<Zap size={36} className="text-yellow-400" />
 					</div>
@@ -53,6 +53,7 @@ export default function ReactorTask({
 							max="100"
 							step="5"
 							value={reactorPower}
+							aria-label="Reactor power level adjustment"
 							onChange={(e) =>
 								handleReactorAlignment(parseInt(e.target.value, 10))
 							}
@@ -133,7 +134,7 @@ export default function ReactorTask({
 									<strong>My Engineering Creed:</strong> I own products soup to
 									nuts. I've engineered rich service-oriented web apps, school
 									exam ecosystems, secured banking gates and automatic
-									settlement timelines — single handedly.
+									settlement timelines, single-handedly.
 								</p>
 								<p>
 									Completed my BSc in Computer Science at Farook College (Class

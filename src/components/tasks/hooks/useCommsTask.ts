@@ -6,43 +6,53 @@ interface UseCommsTaskProps {
 }
 
 export function useCommsTask({ onComplete, isCompleted }: UseCommsTaskProps) {
-	const [downloadProgress, setDownloadProgress] = useState(0);
-	const [downloadSpeed, setDownloadSpeed] = useState(0);
-	const [downloadState, setDownloadState] = useState<
-		"idle" | "downloading" | "completed"
-	>("idle");
+	const [state, setState] = useState({
+		progress: 0,
+		speed: 0,
+		status: "idle" as "idle" | "downloading" | "completed",
+	});
 
 	const startDownloading = () => {
-		setDownloadState("downloading");
-		setDownloadProgress(0);
+		setState({
+			status: "downloading",
+			progress: 0,
+			speed: 0,
+		});
 	};
 
 	useEffect(() => {
-		if (downloadState !== "downloading") return;
+		if (state.status !== "downloading") return;
 
-		const timer = setInterval(() => {
-			setDownloadSpeed(Math.floor(Math.random() * 80) + 120); // 120-200 kB/s
-			setDownloadProgress((prev) => {
-				const next = prev + 5;
-				if (next >= 100) {
+		const timer = window.setInterval(() => {
+			const nextSpeed = Math.floor(Math.random() * 80) + 120; // 120-200 kB/s
+			setState((prev) => {
+				const nextProgress = prev.progress + 5;
+				if (nextProgress >= 100) {
 					clearInterval(timer);
-					setDownloadState("completed");
-					onComplete();
-					return 100;
+					window.setTimeout(onComplete, 0);
+					return {
+						progress: 100,
+						speed: nextSpeed,
+						status: "completed",
+					};
 				}
-				return next;
+				return {
+					progress: nextProgress,
+					speed: nextSpeed,
+					status: "downloading",
+				};
 			});
 		}, 150);
 
 		return () => clearInterval(timer);
-	}, [downloadState, onComplete]);
+	}, [state.status, onComplete]);
 
-	const displayedProgress = isCompleted ? 100 : downloadProgress;
-	const displayedState = isCompleted ? "completed" : downloadState;
+	const displayedProgress = isCompleted ? 100 : state.progress;
+	const displayedState = isCompleted ? "completed" : state.status;
 
 	return {
 		downloadProgress: displayedProgress,
-		downloadSpeed,
+		downloadSpeed: state.speed,
 		downloadState: displayedState,
 		startDownloading,
 	};

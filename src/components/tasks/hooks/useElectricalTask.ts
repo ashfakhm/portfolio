@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { synthSFX } from "../../../utils/sound";
 
 interface UseElectricalTaskProps {
@@ -14,12 +14,9 @@ export function useElectricalTask({
 		Record<string, string>
 	>({});
 	const [activeWireDrag, setActiveWireDrag] = useState<string | null>(null);
-	const [rightWireColors, setRightWireColors] = useState<string[]>([
-		"blue",
-		"pink",
-		"yellow",
-		"red",
-	]);
+	const [rightWireColors] = useState<string[]>(() =>
+		["red", "blue", "yellow", "pink"].sort(() => Math.random() - 0.5),
+	);
 
 	const playWireSpark = () => synthSFX.playTone(80, "sawtooth", 0.1, 0.05);
 	const playBeep = () => synthSFX.playBeep();
@@ -36,13 +33,6 @@ export function useElectricalTask({
 		setTimeout(() => synthSFX.playTone(659.25, "sine", 0.3, 0.04), 100);
 		setTimeout(() => synthSFX.playTone(783.99, "sine", 0.5, 0.04), 200);
 	};
-
-	useEffect(() => {
-		// Shuffle right wires randomly
-		setRightWireColors(
-			["red", "blue", "yellow", "pink"].sort(() => Math.random() - 0.5),
-		);
-	}, []);
 
 	const handleLeftWireClick = (color: string) => {
 		playWireSpark();

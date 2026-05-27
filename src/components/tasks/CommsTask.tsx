@@ -14,8 +14,8 @@ export default function CommsTask({ onComplete, isCompleted }: CommsTaskProps) {
 	return (
 		<div className="flex-1 flex flex-col">
 			{downloadState !== "completed" ? (
-				<div className="flex-1 flex flex-col items-center justify-center p-2 text-center space-y-6">
-					<div className="w-20 h-20 bg-slate-900 border-2 border-[#1a9eff] rounded-lg flex items-center justify-center relative">
+				<div className="flex-1 flex flex-col items-center justify-center p-2 text-center gap-6">
+					<div className="size-20 bg-slate-900 border-2 border-[#1a9eff] rounded-lg flex items-center justify-center relative">
 						<Radio
 							size={36}
 							className={`text-[#1a9eff] ${downloadState === "downloading" ? "animate-bounce" : ""}`}
@@ -49,7 +49,7 @@ export default function CommsTask({ onComplete, isCompleted }: CommsTaskProps) {
 							</div>
 						)}
 
-						<div className="w-full h-8 bg-black border-2 border-slate-700 rounded overflow-hidden p-1 flex items-center">
+						<div className="w-full h-8 bg-zinc-950 border-2 border-slate-700 rounded overflow-hidden p-1 flex items-center">
 							<div
 								className="h-full bg-[#1a9eff] rounded-sm transition-all duration-150"
 								style={{ width: `${downloadProgress}%` }}
@@ -58,6 +58,7 @@ export default function CommsTask({ onComplete, isCompleted }: CommsTaskProps) {
 
 						{downloadState === "idle" ? (
 							<button
+								type="button"
 								onClick={startDownloading}
 								className="w-full p-2.5 bg-[#1a9eff] text-black hover:bg-[#38FEDE] font-bold text-[10px] sm:text-xs uppercase tracking-wide rounded border-2 border-black active:translate-y-0.5 transition-all text-center cursor-pointer"
 								style={{ fontFamily: '"Press Start 2P"' }}
@@ -66,7 +67,7 @@ export default function CommsTask({ onComplete, isCompleted }: CommsTaskProps) {
 							</button>
 						) : (
 							<span className="text-[10px] text-gray-500 block">
-								DO NOT CLOSE TERMINAL...
+								DO NOT CLOSE TERMINAL…
 							</span>
 						)}
 					</div>

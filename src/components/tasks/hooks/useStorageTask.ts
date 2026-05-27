@@ -62,8 +62,9 @@ export function useStorageTask({
 
 	// Cleanup interval on unmount
 	useEffect(() => {
+		const refCopy = fuelTimerRef;
 		return () => {
-			if (fuelTimerRef.current) clearInterval(fuelTimerRef.current);
+			if (refCopy.current) clearInterval(refCopy.current);
 		};
 	}, []);
 

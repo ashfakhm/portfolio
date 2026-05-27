@@ -30,12 +30,12 @@ export default function EmergencyTask({
 	return (
 		<>
 			{isEjecting && (
-				<div className="absolute inset-0 bg-black z-40 flex flex-col items-center justify-center p-6 text-center overflow-hidden">
+				<div className="absolute inset-0 bg-zinc-950 z-40 flex flex-col items-center justify-center p-6 text-center overflow-hidden">
 					<div className="absolute inset-0 overflow-hidden pointer-events-none opacity-40">
 						<div className="absolute inset-0 animate-pulse bg-[radial-gradient(white_1px,transparent_1px)] [background-size:16px_16px]" />
 					</div>
 
-					<div className="animate-bounce mb-8">
+					<div className="animate-pulse mb-8">
 						<CrewmateSprite
 							color={playerColor}
 							hat="none"
@@ -54,7 +54,7 @@ export default function EmergencyTask({
 
 					<div className="mt-8 flex items-center gap-2 text-xs text-gray-500">
 						<RefreshCw size={14} className="animate-spin" />
-						<span>Broadcasting to Kerala, India...</span>
+						<span>Broadcasting to Kerala, India…</span>
 					</div>
 				</div>
 			)}
@@ -64,6 +64,7 @@ export default function EmergencyTask({
 					<div className="grid grid-cols-1 md:grid-cols-5 gap-6 p-2 items-center">
 						<div className="md:col-span-2 flex flex-col items-center justify-center p-4 text-center">
 							<button
+								type="button"
 								onClick={() => setGameStarted(true)}
 								className={`w-32 h-32 rounded-full bg-red-600 hover:bg-red-500 border-4 border-black relative transition-all active:scale-95 shadow-[0_15px_0_#910505,_0_20px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_12px_0_#910505,_0_15px_15px_rgba(0,0,0,0.3)] select-none cursor-pointer flex items-center justify-center group ${
 									gameStarted
@@ -86,7 +87,7 @@ export default function EmergencyTask({
 
 						<div className="md:col-span-3 bg-[#1c1c30] border border-[#3a3a5e] p-5 rounded-lg">
 							<div className="flex items-center gap-2 mb-4">
-								<Send size={16} className="text-red-500 animate-bounce" />
+								<Send size={16} className="text-red-500 animate-pulse" />
 								<h4 className="text-sm font-semibold tracking-wide text-white uppercase">
 									VOTE TO ACQUIRE INBOX LOGS
 								</h4>
@@ -94,10 +95,12 @@ export default function EmergencyTask({
 
 							<form onSubmit={handleVoteSubmit} className="space-y-3.5 text-xs">
 								<div>
-									<label className="block text-[10px] text-gray-500 font-bold uppercase mb-1">
+									<label htmlFor="crewmate-name" className="block text-[10px] text-gray-500 font-bold uppercase mb-1">
 										CREWMATE NAME (Your Name)
 									</label>
 									<input
+										id="crewmate-name"
+										aria-label="Crewmate Name"
 										type="text"
 										required
 										value={contactName}
@@ -108,10 +111,12 @@ export default function EmergencyTask({
 								</div>
 
 								<div>
-									<label className="block text-[10px] text-gray-500 font-bold uppercase mb-1">
+									<label htmlFor="crewmate-email" className="block text-[10px] text-gray-500 font-bold uppercase mb-1">
 										TRANSMISSION FREQUENCY (Your Email)
 									</label>
 									<input
+										id="crewmate-email"
+										aria-label="Transmission Frequency (Your Email)"
 										type="email"
 										required
 										value={contactEmail}
@@ -122,10 +127,12 @@ export default function EmergencyTask({
 								</div>
 
 								<div>
-									<label className="block text-[10px] text-gray-500 font-bold uppercase mb-1">
+									<label htmlFor="crewmate-message" className="block text-[10px] text-gray-500 font-bold uppercase mb-1">
 										YOUR CORRESPONDENCE REPORT (Your Message / Offer)
 									</label>
 									<textarea
+										id="crewmate-message"
+										aria-label="Your Correspondence Report (Your Message or Offer)"
 										required
 										rows={3}
 										value={contactMessage}
@@ -146,7 +153,7 @@ export default function EmergencyTask({
 						</div>
 					</div>
 				) : (
-					<div className="flex-1 flex flex-col items-center justify-center text-center p-6 space-y-4 animate-fadeIn">
+					<div className="flex-1 flex flex-col items-center justify-center text-center p-6 gap-4 animate-fadeIn">
 						<div className="p-4 bg-green-950/20 border border-green-500/30 rounded-lg max-w-md">
 							<h3 className="text-sm font-bold text-green-400 mb-2">
 								COMS RECORDED SUCCESSFULLY
@@ -162,6 +169,7 @@ export default function EmergencyTask({
 						</div>
 
 						<button
+							type="button"
 							onClick={() => setMeetingSubmitted(false)}
 							className="p-2 border border-[#3a3a5e] text-xs hover:text-white rounded transition-colors text-slate-400 cursor-pointer"
 						>

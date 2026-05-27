@@ -49,7 +49,7 @@ export default function CafeteriaTask({
 						Ashfakh M
 					</h1>
 					<p className="text-sm font-semibold text-green-400">
-						Full Stack Developer — Frontend Specialist
+						Full Stack Developer, Frontend Specialist
 					</p>
 					<p className="text-xs text-slate-300 leading-relaxed pt-2">
 						"I craft performance-tuned React architectures, responsive layouts,

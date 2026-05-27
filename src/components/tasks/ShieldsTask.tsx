@@ -1,5 +1,7 @@
 import { useShieldsTask } from "./hooks/useShieldsTask";
 
+const SHIELD_KEYS = ["alpha", "beta", "gamma", "delta", "epsilon", "zeta"];
+
 interface ShieldsTaskProps {
 	onComplete: () => void;
 	isCompleted: boolean;
@@ -17,7 +19,7 @@ export default function ShieldsTask({
 	return (
 		<div className="flex-1 flex flex-col">
 			{shieldsState.includes(false) ? (
-				<div className="flex-1 flex flex-col items-center justify-center p-1 space-y-4">
+				<div className="flex-1 flex flex-col items-center justify-center p-1 gap-4">
 					<div className="text-[10px] text-gray-400 font-bold uppercase tracking-wider text-center">
 						TAP RED PANELS TO PRIME AND ACTIVATE PROPULSION SHIELDS
 					</div>
@@ -26,7 +28,9 @@ export default function ShieldsTask({
 						<div className="grid grid-cols-3 gap-3.5 max-w-[240px]">
 							{shieldsState.map((active, idx) => (
 								<button
-									key={idx}
+									key={SHIELD_KEYS[idx]}
+									type="button"
+									aria-label={`Shield panel ${idx + 1}: ${active ? 'Active' : 'Inactive'}`}
 									onClick={() => toggleShield(idx)}
 									className={`w-14 h-16 relative flex items-center justify-center cursor-pointer transition-transform duration-100 hover:scale-105 select-none ${
 										active

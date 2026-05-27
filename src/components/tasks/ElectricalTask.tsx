@@ -20,18 +20,19 @@ export default function ElectricalTask({
 	return (
 		<div className="flex-1 flex flex-col">
 			{Object.keys(wireConnections).length < 4 ? (
-				<div className="flex-1 flex flex-col items-center justify-center p-1 space-y-4">
+				<div className="flex-1 flex flex-col items-center justify-center p-1 gap-4">
 					<div className="text-[10px] text-gray-400 font-bold uppercase text-center tracking-wider">
 						CLICK A WIRE ON LEFT, THEN MATCH WITH IT'S COLOR ON RIGHT
 					</div>
 
 					<div className="w-full max-w-sm bg-neutral-950/80 backdrop-blur-md border border-slate-700/50 shadow-inner rounded-xl p-5 flex relative min-h-[220px]">
-						<div className="flex-1 flex flex-col justify-between items-start space-y-4 z-10">
+						<div className="flex-1 flex flex-col justify-between items-start gap-4 z-10">
 							{["red", "blue", "yellow", "pink"].map((color) => {
 								const isConnected = wireConnections[color] !== undefined;
 								const isSelected = activeWireDrag === color;
 								return (
 									<button
+										type="button"
 										key={color}
 										onClick={() => handleLeftWireClick(color)}
 										disabled={isConnected}
@@ -94,12 +95,13 @@ export default function ElectricalTask({
 							</svg>
 						</div>
 
-						<div className="flex-1 flex flex-col justify-between items-end space-y-4 z-10">
+						<div className="flex-1 flex flex-col justify-between items-end gap-4 z-10">
 							{rightWireColors.map((color) => {
 								const isMatched =
 									Object.values(wireConnections).includes(color);
 								return (
 									<button
+										type="button"
 										key={color}
 										onClick={() => handleRightWireClick(color)}
 										disabled={isMatched}

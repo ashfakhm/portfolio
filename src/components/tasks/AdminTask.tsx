@@ -20,10 +20,10 @@ export default function AdminTask({ onComplete, isCompleted }: AdminTaskProps) {
 	return (
 		<div className="flex-1 flex flex-col">
 			{!isCompleted ? (
-				<div className="flex-1 flex flex-col items-center justify-center p-2 space-y-4 md:space-y-6">
+				<div className="flex-1 flex flex-col items-center justify-center p-2 gap-4 md:gap-6">
 					<div className="w-full max-w-[600px] h-full sm:h-auto min-h-[300px] md:min-h-[400px] bg-[#d3d3d3] border-[8px] md:border-[16px] border-[#9e9e9e] rounded-[20px] md:rounded-[30px] p-3 md:p-6 flex flex-col justify-between shadow-2xl relative">
 						<div className="flex justify-between items-start gap-4">
-							<div className="flex-1 h-24 bg-black border-[6px] border-[#6b6b6b] rounded-lg mb-4 flex items-center justify-center">
+							<div className="flex-1 h-24 bg-zinc-950 border-[6px] border-[#6b6b6b] rounded-lg mb-4 flex items-center justify-center">
 								<div className="text-center font-mono font-bold tracking-wider uppercase text-sm">
 									{swipeStatus === "idle" && (
 										<span className="text-green-500 animate-pulse">
@@ -31,7 +31,7 @@ export default function AdminTask({ onComplete, isCompleted }: AdminTaskProps) {
 										</span>
 									)}
 									{swipeStatus === "swiping" && (
-										<span className="text-yellow-400">READING CARD...</span>
+										<span className="text-yellow-400">READING CARD…</span>
 									)}
 									{swipeStatus === "too-fast" && (
 										<span className="text-red-500 animate-shake">
@@ -62,7 +62,7 @@ export default function AdminTask({ onComplete, isCompleted }: AdminTaskProps) {
 						</div>
 
 						<div className="w-full relative flex-1 flex flex-col justify-center my-6">
-							<div className="w-full h-20 bg-black border-y-8 border-[#3f3f3f] flex items-center shadow-inner relative z-0">
+							<div className="w-full h-20 bg-zinc-950 border-y-8 border-[#3f3f3f] flex items-center shadow-inner relative z-0">
 								<div className="absolute inset-x-0 w-full flex justify-around text-[#3f3f3f] text-2xl font-black select-none pointer-events-none">
 									<span>»</span>
 									<span>»</span>
@@ -72,17 +72,30 @@ export default function AdminTask({ onComplete, isCompleted }: AdminTaskProps) {
 								</div>
 							</div>
 
-							<div
+							<section
 								ref={swipeTrackRef}
+								aria-label="Card swipe track"
 								onMouseMove={handleCardDrag}
 								onTouchMove={handleCardDrag}
 								className="absolute inset-x-0 inset-y-0 z-10 flex items-center min-h-[160px]"
 							>
-								<div
+								{/* Semantic, accessible hidden range input for screen readers */}
+								<input
+									type="range"
+									aria-label="ID card swipe progress"
+									value={Math.round(swipeProgress)}
+									min={0}
+									max={80}
+									readOnly
+									className="sr-only"
+								/>
+
+								<button
+									type="button"
 									ref={cardRef}
 									onMouseDown={handleCardDragStart}
 									onTouchStart={handleCardDragStart}
-									className={`absolute cursor-grab active:cursor-grabbing w-[200px] h-[120px] bg-white border-2 border-gray-300 rounded-xl shadow-[0_10px_20px_rgba(0,0,0,0.4)] flex flex-col p-3 transition-opacity ${swipeStatus === "success" ? "opacity-0 pointer-events-none" : ""}`}
+									className={`absolute cursor-grab active:cursor-grabbing w-[200px] h-[120px] bg-white border-2 border-gray-300 rounded-xl shadow-[0_10px_20px_rgba(0,0,0,0.4)] flex flex-col p-3 transition-opacity text-left font-sans select-none focus:outline-none ${swipeStatus === "success" ? "opacity-0 pointer-events-none" : ""}`}
 									style={{
 										left: `calc(2% + ${swipeProgress * 0.6}%)`,
 										top: "50%",
@@ -117,8 +130,8 @@ export default function AdminTask({ onComplete, isCompleted }: AdminTaskProps) {
 										<div className="w-0.5 h-full bg-black/80" />
 										<div className="w-0.5 h-full bg-black/80" />
 									</div>
-								</div>
-							</div>
+								</button>
+							</section>
 						</div>
 
 						<div className="text-center font-bold text-[#6b6b6b] text-xs uppercase tracking-widest bg-black/5 rounded p-2 border-2 border-black/10 mt-auto shadow-inner">
@@ -156,7 +169,7 @@ export default function AdminTask({ onComplete, isCompleted }: AdminTaskProps) {
 						<div className="md:col-span-3 space-y-4">
 							<div className="bg-[#10101f] border border-[#3a3a5e] p-3 rounded-lg">
 								<span className="text-[10px] text-[#38FEDE] font-bold uppercase tracking-wider block mb-1.5 border-b border-dashed border-[#3a3a5e] pb-1">
-									STATION 1 — FRONTEND CONTROL
+									STATION 1: FRONTEND CONTROL
 								</span>
 								<div className="flex flex-wrap gap-2">
 									{[
@@ -172,7 +185,7 @@ export default function AdminTask({ onComplete, isCompleted }: AdminTaskProps) {
 											className="text-[10px] cursor-pointer bg-slate-900 border border-slate-700 hover:border-[#1a9eff] px-2 py-1 rounded text-white flex items-center gap-1.5 transition-all"
 											title="100 SEO score achieved"
 										>
-											<span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+											<span className="size-1.5 rounded-full bg-green-400 animate-pulse" />
 											{skill}
 										</span>
 									))}
@@ -181,7 +194,7 @@ export default function AdminTask({ onComplete, isCompleted }: AdminTaskProps) {
 
 							<div className="bg-[#10101f] border border-[#3a3a5e] p-3 rounded-lg">
 								<span className="text-[10px] text-yellow-400 font-bold uppercase tracking-wider block mb-1.5 border-b border-dashed border-[#3a3a5e] pb-1 font-mono">
-									STATION 2 — BACKEND PIPELINES
+									STATION 2: BACKEND PIPELINES
 								</span>
 								<div className="flex flex-wrap gap-2">
 									{[
@@ -196,7 +209,7 @@ export default function AdminTask({ onComplete, isCompleted }: AdminTaskProps) {
 											key={idx}
 											className="text-[10px] cursor-pointer bg-slate-900 border border-slate-700 hover:border-yellow-400 px-2 py-1 rounded text-white flex items-center gap-1.5 transition-all"
 										>
-											<span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
+											<span className="size-1.5 rounded-full bg-yellow-400 animate-pulse" />
 											{skill}
 										</span>
 									))}
@@ -205,7 +218,7 @@ export default function AdminTask({ onComplete, isCompleted }: AdminTaskProps) {
 
 							<div className="bg-[#10101f] border border-[#3a3a5e] p-3 rounded-lg">
 								<span className="text-[10px] text-red-400 font-bold uppercase tracking-wider block mb-1.5 border-b border-dashed border-[#3a3a5e] pb-1">
-									STATION 3 — DATASTORES & LANGUAGES
+									STATION 3: DATASTORES & LANGUAGES
 								</span>
 								<div className="flex flex-wrap gap-1.5 text-[9px]">
 									{[
@@ -231,7 +244,7 @@ export default function AdminTask({ onComplete, isCompleted }: AdminTaskProps) {
 
 							<div className="bg-[#10101f] border border-[#3a3a5e] p-3 rounded-lg">
 								<span className="text-[10px] text-purple-400 font-bold uppercase tracking-wider block mb-1.5 border-b border-dashed border-[#3a3a5e] pb-1">
-									STATION 4 — TOOLKITS
+									STATION 4: TOOLKITS
 								</span>
 								<div className="flex flex-wrap gap-1.5 text-[9px]">
 									{[

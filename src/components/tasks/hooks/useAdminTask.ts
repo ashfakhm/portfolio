@@ -7,25 +7,27 @@ interface UseAdminTaskProps {
 }
 
 export function useAdminTask({ onComplete, isCompleted }: UseAdminTaskProps) {
-	const [swipeProgress, setSwipeProgress] = useState(0); // 0 to 100
-	const [swipeStatus, setSwipeStatus] = useState<
-		"idle" | "swiping" | "too-fast" | "too-slow" | "success" | "bad-read"
-	>("idle");
-	const [cardGrabbed, setCardGrabbed] = useState(false);
-	const cardRef = useRef<HTMLDivElement>(null);
-	const swipeTrackRef = useRef<HTMLDivElement>(null);
+	const [swipeState, setSwipeState] = useState({
+		progress: 0,
+		status: "idle" as "idle" | "swiping" | "too-fast" | "too-slow" | "success" | "bad-read",
+		cardGrabbed: false,
+	});
+	const cardRef = useRef<HTMLButtonElement>(null);
+	const swipeTrackRef = useRef<HTMLElement>(null);
 
-	// We don't enforce too-fast/too-slow strictly here for better UX, but we can if desired.
 	const handleCardDragStart = () => {
-		if (swipeStatus === "success" || isCompleted) return;
-		setCardGrabbed(true);
-		setSwipeStatus("swiping");
+		if (swipeState.status === "success" || isCompleted) return;
+		setSwipeState({
+			cardGrabbed: true,
+			status: "swiping",
+			progress: 0,
+		});
 	};
 
 	const handleCardDrag = (
-		e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
+		e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>,
 	) => {
-		if (!cardGrabbed || !swipeTrackRef.current) return;
+		if (!swipeState.cardGrabbed || !swipeTrackRef.current) return;
 
 		const rect = swipeTrackRef.current.getBoundingClientRect();
 		const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
@@ -33,38 +35,53 @@ export function useAdminTask({ onComplete, isCompleted }: UseAdminTaskProps) {
 
 		let percentage = (relativeX / rect.width) * 100;
 		percentage = Math.max(0, Math.min(100, percentage));
-		setSwipeProgress(percentage);
 
 		if (percentage >= 80) {
-			setCardGrabbed(false);
-			setSwipeStatus("success");
+			setSwipeState({
+				cardGrabbed: false,
+				status: "success",
+				progress: percentage,
+			});
 			onComplete();
+		} else {
+			setSwipeState((prev) => ({
+				...prev,
+				progress: percentage,
+			}));
 		}
 	};
 
 	useEffect(() => {
 		const handleDragEnd = () => {
-			if (cardGrabbed) {
-				setCardGrabbed(false);
-				if (swipeStatus === "swiping") {
-					setSwipeStatus("idle");
-					setSwipeProgress(0);
-				}
+			if (swipeState.cardGrabbed) {
+				setSwipeState((prev) => {
+					if (prev.status === "swiping") {
+						return {
+							cardGrabbed: false,
+							status: "idle",
+							progress: 0,
+						};
+					}
+					return {
+						...prev,
+						cardGrabbed: false,
+					};
+				});
 			}
 		};
 
 		document.addEventListener("mouseup", handleDragEnd);
-		document.addEventListener("touchend", handleDragEnd);
+		document.addEventListener("touchend", handleDragEnd, { passive: true });
 		return () => {
 			document.removeEventListener("mouseup", handleDragEnd);
 			document.removeEventListener("touchend", handleDragEnd);
 		};
-	}, [cardGrabbed, swipeStatus]);
+	}, [swipeState.cardGrabbed]);
 
 	return {
-		swipeProgress,
-		swipeStatus,
-		cardGrabbed,
+		swipeProgress: swipeState.progress,
+		swipeStatus: swipeState.status,
+		cardGrabbed: swipeState.cardGrabbed,
 		cardRef,
 		swipeTrackRef,
 		handleCardDragStart,

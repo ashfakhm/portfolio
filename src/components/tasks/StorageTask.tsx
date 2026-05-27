@@ -15,7 +15,7 @@ export default function StorageTask({
 	return (
 		<div className="flex-1 flex flex-col">
 			{refuelState !== "completed" ? (
-				<div className="flex-1 flex flex-col items-center justify-center p-2 space-y-6">
+				<div className="flex-1 flex flex-col items-center justify-center p-2 gap-6">
 					<div className="w-full max-w-sm bg-slate-900 border-4 border-slate-700 rounded-lg p-5 flex flex-col items-center relative overflow-hidden">
 						<div className="text-[10px] text-gray-400 font-bold uppercase mb-2">
 							Refuel engine to establish communication paths
@@ -39,6 +39,7 @@ export default function StorageTask({
 
 						<div className="w-full mt-5 space-y-3">
 							<button
+								type="button"
 								onMouseDown={startRefueling}
 								onMouseUp={stopRefueling}
 								onMouseLeave={stopRefueling}
@@ -73,7 +74,7 @@ export default function StorageTask({
 							rel="noreferrer"
 							className="bg-[#10101f] border border-[#3a3a5e] p-6 rounded-lg flex items-center gap-4 hover:border-blue-500/50 hover:bg-[#1a1a2e] transition-all group"
 						>
-							<div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500/20 group-hover:scale-110 transition-all border border-blue-500/20">
+							<div className="size-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500/20 group-hover:scale-110 transition-all border border-blue-500/20">
 								<svg
 									viewBox="0 0 24 24"
 									fill="none"
@@ -81,7 +82,7 @@ export default function StorageTask({
 									strokeWidth="2"
 									strokeLinecap="round"
 									strokeLinejoin="round"
-									className="w-6 h-6"
+									className="size-6"
 								>
 									<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
 									<rect x="2" y="9" width="4" height="12"></rect>
@@ -105,7 +106,7 @@ export default function StorageTask({
 							rel="noreferrer"
 							className="bg-[#10101f] border border-[#3a3a5e] p-6 rounded-lg flex items-center gap-4 hover:border-slate-400 hover:bg-[#1a1a2e] transition-all group"
 						>
-							<div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 group-hover:bg-slate-700 group-hover:scale-110 transition-all border border-slate-600">
+							<div className="size-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 group-hover:bg-slate-700 group-hover:scale-110 transition-all border border-slate-600">
 								<svg
 									viewBox="0 0 24 24"
 									fill="none"
@@ -113,7 +114,7 @@ export default function StorageTask({
 									strokeWidth="2"
 									strokeLinecap="round"
 									strokeLinejoin="round"
-									className="w-6 h-6"
+									className="size-6"
 								>
 									<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
 								</svg>

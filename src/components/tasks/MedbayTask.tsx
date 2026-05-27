@@ -19,7 +19,7 @@ export default function MedbayTask({
 	return (
 		<div className="flex-1 flex flex-col">
 			{scanState !== "completed" ? (
-				<div className="flex-1 flex flex-col items-center justify-center p-2 space-y-6">
+				<div className="flex-1 flex flex-col items-center justify-center p-2 gap-6">
 					<div className="w-full max-w-sm bg-slate-900 border-4 border-slate-700 rounded-lg p-4 flex flex-col items-center relative overflow-hidden">
 						{scanState === "scanning" && (
 							<div className="absolute inset-x-0 h-1 bg-green-400 text-green-400 shadow-[0_0_10px_#4caf50] animate-[laser_1.8s_infinite_ease-in-out]" />
@@ -36,8 +36,8 @@ export default function MedbayTask({
 						</div>
 
 						<div className="w-full bg-black/80 rounded p-3 h-28 overflow-y-auto border border-neutral-800 text-[10px] text-green-400 space-y-1 text-left font-mono">
-							{scanDiagnostics.map((line, i) => (
-								<div key={i} className="leading-tight">
+							{scanDiagnostics.map((line) => (
+								<div key={`diag-line-${line}`} className="leading-tight">
 									{line}
 								</div>
 							))}
@@ -50,6 +50,7 @@ export default function MedbayTask({
 
 						{scanState === "idle" ? (
 							<button
+								type="button"
 								onClick={startScanning}
 								className="mt-4 w-full p-2 bg-green-600 hover:bg-green-500 text-black font-extrabold text-[10px] sm:text-xs tracking-wider uppercase rounded-md shadow border-2 border-black active:translate-y-0.5 cursor-pointer"
 								style={{ fontFamily: '"Press Start 2P"' }}

@@ -6,64 +6,68 @@ interface UseMedbayTaskProps {
 }
 
 export function useMedbayTask({ onComplete, isCompleted }: UseMedbayTaskProps) {
-	const [scanProgress, setScanProgress] = useState(0);
-	const [scanDiagnostics, setScanDiagnostics] = useState<string[]>([]);
-	const [scanState, setScanState] = useState<"idle" | "scanning" | "completed">(
-		"idle",
-	);
+	const [state, setState] = useState({
+		progress: 0,
+		diagnostics: [] as string[],
+		status: "idle" as "idle" | "scanning" | "completed",
+	});
 
 	const startScanning = () => {
-		setScanState("scanning");
-		setScanProgress(0);
-		setScanDiagnostics([
-			"INITIALIZING DIAGNOSTIC LABS...",
-			"LOCATING SCAN SUBJECT: ASHFAKH M",
-		]);
+		setState({
+			status: "scanning",
+			progress: 0,
+			diagnostics: [
+				"INITIALIZING DIAGNOSTIC LABS...",
+				"LOCATING SCAN SUBJECT: ASHFAKH M",
+			],
+		});
 	};
 
 	useEffect(() => {
-		let timer: NodeJS.Timeout;
-		if (scanState === "scanning") {
-			timer = setInterval(() => {
-				setScanProgress((prev) => {
-					const next = prev + 2;
+		let timer: any;
+		if (state.status === "scanning") {
+			timer = window.setInterval(() => {
+				setState((prev) => {
+					const nextProgress = prev.progress + 2;
+					const nextDiagnostics = [...prev.diagnostics];
 
-					if (prev < 20 && next >= 20) {
-						setScanDiagnostics((d) => [...d, "STATION STATUS: EXCELLENT"]);
-					} else if (prev < 45 && next >= 45) {
-						setScanDiagnostics((d) => [
-							...d,
-							"COMPILING DEGREE: BSC COMPUTER SCIENCE",
-						]);
-					} else if (prev < 70 && next >= 70) {
-						setScanDiagnostics((d) => [...d, "ISSUER: FAROOK COLLEGE, KERALA"]);
-					} else if (prev < 90 && next >= 90) {
-						setScanDiagnostics((d) => [
-							...d,
-							"VERIFYING CREDENTIAL: META FRONT-END PROFESSIONAL",
-						]);
-					} else if (next >= 100) {
+					if (prev.progress < 20 && nextProgress >= 20) {
+						nextDiagnostics.push("STATION STATUS: EXCELLENT");
+					} else if (prev.progress < 45 && nextProgress >= 45) {
+						nextDiagnostics.push("COMPILING DEGREE: BSC COMPUTER SCIENCE");
+					} else if (prev.progress < 70 && nextProgress >= 70) {
+						nextDiagnostics.push("ISSUER: FAROOK COLLEGE, KERALA");
+					} else if (prev.progress < 90 && nextProgress >= 90) {
+						nextDiagnostics.push("VERIFYING CREDENTIAL: META FRONT-END PROFESSIONAL");
+					} else if (nextProgress >= 100) {
 						clearInterval(timer);
-						setScanState("completed");
-						onComplete();
-						setScanDiagnostics((d) => [
-							...d,
-							"SCAN RESULT: CANDIDATE CLEAR FOR LANDING!",
-						]);
-						return 100;
+						window.setTimeout(onComplete, 0);
+						return {
+							progress: 100,
+							status: "completed",
+							diagnostics: [
+								...nextDiagnostics,
+								"SCAN RESULT: CANDIDATE CLEAR FOR LANDING!",
+							],
+						};
 					}
-					return next;
+
+					return {
+						progress: nextProgress,
+						status: "scanning",
+						diagnostics: nextDiagnostics,
+					};
 				});
 			}, 80);
 		}
 		return () => clearInterval(timer);
-	}, [scanState, onComplete]);
+	}, [state.status, onComplete]);
 
-	const displayedProgress = isCompleted ? 100 : scanProgress;
-	const displayedState = isCompleted ? "completed" : scanState;
+	const displayedProgress = isCompleted ? 100 : state.progress;
+	const displayedState = isCompleted ? "completed" : state.status;
 	const displayedDiagnostics = isCompleted
 		? ["BYPASS CRITICAL DATA LOCK", "QUALIFICATIONS SHOWN"]
-		: scanDiagnostics;
+		: state.diagnostics;
 
 	return {
 		scanProgress: displayedProgress,
