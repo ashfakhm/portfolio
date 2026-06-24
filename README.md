@@ -1,6 +1,6 @@
-# 🚀 Impostor Protocol: Interactive Sci-Fi Developer Portfolio
+# 🚀 Amongus Inspired Developer Portfolio
 
-*Turn static resume reading into an engaging 5-minute interactive mission that showcases real-world front-end engineering depth.*
+_Turn static resume reading into an engaging 5-minute interactive mission that showcases real-world front-end engineering depth._
 
 [![Vite](https://img.shields.io/badge/vite-6.2.3-646CFF?style=flat-square&logo=vite)](https://vite.dev)
 [![React](https://img.shields.io/badge/react-19.0.1-61DAFB?style=flat-square&logo=react)](https://react.dev)
@@ -25,17 +25,17 @@
 
 Recruiters and hiring managers spend an average of 6 seconds reviewing a developer's resume. Most portfolios are static templates that fail to show true engineering capabilities, causing outstanding developers to be overlooked in a sea of identical profiles.
 
-*Impostor Protocol* solves this by turning the hiring process into a 5-minute gamified mission. By interacting with mini-game tasks, visitors actively explore professional achievements, while the underlying code showcases rigorous performance optimization (like 0fps idle rendering and memoized SVG paths) that is impossible to convey through bullet points alone.
+_Impostor Protocol_ solves this by turning the hiring process into a 5-minute gamified mission. By interacting with mini-game tasks, visitors actively explore professional achievements, while the underlying code showcases rigorous performance optimization (like 0fps idle rendering and memoized SVG paths) that is impossible to convey through bullet points alone.
 
 ---
 
 ## Key Capabilities
 
-*   **⚡ Gamified Exploration:** Discover skills, projects, and work experience by completing interactive "Among Us" themed tasks. Each completed task unlocks a detailed dossier containing my professional resume sections.
-*   **🎨 Live Crewmate HUD Customizer:** Dynamically customize crewmate suit colors and hats inside the spaceship HUD with instant vector previews.
-*   **🚀 Zero Re-render Idle State:** Optimized state subscriptions using Zustand shallow selectors reduce React render cycles from 60fps to 0fps when the crewmate is idle.
-*   **🌌 Dynamic 3D Starfield:** An immersive 3D space canvas powered by Three.js that is computationally optimized to prevent main-thread lag.
-*   **🎵 Procedural Sound Synthesis:** Built-in synthesizer utilizing the browser's native Web Audio API for interactions, completions, and jumpscares—requiring zero external audio assets.
+- **⚡ Gamified Exploration:** Discover skills, projects, and work experience by completing interactive "Among Us" themed tasks. Each completed task unlocks a detailed dossier containing my professional resume sections.
+- **🎨 Live Crewmate HUD Customizer:** Dynamically customize crewmate suit colors and hats inside the spaceship HUD with instant vector previews.
+- **🚀 Zero Re-render Idle State:** Optimized state subscriptions using Zustand shallow selectors reduce React render cycles from 60fps to 0fps when the crewmate is idle.
+- **🌌 Dynamic 3D Starfield:** An immersive 3D space canvas powered by Three.js that is computationally optimized to prevent main-thread lag.
+- **🎵 Procedural Sound Synthesis:** Built-in synthesizer utilizing the browser's native Web Audio API for interactions, completions, and jumpscares—requiring zero external audio assets.
 
 ---
 
@@ -44,16 +44,20 @@ Recruiters and hiring managers spend an average of 6 seconds reviewing a develop
 The application functions essentially as a gamified developer **Todo List** (or task checklist). Navigating the spaceship and completing the listed tasks reveals different parts of the developer's resume and portfolio dossiers.
 
 ### 🕹️ Keyboard Listener & Grid Translation
+
 The core movement engine registers active event listeners on the `window` to track user keyboard input, translating the crewmate along the coordinate axes:
-*   **W / ArrowUp**: Decrements the character's position along the **Y-axis** (translates the crewmate upwards).
-*   **S / ArrowDown**: Increments the character's position along the **Y-axis** (translates the crewmate downwards).
-*   **A / ArrowLeft**: Decrements the character's position along the **X-axis** (translates the crewmate leftwards, flipping the sprite direction).
-*   **D / ArrowRight**: Increments the character's position along the **X-axis** (translates the crewmate rightwards).
+
+- **W / ArrowUp**: Decrements the character's position along the **Y-axis** (translates the crewmate upwards).
+- **S / ArrowDown**: Increments the character's position along the **Y-axis** (translates the crewmate downwards).
+- **A / ArrowLeft**: Decrements the character's position along the **X-axis** (translates the crewmate leftwards, flipping the sprite direction).
+- **D / ArrowRight**: Increments the character's position along the **X-axis** (translates the crewmate rightwards).
 
 ### 🏃 Walking Sprite Animation
+
 To simulate fluid movement without heavy video assets, the engine tracks the velocity state of the crewmate:
-*   **Idle state**: React render loops are suspended at 0fps for maximum efficiency.
-*   **Walking state**: The engine switches character sprite visual states (animating leg poses and body bounce cycles sequentially like flipbook frames) to create a fluid, retro-style walking animation.
+
+- **Idle state**: React render loops are suspended at 0fps for maximum efficiency.
+- **Walking state**: The engine switches character sprite visual states (animating leg poses and body bounce cycles sequentially like flipbook frames) to create a fluid, retro-style walking animation.
 
 ---
 
@@ -62,20 +66,24 @@ To simulate fluid movement without heavy video assets, the engine tracks the vel
 Get the spaceship's systems up and running locally in three simple steps:
 
 ### Step 1: Clone the repository
+
 ```bash
 git clone https://github.com/ashfakhm/portfolio.git
 cd portfolio
 ```
 
 ### Step 2: Install dependencies
+
 ```bash
 npm install
 ```
 
 ### Step 3: Run the local dev server
+
 ```bash
 npm run dev
 ```
+
 Open your browser and navigate to the local server address (usually `http://localhost:3000`).
 
 ---
@@ -85,13 +93,17 @@ Open your browser and navigate to the local server address (usually `http://loca
 Impostor Protocol decouples game logic from rendering using custom hooks. When a user completes a mini-game task, the UI conditionally hides the game panel and reveals a dossier card sharing details about my professional background:
 
 ### 1. Hook State Logic (`useElectricalTask.ts`)
+
 The hook manages wire connections and triggers Web Audio SFX on state transitions:
+
 ```typescript
 import { useState } from "react";
 import { playSuccessTune, synthSFX } from "../../../utils/sound";
 
 export function useElectricalTask({ onComplete, isCompleted }) {
-  const [wireConnections, setWireConnections] = useState<Record<string, string>>({});
+  const [wireConnections, setWireConnections] = useState<
+    Record<string, string>
+  >({});
   const [activeWireDrag, setActiveWireDrag] = useState<string | null>(null);
 
   const handleRightWireClick = (color: string) => {
@@ -118,7 +130,9 @@ export function useElectricalTask({ onComplete, isCompleted }) {
 ```
 
 ### 2. Component Rendering (`ElectricalTask.tsx`)
+
 Once all wires are connected, the interface transitions from the matching game board to a dossier detailing my backend routing skills:
+
 ```typescript
 import { useElectricalTask } from "./hooks/useElectricalTask";
 
@@ -149,6 +163,7 @@ export default function ElectricalTask({ onComplete, isCompleted }) {
 ```
 
 ### Expected State Outputs
+
 ```json
 // State of wireConnections after completing task:
 {
