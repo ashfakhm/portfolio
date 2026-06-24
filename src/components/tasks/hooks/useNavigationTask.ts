@@ -1,5 +1,5 @@
-import { type PointerEvent, useCallback, useState } from "react";
-import { synthSFX } from "../../../utils/sound";
+import { type PointerEvent, useState } from "react";
+import { playSuccessTune, synthSFX } from "../../../utils/sound";
 
 export const NODES = [
 	{ x: 10, y: 50 },
@@ -13,6 +13,33 @@ interface UseNavigationTaskProps {
 	isCompleted: boolean;
 }
 
+const calculateRelativePosition = (
+	clientX: number,
+	clientY: number,
+	rect: DOMRect,
+) => {
+	const x = Math.max(
+		0,
+		Math.min(100, ((clientX - rect.left) / rect.width) * 100),
+	);
+	const y = Math.max(
+		0,
+		Math.min(100, ((clientY - rect.top) / rect.height) * 100),
+	);
+	return { x, y };
+};
+
+const checkCollision = (
+	x: number,
+	y: number,
+	target: { x: number; y: number },
+	rect: DOMRect,
+): boolean => {
+	const dx = x - target.x;
+	const dy = (y - target.y) * (rect.height / rect.width);
+	return Math.sqrt(dx * dx + dy * dy) < 8;
+};
+
 export function useNavigationTask({
 	onComplete,
 	isCompleted,
@@ -21,57 +48,27 @@ export function useNavigationTask({
 	const [shipPos, setShipPos] = useState({ x: NODES[0].x, y: NODES[0].y });
 	const [isDragging, setIsDragging] = useState(false);
 
-	const playLocalSound = (
-		freq: number,
-		type: "sine" | "square" | "triangle" | "sawtooth",
-		duration: number,
-		volume = 0.05,
-	) => {
-		synthSFX.playTone(freq, type, duration, volume);
-	};
-
-	const playSuccessTune = useCallback(() => {
-		synthSFX.playTone(523.25, "sine", 0.3, 0.04);
-		setTimeout(() => synthSFX.playTone(659.25, "sine", 0.3, 0.04), 100);
-		setTimeout(() => synthSFX.playTone(783.99, "sine", 0.5, 0.04), 200);
-	}, []);
-
 	const displayedNodeIndex = isCompleted ? NODES.length : currentNodeIndex;
-	const displayedShipPos = isCompleted
-		? { x: NODES[NODES.length - 1].x, y: NODES[NODES.length - 1].y }
-		: shipPos;
+	const displayedShipPos = isCompleted ? NODES[NODES.length - 1] : shipPos;
 
 	const updateShipPosition = (e: PointerEvent<HTMLDivElement>) => {
 		const rect = e.currentTarget.getBoundingClientRect();
-		let x = ((e.clientX - rect.left) / rect.width) * 100;
-		let y = ((e.clientY - rect.top) / rect.height) * 100;
-
-		x = Math.max(0, Math.min(100, x));
-		y = Math.max(0, Math.min(100, y));
-
+		const { x, y } = calculateRelativePosition(e.clientX, e.clientY, rect);
 		setShipPos({ x, y });
 
-		// Check collision with the next node
-		if (currentNodeIndex < NODES.length) {
-			const target = NODES[currentNodeIndex];
-			// Normalize distance calculation to handle aspect ratio differences roughly
-			const dx = x - target.x;
-			const dy = (y - target.y) * (rect.height / rect.width);
-			const dist = Math.sqrt(dx * dx + dy * dy);
-
-			if (dist < 8) {
-				// 8% threshold
-				playLocalSound(400 + currentNodeIndex * 100, "sine", 0.1, 0.05);
-
-				if (currentNodeIndex === NODES.length - 1) {
-					setIsDragging(false);
-					setShipPos({ x: target.x, y: target.y });
-					setCurrentNodeIndex(NODES.length);
-					onComplete();
-					playSuccessTune();
-				} else {
-					setCurrentNodeIndex((prev) => prev + 1);
-				}
+		if (
+			currentNodeIndex < NODES.length &&
+			checkCollision(x, y, NODES[currentNodeIndex], rect)
+		) {
+			synthSFX.playTone(400 + currentNodeIndex * 100, "sine", 0.1, 0.05);
+			if (currentNodeIndex === NODES.length - 1) {
+				setIsDragging(false);
+				setShipPos(NODES[currentNodeIndex]);
+				setCurrentNodeIndex(NODES.length);
+				onComplete();
+				playSuccessTune();
+			} else {
+				setCurrentNodeIndex((prev) => prev + 1);
 			}
 		}
 	};
@@ -80,10 +77,7 @@ export function useNavigationTask({
 		if (isCompleted || currentNodeIndex >= NODES.length) return;
 		setIsDragging(true);
 		e.currentTarget.setPointerCapture(e.pointerId);
-
-		// Play grab sound
-		playLocalSound(300, "sine", 0.05, 0.02);
-
+		synthSFX.playTone(300, "sine", 0.05, 0.02);
 		updateShipPosition(e);
 	};
 
@@ -99,11 +93,9 @@ export function useNavigationTask({
 			e.currentTarget.releasePointerCapture(e.pointerId);
 		} catch (_err) {}
 
-		// Snap back to last reached node
 		if (currentNodeIndex < NODES.length) {
-			const lastNode = NODES[currentNodeIndex - 1];
-			setShipPos({ x: lastNode.x, y: lastNode.y });
-			playLocalSound(200, "square", 0.1, 0.05);
+			setShipPos(NODES[currentNodeIndex - 1]);
+			synthSFX.playTone(200, "square", 0.1, 0.05);
 		}
 	};
 

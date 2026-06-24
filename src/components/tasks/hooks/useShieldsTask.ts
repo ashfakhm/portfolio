@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { synthSFX } from "../../../utils/sound";
+import { playSuccessTune, synthSFX } from "../../../utils/sound";
 
 interface UseShieldsTaskProps {
 	onComplete: () => void;
 	isCompleted: boolean;
 }
+
+const playShieldClick = () => synthSFX.playTone(400, "triangle", 0.1, 0.05);
 
 export function useShieldsTask({
 	onComplete,
@@ -18,13 +20,6 @@ export function useShieldsTask({
 		false,
 		false,
 	]);
-
-	const playShieldClick = () => synthSFX.playTone(400, "triangle", 0.1, 0.05);
-	const playSuccessTune = () => {
-		synthSFX.playTone(523.25, "sine", 0.3, 0.04);
-		setTimeout(() => synthSFX.playTone(659.25, "sine", 0.3, 0.04), 100);
-		setTimeout(() => synthSFX.playTone(783.99, "sine", 0.5, 0.04), 200);
-	};
 
 	const toggleShield = (idx: number) => {
 		playShieldClick();

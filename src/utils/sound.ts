@@ -30,15 +30,41 @@ class SoundSynth {
 
 	public init() {
 		if (!this.ctx) {
-			try {
-				this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-			} catch (_e) {
-				console.warn("Web Audio API not supported on this platform");
-			}
+			this.createAudioContext();
 		}
-		if (this.ctx && this.ctx.state === "suspended" && this.interacted) {
+		this.resumeContext();
+	}
+
+	private resumeContext() {
+		if (this.ctx?.state === "suspended" && this.interacted) {
 			this.ctx.resume();
 		}
+	}
+
+	private createAudioContext() {
+		const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+		try {
+			this.ctx = new AudioContextClass();
+		} catch (_e) {
+			console.warn("Web Audio API not supported on this platform");
+		}
+	}
+
+	private setupSynth(): {
+		osc: OscillatorNode;
+		gain: GainNode;
+		now: number;
+		ctx: AudioContext;
+	} | null {
+		if (!this.enabled) return null;
+		this.init();
+		if (!this.ctx) return null;
+		return {
+			osc: this.ctx.createOscillator(),
+			gain: this.ctx.createGain(),
+			now: this.ctx.currentTime,
+			ctx: this.ctx,
+		};
 	}
 
 	playTone(
@@ -47,13 +73,9 @@ class SoundSynth {
 		duration: number,
 		volume = 0.05,
 	) {
-		if (!this.enabled) return;
-		this.init();
-		if (!this.ctx) return;
-
-		const now = this.ctx.currentTime;
-		const osc = this.ctx.createOscillator();
-		const gain = this.ctx.createGain();
+		const synth = this.setupSynth();
+		if (!synth) return;
+		const { osc, gain, now, ctx } = synth;
 
 		osc.type = type;
 		osc.frequency.setValueAtTime(freq, now);
@@ -61,20 +83,16 @@ class SoundSynth {
 		gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
 
 		osc.connect(gain);
-		gain.connect(this.ctx.destination);
+		gain.connect(ctx.destination);
 
 		osc.start(now);
 		osc.stop(now + duration);
 	}
 
 	playLaser() {
-		if (!this.enabled) return;
-		this.init();
-		if (!this.ctx) return;
-
-		const now = this.ctx.currentTime;
-		const osc = this.ctx.createOscillator();
-		const gain = this.ctx.createGain();
+		const synth = this.setupSynth();
+		if (!synth) return;
+		const { osc, gain, now, ctx } = synth;
 
 		osc.type = "sawtooth";
 		osc.frequency.setValueAtTime(800, now);
@@ -83,7 +101,7 @@ class SoundSynth {
 		gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.25);
 
 		osc.connect(gain);
-		gain.connect(this.ctx.destination);
+		gain.connect(ctx.destination);
 
 		osc.start(now);
 		osc.stop(now + 0.25);
@@ -211,13 +229,9 @@ class SoundSynth {
 	}
 
 	playVentWhoosh() {
-		if (!this.enabled) return;
-		this.init();
-		if (!this.ctx) return;
-
-		const now = this.ctx.currentTime;
-		const osc = this.ctx.createOscillator();
-		const gain = this.ctx.createGain();
+		const synth = this.setupSynth();
+		if (!synth) return;
+		const { osc, gain, now, ctx } = synth;
 
 		osc.type = "triangle";
 		osc.frequency.setValueAtTime(100, now);
@@ -227,20 +241,16 @@ class SoundSynth {
 		gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.45);
 
 		osc.connect(gain);
-		gain.connect(this.ctx.destination);
+		gain.connect(ctx.destination);
 
 		osc.start(now);
 		osc.stop(now + 0.45);
 	}
 
 	playDoorWhoosh() {
-		if (!this.enabled) return;
-		this.init();
-		if (!this.ctx) return;
-
-		const now = this.ctx.currentTime;
-		const osc = this.ctx.createOscillator();
-		const gain = this.ctx.createGain();
+		const synth = this.setupSynth();
+		if (!synth) return;
+		const { osc, gain, now, ctx } = synth;
 
 		osc.type = "triangle";
 		osc.frequency.setValueAtTime(150, now);
@@ -250,20 +260,16 @@ class SoundSynth {
 		gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.35);
 
 		osc.connect(gain);
-		gain.connect(this.ctx.destination);
+		gain.connect(ctx.destination);
 
 		osc.start(now);
 		osc.stop(now + 0.35);
 	}
 
 	playFootstep() {
-		if (!this.enabled) return;
-		this.init();
-		if (!this.ctx) return;
-
-		const now = this.ctx.currentTime;
-		const osc = this.ctx.createOscillator();
-		const gain = this.ctx.createGain();
+		const synth = this.setupSynth();
+		if (!synth) return;
+		const { osc, gain, now, ctx } = synth;
 
 		// Clear, audible step sound (Square wave blip)
 		osc.type = "square";
@@ -274,7 +280,7 @@ class SoundSynth {
 		gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
 
 		osc.connect(gain);
-		gain.connect(this.ctx.destination);
+		gain.connect(ctx.destination);
 
 		osc.start(now);
 		osc.stop(now + 0.05);
@@ -282,3 +288,11 @@ class SoundSynth {
 }
 
 export const synthSFX = new SoundSynth();
+
+// react-doctor-disable-next-line deslop/unused-export
+export const playSuccessTune = () => {
+	synthSFX.playTone(523.25, "sine", 0.3, 0.04);
+	setTimeout(() => synthSFX.playTone(659.25, "sine", 0.3, 0.04), 100);
+	setTimeout(() => synthSFX.playTone(783.99, "sine", 0.5, 0.04), 200);
+};
+

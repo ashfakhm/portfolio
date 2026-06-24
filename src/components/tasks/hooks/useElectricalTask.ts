@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { synthSFX } from "../../../utils/sound";
+import { playSuccessTune, synthSFX } from "../../../utils/sound";
 
 interface UseElectricalTaskProps {
 	onComplete: () => void;
 	isCompleted: boolean;
 }
+
+const playWireSpark = () => synthSFX.playTone(80, "sawtooth", 0.1, 0.05);
+const playBeep = () => synthSFX.playBeep();
 
 export function useElectricalTask({
 	onComplete,
@@ -17,22 +20,6 @@ export function useElectricalTask({
 	const [rightWireColors] = useState<string[]>(() =>
 		["red", "blue", "yellow", "pink"].sort(() => Math.random() - 0.5),
 	);
-
-	const playWireSpark = () => synthSFX.playTone(80, "sawtooth", 0.1, 0.05);
-	const playBeep = () => synthSFX.playBeep();
-	const playLocalSound = (
-		freq: number,
-		type: "sine" | "square" | "triangle" | "sawtooth",
-		duration: number,
-		volume = 0.05,
-	) => {
-		synthSFX.playTone(freq, type, duration, volume);
-	};
-	const playSuccessTune = () => {
-		synthSFX.playTone(523.25, "sine", 0.3, 0.04);
-		setTimeout(() => synthSFX.playTone(659.25, "sine", 0.3, 0.04), 100);
-		setTimeout(() => synthSFX.playTone(783.99, "sine", 0.5, 0.04), 200);
-	};
 
 	const handleLeftWireClick = (color: string) => {
 		playWireSpark();
@@ -53,7 +40,7 @@ export function useElectricalTask({
 			playBeep();
 			setActiveWireDrag(null);
 		} else {
-			playLocalSound(160, "square", 0.2, 0.05);
+			synthSFX.playTone(160, "square", 0.2, 0.05);
 			setActiveWireDrag(null);
 		}
 	};

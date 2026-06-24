@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { synthSFX } from "../../../utils/sound";
+import { playSuccessTune, synthSFX } from "../../../utils/sound";
 
 interface UseStorageTaskProps {
 	onComplete: () => void;
 	isCompleted: boolean;
 }
+
+const playBeep = () => synthSFX.playBeep();
 
 export function useStorageTask({
 	onComplete,
@@ -15,21 +17,6 @@ export function useStorageTask({
 		"idle" | "refueling" | "completed"
 	>("idle");
 	const fuelTimerRef = useRef<NodeJS.Timeout | null>(null);
-
-	const playLocalSound = (
-		freq: number,
-		type: "sine" | "square" | "triangle" | "sawtooth",
-		duration: number,
-		volume = 0.05,
-	) => {
-		synthSFX.playTone(freq, type, duration, volume);
-	};
-	const playBeep = () => synthSFX.playBeep();
-	const playSuccessTune = () => {
-		synthSFX.playTone(523.25, "sine", 0.3, 0.04);
-		setTimeout(() => synthSFX.playTone(659.25, "sine", 0.3, 0.04), 100);
-		setTimeout(() => synthSFX.playTone(783.99, "sine", 0.5, 0.04), 200);
-	};
 
 	const startRefueling = () => {
 		if (refuelState === "completed") return;
@@ -46,7 +33,7 @@ export function useStorageTask({
 					return 100;
 				}
 				if (prev % 12 === 0)
-					playLocalSound(300 + prev * 2, "square", 0.08, 0.03);
+					synthSFX.playTone(300 + prev * 2, "square", 0.08, 0.03);
 				return prev + 4;
 			});
 		}, 80);
