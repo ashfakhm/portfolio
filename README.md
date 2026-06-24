@@ -1,13 +1,12 @@
-# 🚀 Amongus Inspired Developer Portfolio
+# Among Us Inspired Developer Portfolio
 
 _Turn static resume reading into an engaging 5-minute interactive mission that showcases real-world front-end engineering depth._
 
-[![Vite](https://img.shields.io/badge/vite-6.2.3-646CFF?style=flat-square&logo=vite)](https://vite.dev)
-[![React](https://img.shields.io/badge/react-19.0.1-61DAFB?style=flat-square&logo=react)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/typescript-5.8.2-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org)
-[![Checked by ph doctor](https://img.shields.io/badge/ph-doctor--passing-00ff66.svg?style=flat-square&logo=python)](https://github.com/ashfakhm/portfolio)
+[![React](https://shieldcn.dev/badge/React-61DAFB.svg?logo=react&logoColor=000&variant=branded)](https://react.dev)
+[![TypeScript](https://shieldcn.dev/badge/TypeScript-3178C6.svg?logo=typescript&logoColor=fff&variant=branded)](https://www.typescriptlang.org)
+[![Built by a Human](https://shieldcn.dev/badge/built%20by-a%20human.svg)](https://github.com/ashfakhm)
 
-[⚡ Live Demo](https://portfolio-ashfakh-ms-projects.vercel.app/) • [📖 Documentation](#performance--architectural-highlights)
+[Live Demo](https://portfolio-ashfakh-ms-projects.vercel.app/) • [Documentation](#performance--architectural-highlights)
 
 ---
 
@@ -30,11 +29,11 @@ _Impostor Protocol_ solves this by turning the hiring process into a 5-minute ga
 
 ## Key Capabilities
 
-- **⚡ Gamified Exploration:** Discover skills, projects, and work experience by completing interactive "Among Us" themed tasks. Each completed task unlocks a detailed dossier containing my professional resume sections.
-- **🎨 Live Crewmate HUD Customizer:** Dynamically customize crewmate suit colors and hats inside the spaceship HUD with instant vector previews.
-- **🚀 Zero Re-render Idle State:** Optimized state subscriptions using Zustand shallow selectors reduce React render cycles from 60fps to 0fps when the crewmate is idle.
-- **🌌 Dynamic 3D Starfield:** An immersive 3D space canvas powered by Three.js that is computationally optimized to prevent main-thread lag.
-- **🎵 Procedural Sound Synthesis:** Built-in synthesizer utilizing the browser's native Web Audio API for interactions, completions, and jumpscares—requiring zero external audio assets.
+- **Gamified Exploration:** Discover skills, projects, and work experience by completing interactive "Among Us" themed tasks. Each completed task unlocks a detailed dossier containing my professional resume sections.
+- **Live Crewmate HUD Customizer:** Dynamically customize crewmate suit colors and hats inside the spaceship HUD with instant vector previews.
+- **Zero Re-render Idle State:** Optimized state subscriptions using Zustand shallow selectors reduce React render cycles from 60fps to 0fps when the crewmate is idle.
+- **Dynamic 3D Starfield:** An immersive 3D space canvas powered by Three.js that is computationally optimized to prevent main-thread lag.
+- **Procedural Sound Synthesis:** Built-in synthesizer utilizing the browser's native Web Audio API for interactions, completions, and jumpscares—requiring zero external audio assets.
 
 ---
 
@@ -42,7 +41,7 @@ _Impostor Protocol_ solves this by turning the hiring process into a 5-minute ga
 
 The application functions essentially as a gamified developer **Todo List** (or task checklist). Navigating the spaceship and completing the listed tasks reveals different parts of the developer's resume and portfolio dossiers.
 
-### 🕹️ Keyboard Listener & Grid Translation
+### Keyboard Listener & Grid Translation
 
 The core movement engine registers active event listeners on the `window` to track user keyboard input, translating the crewmate along the coordinate axes:
 
@@ -51,7 +50,7 @@ The core movement engine registers active event listeners on the `window` to tra
 - **A / ArrowLeft**: Decrements the character's position along the **X-axis** (translates the crewmate leftwards, flipping the sprite direction).
 - **D / ArrowRight**: Increments the character's position along the **X-axis** (translates the crewmate rightwards).
 
-### 🏃 Walking Sprite Animation
+### Walking Sprite Animation
 
 To simulate fluid movement without heavy video assets, the engine tracks the velocity state of the crewmate:
 
