@@ -5,7 +5,6 @@ _Turn static resume reading into an engaging 5-minute interactive mission that s
 [![Vite](https://img.shields.io/badge/vite-6.2.3-646CFF?style=flat-square&logo=vite)](https://vite.dev)
 [![React](https://img.shields.io/badge/react-19.0.1-61DAFB?style=flat-square&logo=react)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/typescript-5.8.2-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 [![Checked by ph doctor](https://img.shields.io/badge/ph-doctor--passing-00ff66.svg?style=flat-square&logo=python)](https://github.com/ashfakhm/portfolio)
 
 [⚡ Live Demo](https://portfolio-ashfakh-ms-projects.vercel.app/) • [📖 Documentation](#performance--architectural-highlights)
@@ -205,9 +204,3 @@ portfolio/
 ├── package.json            ← Dependencies & build scripts
 └── tsconfig.json           ← TypeScript configuration
 ```
-
----
-
-## License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
