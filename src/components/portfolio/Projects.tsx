@@ -28,10 +28,9 @@ export default function Projects() {
 							Quiz Platform
 						</h3>
 						<p className="text-xs text-slate-400 leading-relaxed min-h-[60px]">
-							Built complete exam engine with question bank, randomised
-							delivery, session handling, and results. Improved SEO and page
-							performance using Next.js Server-Side Rendering (SSR) and metadata
-							optimization.
+							Interactive exam platform featuring automated test generation. Optimized website loading 
+							speeds and search engine visibility, preventing users from leaving the page and boosting 
+							organic sign-ups.
 						</p>
 						<div className="flex flex-wrap gap-2 text-[10px] font-mono">
 							<span className="px-2.5 py-1 bg-white/10 text-slate-100 rounded-md font-mono border border-white/20 shadow-sm">
@@ -69,9 +68,9 @@ export default function Projects() {
 							LaundryEase
 						</h3>
 						<p className="text-xs text-slate-400 leading-relaxed min-h-[60px]">
-							Escrow-backed laundry marketplace. Features location-based
-							provider discovery, real-time Socket.IO chat, deterministic order
-							tracking, and highly idempotent Razorpay webhook controllers.
+							Secure marketplace connecting local service providers with customers. Created a reliable 
+							escrow payment flow that automatically handles transaction failures to protect users against 
+							double-charging and checkout drop-offs.
 						</p>
 						<div className="flex flex-wrap gap-2 text-[10px] font-mono">
 							<span className="px-2.5 py-1 bg-white/10 text-slate-100 rounded-md font-mono border border-white/20 shadow-sm">
