@@ -33,6 +33,8 @@ interface GameState {
 	setShowVictory: (val: boolean) => void;
 	showHologramMap: boolean;
 	setShowHologramMap: (val: boolean) => void;
+	showLegalModal: boolean;
+	setShowLegalModal: (val: boolean) => void;
 	soundOn: boolean;
 	setSoundOn: (val: boolean) => void;
 
@@ -90,6 +92,8 @@ export const useGameStore = create<GameState>()(
 			setShowVictory: (val) => set({ showVictory: val }),
 			showHologramMap: false,
 			setShowHologramMap: (val) => set({ showHologramMap: val }),
+			showLegalModal: false,
+			setShowLegalModal: (val) => set({ showLegalModal: val }),
 			soundOn: true,
 			setSoundOn: (val) => {
 				synthSFX.enabled = val;
