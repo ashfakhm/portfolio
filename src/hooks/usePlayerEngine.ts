@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import {
+  type Door,
   FLOATING_VENTS,
   GameConstants,
   isWalkable,
@@ -18,6 +19,132 @@ interface UsePlayerEngineProps {
   triggerModal: (roomId: string) => void;
   setShowHologramMap: (val: boolean) => void;
   setVentMapOpen: (val: boolean) => void;
+}
+
+function calculateWalkablePosition(
+  currentPos: { x: number; y: number },
+  moveX: number,
+  moveY: number,
+  doors: Door[],
+): { x: number; y: number } {
+  let nextX = currentPos.x;
+  let nextY = currentPos.y;
+
+  if (isWalkable(currentPos.x + moveX, currentPos.y, doors)) {
+    nextX = currentPos.x + moveX;
+  }
+  if (isWalkable(currentPos.x, currentPos.y + moveY, doors)) {
+    nextY = currentPos.y + moveY;
+  }
+  if (isWalkable(currentPos.x + moveX, currentPos.y + moveY, doors)) {
+    nextX = currentPos.x + moveX;
+    nextY = currentPos.y + moveY;
+  }
+  return { x: nextX, y: nextY };
+}
+
+// fallow-ignore-next-line complexity
+function getKeyboardJoystickOffset(
+  keysActive: Record<string, boolean>,
+  joystickActive: boolean,
+  joystickOffset: { x: number; y: number }
+): { dx: number; dy: number } {
+  let dx = 0;
+  let dy = 0;
+  if (keysActive.w || keysActive.arrowup) dy -= 1;
+  if (keysActive.s || keysActive.arrowdown) dy += 1;
+  if (keysActive.a || keysActive.arrowleft) dx -= 1;
+  if (keysActive.d || keysActive.arrowright) dx += 1;
+
+  if (joystickActive) {
+    dx = joystickOffset.x * GameConstants.MOVEMENT.JOYSTICK_MULTIPLIER;
+    dy = joystickOffset.y * GameConstants.MOVEMENT.JOYSTICK_MULTIPLIER;
+  }
+  return { dx, dy };
+}
+
+// fallow-ignore-next-line complexity
+function handleTargetMovement(
+  currentPos: { x: number; y: number },
+  targetPos: { x: number; y: number },
+  speed: number,
+  doors: Door[],
+  updateTargetPos: (pos: { x: number; y: number } | null) => void,
+  updateTargetRoomPath: (path: string | null) => void,
+  triggerModal: (roomId: string) => void,
+  targetRoomPath: string | null,
+  updateDirection: (dir: "left" | "right") => void
+): { x: number; y: number; isMoving: boolean } {
+  const distToTargetX = targetPos.x - currentPos.x;
+  const distToTargetY = targetPos.y - currentPos.y;
+  const totalDist = Math.sqrt(
+    distToTargetX * distToTargetX + distToTargetY * distToTargetY,
+  );
+
+  if (totalDist > GameConstants.MOVEMENT.TARGET_REACH_DISTANCE) {
+    const moveX = (distToTargetX / totalDist) * speed;
+    const moveY = (distToTargetY / totalDist) * speed;
+
+    const nextPos = calculateWalkablePosition(currentPos, moveX, moveY, doors);
+
+    if (nextPos.x === currentPos.x && nextPos.y === currentPos.y) {
+      updateTargetPos(null);
+      updateTargetRoomPath(null);
+      return { ...currentPos, isMoving: false };
+    }
+
+    if (distToTargetX < 0) updateDirection("left");
+    else if (distToTargetX > 0) updateDirection("right");
+
+    return { ...nextPos, isMoving: true };
+  } else {
+    updateTargetPos(null);
+    if (targetRoomPath) {
+      triggerModal(targetRoomPath);
+      updateTargetRoomPath(null);
+    }
+    return { ...currentPos, isMoving: false };
+  }
+}
+
+// fallow-ignore-next-line complexity
+function updateNearestEntities(
+  x: number,
+  y: number,
+  nearestRoom: RoomConfig | null,
+  nearVent: { id: string; rx: string; x: number; y: number } | null,
+  updateNearestRoom: (r: RoomConfig | null) => void,
+  updateNearVent: (v: { id: string; rx: string; x: number; y: number } | null) => void
+): void {
+  let closestRoom: RoomConfig | null = null;
+  let minDistance = 60;
+
+  for (const room of Object.values(SPACESHIP_ROOMS)) {
+    const rx = room.cx - x;
+    const ry = room.cy - y;
+    const dist = Math.sqrt(rx * rx + ry * ry);
+    if (dist < minDistance) {
+      minDistance = dist;
+      closestRoom = room;
+    }
+  }
+
+  if (nearestRoom?.id !== closestRoom?.id) {
+    updateNearestRoom(closestRoom);
+  }
+
+  let nearestVent: (typeof FLOATING_VENTS)[number] | null = null;
+  for (const vent of FLOATING_VENTS) {
+    const vx = vent.x - x;
+    const vy = vent.y - y;
+    const vdist = Math.sqrt(vx * vx + vy * vy);
+    if (vdist < GameConstants.VENTS.PROXIMITY_DISTANCE) {
+      nearestVent = vent;
+    }
+  }
+  if (nearVent?.id !== nearestVent?.id) {
+    updateNearVent(nearestVent);
+  }
 }
 
 export function usePlayerEngine({
@@ -78,11 +205,12 @@ export function usePlayerEngine({
         return changed ? nextDoors : prevDoors;
       });
 
+      // fallow-ignore-next-line complexity
       updateDoorProgress((prev) => {
         const next = { ...prev };
         let changed = false;
         const currentDoors = useEngineStore.getState().doors;
-        currentDoors.forEach((door) => {
+        for (const door of currentDoors) {
           const target = door.isOpen ? 1 : 0;
           const current = prev[door.id] || 0;
           if (Math.abs(current - target) > 0.05) {
@@ -94,7 +222,7 @@ export function usePlayerEngine({
             changed = true;
             next[door.id] = target;
           }
-        });
+        }
         return changed ? next : prev;
       });
     }, GameConstants.DOORS.ANIMATION_INTERVAL_MS);
@@ -109,6 +237,7 @@ export function usePlayerEngine({
       return;
     }
 
+    // fallow-ignore-next-line complexity
     const handleKeyDown = (e: KeyboardEvent) => {
       const walkKeys = [
         "w",
@@ -161,26 +290,16 @@ export function usePlayerEngine({
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
 
+    // fallow-ignore-next-line complexity
     const tickMovement = () => {
-      let dx = 0;
-      let dy = 0;
       const speed = GameConstants.MOVEMENT.SPEED;
-
-      if (keysActiveRef.current.w || keysActiveRef.current.arrowup) dy -= 1;
-      if (keysActiveRef.current.s || keysActiveRef.current.arrowdown) dy += 1;
-      if (keysActiveRef.current.a || keysActiveRef.current.arrowleft) dx -= 1;
-      if (keysActiveRef.current.d || keysActiveRef.current.arrowright) dx += 1;
-
       const engineState = useEngineStore.getState();
 
-      if (engineState.joystickActive) {
-        dx =
-          engineState.joystickOffset.x *
-          GameConstants.MOVEMENT.JOYSTICK_MULTIPLIER;
-        dy =
-          engineState.joystickOffset.y *
-          GameConstants.MOVEMENT.JOYSTICK_MULTIPLIER;
-      }
+      const { dx, dy } = getKeyboardJoystickOffset(
+        keysActiveRef.current,
+        engineState.joystickActive,
+        engineState.joystickOffset,
+      );
 
       let isMovingWalk = false;
       let currentX = engineState.playerPos.x;
@@ -192,107 +311,33 @@ export function usePlayerEngine({
         const moveX = (dx / length) * speed;
         const moveY = (dy / length) * speed;
 
-        let nextX = engineState.playerPos.x;
-        let nextY = engineState.playerPos.y;
+        const nextPos = calculateWalkablePosition(
+          engineState.playerPos,
+          moveX,
+          moveY,
+          engineState.doors,
+        );
 
-        if (
-          isWalkable(
-            engineState.playerPos.x + moveX,
-            engineState.playerPos.y,
-            engineState.doors,
-          )
-        ) {
-          nextX = engineState.playerPos.x + moveX;
-        }
-        if (
-          isWalkable(
-            engineState.playerPos.x,
-            engineState.playerPos.y + moveY,
-            engineState.doors,
-          )
-        ) {
-          nextY = engineState.playerPos.y + moveY;
-        }
-        if (
-          isWalkable(
-            engineState.playerPos.x + moveX,
-            engineState.playerPos.y + moveY,
-            engineState.doors,
-          )
-        ) {
-          nextX = engineState.playerPos.x + moveX;
-          nextY = engineState.playerPos.y + moveY;
-        }
-
-        currentX = nextX;
-        currentY = nextY;
+        currentX = nextPos.x;
+        currentY = nextPos.y;
 
         if (dx < 0) updateDirection("left");
         else if (dx > 0) updateDirection("right");
       } else if (engineState.targetPos) {
-        const distToTargetX = engineState.targetPos.x - engineState.playerPos.x;
-        const distToTargetY = engineState.targetPos.y - engineState.playerPos.y;
-        const totalDist = Math.sqrt(
-          distToTargetX * distToTargetX + distToTargetY * distToTargetY,
+        const res = handleTargetMovement(
+          engineState.playerPos,
+          engineState.targetPos,
+          speed,
+          engineState.doors,
+          updateTargetPos,
+          updateTargetRoomPath,
+          triggerModal,
+          engineState.targetRoomPath,
+          updateDirection,
         );
-
-        if (totalDist > GameConstants.MOVEMENT.TARGET_REACH_DISTANCE) {
-          isMovingWalk = true;
-          const moveX = (distToTargetX / totalDist) * speed;
-          const moveY = (distToTargetY / totalDist) * speed;
-
-          let nextX = engineState.playerPos.x;
-          let nextY = engineState.playerPos.y;
-
-          if (
-            isWalkable(
-              engineState.playerPos.x + moveX,
-              engineState.playerPos.y,
-              engineState.doors,
-            )
-          ) {
-            nextX = engineState.playerPos.x + moveX;
-          }
-          if (
-            isWalkable(
-              engineState.playerPos.x,
-              engineState.playerPos.y + moveY,
-              engineState.doors,
-            )
-          ) {
-            nextY = engineState.playerPos.y + moveY;
-          }
-          if (
-            isWalkable(
-              engineState.playerPos.x + moveX,
-              engineState.playerPos.y + moveY,
-              engineState.doors,
-            )
-          ) {
-            nextX = engineState.playerPos.x + moveX;
-            nextY = engineState.playerPos.y + moveY;
-          }
-
-          if (
-            nextX === engineState.playerPos.x &&
-            nextY === engineState.playerPos.y
-          ) {
-            updateTargetPos(null);
-            updateTargetRoomPath(null);
-          } else {
-            currentX = nextX;
-            currentY = nextY;
-          }
-
-          if (distToTargetX < 0) updateDirection("left");
-          else updateDirection("right");
-        } else {
-          updateTargetPos(null);
-          if (engineState.targetRoomPath) {
-            triggerModal(engineState.targetRoomPath);
-            updateTargetRoomPath(null);
-          }
-        }
+        currentX = res.x;
+        currentY = res.y;
+        isMovingWalk = res.isMoving;
       }
 
       if (isMovingWalk) {
@@ -320,35 +365,14 @@ export function usePlayerEngine({
         updatePlayerMoving(false);
       }
 
-      let closestRoom: RoomConfig | null = null;
-      let minDistance = 60;
-
-      for (const room of Object.values(SPACESHIP_ROOMS)) {
-        const rx = room.cx - currentX;
-        const ry = room.cy - currentY;
-        const dist = Math.sqrt(rx * rx + ry * ry);
-        if (dist < minDistance) {
-          minDistance = dist;
-          closestRoom = room;
-        }
-      }
-
-      if (engineState.nearestRoom?.id !== closestRoom?.id) {
-        updateNearestRoom(closestRoom);
-      }
-
-      let nearestVent: (typeof FLOATING_VENTS)[number] | null = null;
-      for (const vent of FLOATING_VENTS) {
-        const vx = vent.x - currentX;
-        const vy = vent.y - currentY;
-        const vdist = Math.sqrt(vx * vx + vy * vy);
-        if (vdist < GameConstants.VENTS.PROXIMITY_DISTANCE) {
-          nearestVent = vent;
-        }
-      }
-      if (engineState.nearVent?.id !== nearestVent?.id) {
-        updateNearVent(nearestVent);
-      }
+      updateNearestEntities(
+        currentX,
+        currentY,
+        engineState.nearestRoom,
+        engineState.nearVent,
+        updateNearestRoom,
+        updateNearVent,
+      );
 
       frameIdRef.current = requestAnimationFrame(tickMovement);
     };

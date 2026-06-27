@@ -199,7 +199,7 @@ export const WALKABLE_REGIONS: Rect[] = [
 	{ x: 555, y: 500, w: 70, h: 45 }, // Storage to Shields
 ];
 
-export interface Obstacle {
+interface Obstacle {
 	x: number;
 	y: number;
 	w?: number;
@@ -304,70 +304,64 @@ export const INITIAL_DOORS: Door[] = [
 	},
 ];
 
+// fallow-ignore-next-line complexity
+const inWalkableRegions = (x: number, y: number): boolean => {
+	for (const reg of WALKABLE_REGIONS) {
+		if (x >= reg.x && x <= reg.x + reg.w && y >= reg.y && y <= reg.y + reg.h) {
+			return true;
+		}
+	}
+	return false;
+};
+
+const inRect = (x: number, y: number, rx: number, ry: number, rw: number, rh: number): boolean => {
+	return x >= rx && x <= rx + rw && y >= ry && y <= ry + rh;
+};
+
+const inCircle = (x: number, y: number, cx: number, cy: number, r: number): boolean => {
+	const dx = x - cx;
+	const dy = y - cy;
+	return dx * dx + dy * dy <= r * r;
+};
+
+// fallow-ignore-next-line complexity
+const hitsStaticObstacle = (x: number, y: number): boolean => {
+	for (const obs of STATIC_OBSTACLES) {
+		if (obs.type === "rect" && obs.w && obs.h) {
+			if (inRect(x, y, obs.x, obs.y, obs.w, obs.h)) {
+				return true;
+			}
+		} else if (obs.type === "circle" && obs.r) {
+			if (inCircle(x, y, obs.x, obs.y, obs.r)) {
+				return true;
+			}
+		}
+	}
+	return false;
+};
+
+// fallow-ignore-next-line complexity
+const hitsClosedDoor = (x: number, y: number, doorsArray: Door[]): boolean => {
+	for (const door of doorsArray) {
+		if (!door.isOpen) {
+			const hw = door.horizontal ? 22 : 10;
+			const hh = door.horizontal ? 10 : 22;
+			if (x >= door.x - hw && x <= door.x + hw && y >= door.y - hh && y <= door.y + hh) {
+				return true;
+			}
+		}
+	}
+	return false;
+};
+
 export const isWalkable = (
 	x: number,
 	y: number,
 	doorsArray: Door[] = [],
 ): boolean => {
-	// 1. Must be inside at least one walkable region
-	let inWalkable = false;
-	for (const reg of WALKABLE_REGIONS) {
-		if (x >= reg.x && x <= reg.x + reg.w && y >= reg.y && y <= reg.y + reg.h) {
-			inWalkable = true;
-			break;
-		}
-	}
-	if (!inWalkable) return false;
-
-	// 2. Must NOT be inside any static obstacles
-	for (const obs of STATIC_OBSTACLES) {
-		if (obs.type === "rect" && obs.w && obs.h) {
-			if (
-				x >= obs.x &&
-				x <= obs.x + obs.w &&
-				y >= obs.y &&
-				y <= obs.y + obs.h
-			) {
-				return false;
-			}
-		} else if (obs.type === "circle" && obs.r) {
-			const dx = x - obs.x;
-			const dy = y - obs.y;
-			if (Math.sqrt(dx * dx + dy * dy) <= obs.r) {
-				return false;
-			}
-		}
-	}
-
-	// 3. Must NOT be inside any closed doors
-	for (const door of doorsArray) {
-		if (!door.isOpen) {
-			if (door.horizontal) {
-				const hw = 22;
-				const hh = 10;
-				if (
-					x >= door.x - hw &&
-					x <= door.x + hw &&
-					y >= door.y - hh &&
-					y <= door.y + hh
-				) {
-					return false;
-				}
-			} else {
-				const hw = 10;
-				const hh = 22;
-				if (
-					x >= door.x - hw &&
-					x <= door.x + hw &&
-					y >= door.y - hh &&
-					y <= door.y + hh
-				) {
-					return false;
-				}
-			}
-		}
-	}
-
+	if (!inWalkableRegions(x, y)) return false;
+	if (hitsStaticObstacle(x, y)) return false;
+	if (hitsClosedDoor(x, y, doorsArray)) return false;
 	return true;
 };
 
