@@ -119,7 +119,9 @@ export default function LegalModal({ isOpen, onClose, initialTab = "privacy" }: 
 	const [activeTab, setActiveTab] = useState<"privacy" | "terms">(initialTab);
 
 	const onCloseRef = useRef(onClose);
-	onCloseRef.current = onClose;
+	useEffect(() => {
+		onCloseRef.current = onClose;
+	});
 
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {

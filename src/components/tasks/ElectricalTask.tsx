@@ -17,6 +17,8 @@ export default function ElectricalTask({
 		handleRightWireClick,
 	} = useElectricalTask({ onComplete, isCompleted });
 
+	const matchedWireColors = new Set(Object.values(wireConnections));
+
 	return (
 		<div className="flex-1 flex flex-col">
 			{Object.keys(wireConnections).length < 4 ? (
@@ -97,8 +99,7 @@ export default function ElectricalTask({
 
 						<div className="flex-1 flex flex-col justify-between items-end gap-4 z-10">
 							{rightWireColors.map((color) => {
-								const isMatched =
-									Object.values(wireConnections).includes(color);
+								const isMatched = matchedWireColors.has(color);
 								return (
 									<button
 										type="button"

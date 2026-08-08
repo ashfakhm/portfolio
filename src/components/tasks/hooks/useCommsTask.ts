@@ -28,8 +28,6 @@ export function useCommsTask({ onComplete, isCompleted }: UseCommsTaskProps) {
 			setState((prev) => {
 				const nextProgress = prev.progress + 5;
 				if (nextProgress >= 100) {
-					clearInterval(timer);
-					window.setTimeout(onComplete, 0);
 					return {
 						progress: 100,
 						speed: nextSpeed,
@@ -45,6 +43,12 @@ export function useCommsTask({ onComplete, isCompleted }: UseCommsTaskProps) {
 		}, 150);
 
 		return () => clearInterval(timer);
+	}, [state.status]);
+
+	useEffect(() => {
+		if (state.status !== "completed") return;
+		const t = window.setTimeout(onComplete, 0);
+		return () => clearTimeout(t);
 	}, [state.status, onComplete]);
 
 	const displayedProgress = isCompleted ? 100 : state.progress;

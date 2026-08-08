@@ -29,9 +29,11 @@ export default function TaskModal({
 	);
 
 	const onCloseRef = useRef(onClose);
-	onCloseRef.current = onClose;
 	const taskCompletedRef = useRef(taskCompleted);
-	taskCompletedRef.current = taskCompleted;
+	useEffect(() => {
+		onCloseRef.current = onClose;
+		taskCompletedRef.current = taskCompleted;
+	});
 
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {

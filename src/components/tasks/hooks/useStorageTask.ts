@@ -17,25 +17,26 @@ export function useStorageTask({
 		"idle" | "refueling" | "completed"
 	>("idle");
 	const fuelTimerRef = useRef<NodeJS.Timeout | null>(null);
+	const fuelLevelRef = useRef(0);
 
 	const startRefueling = () => {
 		if (refuelState === "completed") return;
 		setRefuelState("refueling");
 		playBeep();
 		fuelTimerRef.current = setInterval(() => {
-			setFuelLevel((prev) => {
-				if (prev >= 100) {
-					if (fuelTimerRef.current) clearInterval(fuelTimerRef.current);
-					fuelTimerRef.current = null;
-					setRefuelState("completed");
-					onComplete();
-					playSuccessTune();
-					return 100;
-				}
-				if (prev % 12 === 0)
-					synthSFX.playTone(300 + prev * 2, "square", 0.08, 0.03);
-				return prev + 4;
-			});
+			const prev = fuelLevelRef.current;
+			const next = Math.min(prev + 4, 100);
+			fuelLevelRef.current = next;
+			setFuelLevel(next);
+			if (prev % 12 === 0)
+				synthSFX.playTone(300 + prev * 2, "square", 0.08, 0.03);
+			if (next >= 100) {
+				if (fuelTimerRef.current) clearInterval(fuelTimerRef.current);
+				fuelTimerRef.current = null;
+				setRefuelState("completed");
+				onComplete();
+				playSuccessTune();
+			}
 		}, 80);
 	};
 

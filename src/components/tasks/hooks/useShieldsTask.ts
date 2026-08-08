@@ -23,15 +23,13 @@ export function useShieldsTask({
 
 	const toggleShield = (idx: number) => {
 		playShieldClick();
-		setShieldsState((prev) => {
-			const next = [...prev];
-			next[idx] = !next[idx]; // toggle shield
-			if (!next.includes(false)) {
-				onComplete();
-				playSuccessTune();
-			}
-			return next;
-		});
+		const next = [...shieldsState];
+		next[idx] = !next[idx]; // toggle shield
+		setShieldsState(next);
+		if (!next.includes(false)) {
+			onComplete();
+			playSuccessTune();
+		}
 	};
 
 	const displayedShields = isCompleted

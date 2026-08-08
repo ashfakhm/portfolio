@@ -15,7 +15,9 @@ function VentMapView({
   triggerVentTravel,
 }: VentMapProps) {
   const onCloseRef = useRef(onClose);
-  onCloseRef.current = onClose;
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  });
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

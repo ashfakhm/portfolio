@@ -33,13 +33,11 @@ export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
 		return () => window.removeEventListener("resize", checkMobile);
 	}, []);
 
-	const prevIsOpenRef = useRef<boolean | null>(null);
-	if (isOpen !== prevIsOpenRef.current) {
-		prevIsOpenRef.current = isOpen;
-		if (isOpen) {
-			if (!isPermanentlyMinimizedRef.current) {
-				setIsMinimized(false);
-			}
+	const [prevIsOpen, setPrevIsOpen] = useState<boolean | null>(null);
+	if (prevIsOpen !== isOpen) {
+		setPrevIsOpen(isOpen);
+		if (isOpen && !isPermanentlyMinimizedRef.current) {
+			setIsMinimized(false);
 		}
 	}
 

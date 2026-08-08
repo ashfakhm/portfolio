@@ -40,27 +40,24 @@ export function useMedbayTask({ onComplete, isCompleted }: UseMedbayTaskProps) {
 					} else if (prev.progress < 90 && nextProgress >= 90) {
 						nextDiagnostics.push("VERIFYING CREDENTIAL: META FRONT-END PROFESSIONAL");
 					} else if (nextProgress >= 100) {
-						clearInterval(timer);
-						window.setTimeout(onComplete, 0);
-						return {
-							progress: 100,
-							status: "completed",
-							diagnostics: [
-								...nextDiagnostics,
-								"SCAN RESULT: CANDIDATE CLEAR FOR LANDING!",
-							],
-						};
+						nextDiagnostics.push("SCAN RESULT: CANDIDATE CLEAR FOR LANDING!");
 					}
 
 					return {
-						progress: nextProgress,
-						status: "scanning",
+						progress: nextProgress >= 100 ? 100 : nextProgress,
+						status: nextProgress >= 100 ? "completed" : "scanning",
 						diagnostics: nextDiagnostics,
 					};
 				});
 			}, 80);
 		}
 		return () => clearInterval(timer);
+	}, [state.status]);
+
+	useEffect(() => {
+		if (state.status !== "completed") return;
+		const t = window.setTimeout(onComplete, 0);
+		return () => clearTimeout(t);
 	}, [state.status, onComplete]);
 
 	const displayedProgress = isCompleted ? 100 : state.progress;

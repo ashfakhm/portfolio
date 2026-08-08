@@ -179,10 +179,10 @@ export default function AdminTask({ onComplete, isCompleted }: AdminTaskProps) {
 										"Tailwind CSS",
 										"SSR",
 										"Server Actions",
-									].map((skill, idx) => (
-										<span
-											key={idx}
-											className="text-[10px] cursor-pointer bg-slate-900 border border-slate-700 hover:border-[#1a9eff] px-2 py-1 rounded text-white flex items-center gap-1.5 transition-all"
+								].map((skill) => (
+									<span
+										key={skill}
+										className="text-[10px] cursor-pointer bg-slate-900 border border-slate-700 hover:border-[#1a9eff] px-2 py-1 rounded text-white flex items-center gap-1.5 transition-colors"
 											title="100 SEO score achieved"
 										>
 											<span className="size-1.5 rounded-full bg-green-400 animate-pulse" />
@@ -204,10 +204,10 @@ export default function AdminTask({ onComplete, isCompleted }: AdminTaskProps) {
 										"RESTful APIs",
 										"Webhooks",
 										"Idempotent Logic",
-									].map((skill, idx) => (
-										<span
-											key={idx}
-											className="text-[10px] cursor-pointer bg-slate-900 border border-slate-700 hover:border-yellow-400 px-2 py-1 rounded text-white flex items-center gap-1.5 transition-all"
+								].map((skill) => (
+									<span
+										key={skill}
+										className="text-[10px] cursor-pointer bg-slate-900 border border-slate-700 hover:border-yellow-400 px-2 py-1 rounded text-white flex items-center gap-1.5 transition-colors"
 										>
 											<span className="size-1.5 rounded-full bg-yellow-400 animate-pulse" />
 											{skill}
@@ -231,14 +231,14 @@ export default function AdminTask({ onComplete, isCompleted }: AdminTaskProps) {
 										"Java",
 										"SQL",
 										"PHP",
-									].map((skill, idx) => (
-										<span
-											key={idx}
-											className="bg-[#18182d] px-1.5 py-0.5 rounded border border-[#3a3a5e] text-slate-300"
-										>
-											{skill}
-										</span>
-									))}
+								].map((skill) => (
+									<span
+										key={skill}
+										className="bg-[#18182d] px-1.5 py-0.5 rounded border border-[#3a3a5e] text-slate-300"
+									>
+										{skill}
+									</span>
+								))}
 								</div>
 							</div>
 
@@ -254,14 +254,14 @@ export default function AdminTask({ onComplete, isCompleted }: AdminTaskProps) {
 										"Vercel",
 										"VS Code",
 										"Google Lighthouse",
-									].map((tool, idx) => (
-										<span
-											key={idx}
-											className="bg-slate-900 px-1.5 py-0.5 rounded border border-[#3a3a5e] text-slate-300"
-										>
-											{tool}
-										</span>
-									))}
+								].map((tool) => (
+									<span
+										key={tool}
+										className="bg-slate-900 px-1.5 py-0.5 rounded border border-[#3a3a5e] text-slate-300"
+									>
+										{tool}
+									</span>
+								))}
 								</div>
 							</div>
 						</div>

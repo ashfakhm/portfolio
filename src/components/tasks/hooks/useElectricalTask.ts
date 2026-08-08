@@ -29,14 +29,12 @@ export function useElectricalTask({
 	const handleRightWireClick = (color: string) => {
 		if (!activeWireDrag) return;
 		if (activeWireDrag === color) {
-			setWireConnections((prev) => {
-				const next = { ...prev, [color]: color };
-				if (Object.keys(next).length === 4) {
-					onComplete();
-					playSuccessTune();
-				}
-				return next;
-			});
+			const isFinalWire = Object.keys(wireConnections).length === 3;
+			setWireConnections((prev) => ({ ...prev, [color]: color }));
+			if (isFinalWire) {
+				onComplete();
+				playSuccessTune();
+			}
 			playBeep();
 			setActiveWireDrag(null);
 		} else {
