@@ -11,7 +11,9 @@ services:
     init: true
 
   web:
-    build: .
+    build:
+      context: .
+      target: runtime
     image: ashfakh-portfolio:latest
     user: "101:101"
     ports:

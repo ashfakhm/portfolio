@@ -19,7 +19,7 @@ WORKDIR /app
 RUN adduser -D -u 10001 builduser \
     && chown -R builduser:builduser /app
 
-COPY package.json package-lock.json ./
+COPY --chown=builduser:builduser package.json package-lock.json ./
 
 USER 10001
 
