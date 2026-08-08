@@ -2,6 +2,7 @@ services:
   web:
     build:
       context: .
+      dockerfile: Dockerfile.prod
       target: runtime
     image: ashfakh-portfolio:latest
     user: "101:101"
@@ -13,7 +14,6 @@ services:
     tmpfs:
       - /var/cache/nginx:uid=101,gid=101,noexec,nosuid,size=32m
       - /var/run:uid=101,gid=101,noexec,nosuid,size=8m
-      - /var/log/nginx:uid=101,gid=101,noexec,nosuid,size=8m
       - /tmp:uid=101,gid=101,noexec,nosuid,size=64m
     security_opt:
       - no-new-privileges:true

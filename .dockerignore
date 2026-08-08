@@ -9,5 +9,6 @@ knowledge
 .DS_Store
 *.log
 Dockerfile
+Dockerfile.prod
 docker-compose*.yml
 .dockerignore
