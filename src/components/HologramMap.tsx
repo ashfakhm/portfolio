@@ -19,6 +19,149 @@ interface HologramMapProps {
   setTargetRoomPath: (roomId: string | null) => void;
 }
 
+function RoomLabels() {
+  return (
+    <>
+      {Object.entries({
+        cafeteria: { x: 450, y: 162.5, name: "CAFETERIA" },
+        weapons: { x: 690, y: 145, name: "WEAPONS" },
+        medbay: { x: 230, y: 167.5, name: "MEDBAY" },
+        upper_engine: { x: 90, y: 162.5, name: "UPPER ENGINE" },
+        reactor: { x: 85, y: 360, name: "REACTOR" },
+        security: { x: 225, y: 340, name: "SECURITY" },
+        lower_engine: { x: 90, y: 547.5, name: "LOWER ENGINE" },
+        electrical: { x: 245, y: 500, name: "ELECTRICAL" },
+        storage: { x: 450, y: 565, name: "STORAGE" },
+        admin: { x: 585, y: 410, name: "ADMIN" },
+        o2: { x: 680, y: 310, name: "O2" },
+        navigation: { x: 805, y: 360, name: "NAVIGATION" },
+        shields: { x: 690, y: 520, name: "SHIELDS" },
+        comms: { x: 605, y: 665, name: "COMMUNICATIONS" },
+      }).map(([roomId, label]) => {
+        const roomInfo = WALKABLE_REGIONS.find(
+          (r) => r.name === roomId,
+        );
+        if (!roomInfo) return null;
+
+        return (
+          <g
+            key={`label-${roomId}`}
+            className="pointer-events-none select-none"
+          >
+            <text
+              x={label.x}
+              y={label.y + 2}
+              textAnchor="middle"
+              dominantBaseline="central"
+              className="fill-[#05070c] font-sans font-black tracking-widest text-[11px] md:text-[13px] uppercase opacity-90"
+            >
+              {label.name}
+            </text>
+            <text
+              x={label.x}
+              y={label.y}
+              textAnchor="middle"
+              dominantBaseline="central"
+              className="fill-[#f1f5f9] font-sans font-black tracking-widest text-[11px] md:text-[13px] uppercase"
+            >
+              {label.name}
+            </text>
+          </g>
+        );
+      })}
+    </>
+  );
+}
+
+function VentGrilles() {
+  return (
+    <>
+      {FLOATING_VENTS.map((v) => (
+        <g
+          key={`map-vent-${v.id}`}
+          transform={`translate(${v.x}, ${v.y})`}
+          className="pointer-events-none opacity-40 select-none"
+        >
+          <rect
+            x={-8}
+            y={-8}
+            width={16}
+            height={16}
+            fill="#4b5563"
+            stroke="#000000"
+            strokeWidth={2.5}
+            rx={2}
+          />
+          <line
+            x1={-5}
+            y1={-4}
+            x2={5}
+            y2={-4}
+            stroke="#000000"
+            strokeWidth={2}
+          />
+          <line
+            x1={-5}
+            y1={0}
+            x2={5}
+            y2={0}
+            stroke="#000000"
+            strokeWidth={2}
+          />
+          <line
+            x1={-5}
+            y1={4}
+            x2={5}
+            y2={4}
+            stroke="#000000"
+            strokeWidth={2}
+          />
+        </g>
+      ))}
+    </>
+  );
+}
+
+function TaskBeacons({
+  completedTasks,
+}: {
+  completedTasks: Record<string, boolean>;
+}) {
+  return (
+    <>
+      {Object.entries(completedTasks).map(([roomId, isDone]) => {
+        if (isDone) return null;
+        const config = SPACESHIP_ROOMS[roomId];
+        if (!config) return null;
+
+        return (
+          <g
+            key={`map-beacon-${roomId}`}
+            transform={`translate(${config.cx}, ${config.cy})`}
+            className="pointer-events-none select-none hover:scale-105 transition-transform"
+          >
+            <circle
+              r={22}
+              className="fill-yellow-500/10 stroke-yellow-500/25 animate-ping"
+            />
+            <circle r={13} fill="#000000" />
+            <circle r={11} fill="#ea580c" />
+            <circle r={8} fill="#facc15" className="animate-pulse" />
+            <text
+              y={3.5}
+              textAnchor="middle"
+              dominantBaseline="central"
+              className="fill-black font-sans font-black text-[12px]"
+            >
+              !
+            </text>
+          </g>
+        );
+      })}
+    </>
+  );
+}
+
 const HologramMapView = memo(function HologramMapView({
   playerPos,
   playerMoving,
@@ -52,7 +195,7 @@ const HologramMapView = memo(function HologramMapView({
   return (
     <div className="absolute inset-0 bg-black/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm select-none animate-fadeIn">
       <div
-        className="w-full max-w-5xl bg-[#141926] border-[12px] border-[#303d52] rounded-[32px] p-5 shadow-2xl font-mono flex flex-col justify-between relative"
+        className="w-full max-w-5xl bg-[#141926] border-12 border-[#303d52] rounded-4xl p-5 shadow-2xl font-mono flex flex-col justify-between relative"
         style={{ height: "88vh" }}
       >
         {/* Signature Red Exit Button */}
@@ -63,7 +206,7 @@ const HologramMapView = memo(function HologramMapView({
             synthSFX.playBeep();
           }}
           aria-label="Close hologram map"
-          className="absolute -top-3 -right-3 size-12 bg-[#dc2626] hover:bg-[#ef4444] text-white rounded-full border-4 border-black flex items-center justify-center font-black text-xl cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-[0_4px_0_#000] active:translate-y-1 active:shadow-none z-50 text-center select-none animate-pulse"
+          className="absolute -top-3 -right-3 size-12 bg-[#dc2626] hover:bg-[#ef4444] text-white rounded-full border-4 border-black flex items-center justify-center font-black text-xl cursor-pointer hover:scale-105 active:scale-95 transition shadow-[0_4px_0_#000] active:translate-y-1 active:shadow-none z-50 text-center select-none animate-pulse"
           style={{ fontFamily: '"Press Start 2P"' }}
         >
           X
@@ -88,11 +231,11 @@ const HologramMapView = memo(function HologramMapView({
         {/* Main Interactive Map Board (SVG) */}
         <div className="w-full flex-1 bg-[#0b0e17] border-[6px] border-black rounded-2xl relative overflow-hidden flex items-center justify-center p-2">
           {/* Tactical overlay raster lines */}
-          <div className="absolute inset-0 bg-[#0b0e17] [background-image:radial-gradient(#ffffff04_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none opacity-50" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#1e293b]/10 to-[#020617]/50 pointer-events-none" />
+          <div className="absolute inset-0 bg-[#0b0e17] bg-[radial-gradient(#ffffff04_1px,transparent_1px)] bg-size-[20px_20px] pointer-events-none opacity-50" />
+          <div className="absolute inset-0 bg-linear-to-b from-[#1e293b]/10 to-[#020617]/50 pointer-events-none" />
 
           {/* Responsive container for SVG map */}
-          <div className="relative w-full h-full max-w-[840px] max-h-[560px] flex items-center justify-center">
+          <div className="relative w-full h-full max-w-210 max-h-140 flex items-center justify-center">
             <svg
               viewBox="0 0 920 780"
               className="w-full h-full select-none"
@@ -203,7 +346,7 @@ const HologramMapView = memo(function HologramMapView({
                       <text
                         x={room.x + room.w - 18}
                         y={room.y + 18}
-                        className="opacity-0 group-hover:opacity-100 fill-[#38FEDE] text-[8px] font-bold"
+                        className="opacity-0 group-hover:opacity-100 fill-brand-cyan text-[8px] font-bold"
                         textAnchor="end"
                         dominantBaseline="central"
                       >
@@ -216,139 +359,16 @@ const HologramMapView = memo(function HologramMapView({
               }, [])}
 
               {/* 3. DRAW EXPLICIT LOCATION LABELS INSIDE ROOMS */}
-              {Object.entries({
-                cafeteria: { x: 450, y: 162.5, name: "CAFETERIA" },
-                weapons: { x: 690, y: 145, name: "WEAPONS" },
-                medbay: { x: 230, y: 167.5, name: "MEDBAY" },
-                upper_engine: { x: 90, y: 162.5, name: "UPPER ENGINE" },
-                reactor: { x: 85, y: 360, name: "REACTOR" },
-                security: { x: 225, y: 340, name: "SECURITY" },
-                lower_engine: { x: 90, y: 547.5, name: "LOWER ENGINE" },
-                electrical: { x: 245, y: 500, name: "ELECTRICAL" },
-                storage: { x: 450, y: 565, name: "STORAGE" },
-                admin: { x: 585, y: 410, name: "ADMIN" },
-                o2: { x: 680, y: 310, name: "O2" },
-                navigation: { x: 805, y: 360, name: "NAVIGATION" },
-                shields: { x: 690, y: 520, name: "SHIELDS" },
-                comms: { x: 605, y: 665, name: "COMMUNICATIONS" },
-              }).map(([roomId, label]) => {
-                const roomInfo = WALKABLE_REGIONS.find(
-                  (r) => r.name === roomId,
-                );
-                if (!roomInfo) return null;
-
-                return (
-                  <g
-                    key={`label-${roomId}`}
-                    className="pointer-events-none select-none"
-                  >
-                    {/* Drop shadow label */}
-                    <text
-                      x={label.x}
-                      y={label.y + 2}
-                      textAnchor="middle"
-                      dominantBaseline="central"
-                      className="fill-[#05070c] font-sans font-black tracking-widest text-[11px] md:text-[13px] uppercase opacity-90"
-                    >
-                      {label.name}
-                    </text>
-                    {/* Main White Label */}
-                    <text
-                      x={label.x}
-                      y={label.y}
-                      textAnchor="middle"
-                      dominantBaseline="central"
-                      className="fill-[#f1f5f9] font-sans font-black tracking-widest text-[11px] md:text-[13px] uppercase"
-                    >
-                      {label.name}
-                    </text>
-                  </g>
-                );
-              })}
+              <RoomLabels />
 
               {/* 4. VISUAL DECORATION: FLIGHT VENTS GRATES */}
-              {FLOATING_VENTS.map((v) => (
-                <g
-                  key={`map-vent-${v.id}`}
-                  transform={`translate(${v.x}, ${v.y})`}
-                  className="pointer-events-none opacity-40 select-none"
-                >
-                  {/* Vent Base Grille Frame */}
-                  <rect
-                    x={-8}
-                    y={-8}
-                    width={16}
-                    height={16}
-                    fill="#4b5563"
-                    stroke="#000000"
-                    strokeWidth={2.5}
-                    rx={2}
-                  />
-                  <line
-                    x1={-5}
-                    y1={-4}
-                    x2={5}
-                    y2={-4}
-                    stroke="#000000"
-                    strokeWidth={2}
-                  />
-                  <line
-                    x1={-5}
-                    y1={0}
-                    x2={5}
-                    y2={0}
-                    stroke="#000000"
-                    strokeWidth={2}
-                  />
-                  <line
-                    x1={-5}
-                    y1={4}
-                    x2={5}
-                    y2={4}
-                    stroke="#000000"
-                    strokeWidth={2}
-                  />
-                </g>
-              ))}
+              <VentGrilles />
 
               {/* 5. SECTOR-ACTIVE ALERT EXCLAMATIONS BEACONS FOR PENDING TASKS */}
-              {Object.entries(completedTasks).map(([roomId, isDone]) => {
-                if (isDone) return null;
-                const config = SPACESHIP_ROOMS[roomId];
-                if (!config) return null;
-
-                return (
-                  <g
-                    key={`map-beacon-${roomId}`}
-                    transform={`translate(${config.cx}, ${config.cy})`}
-                    className="pointer-events-none select-none hover:scale-105 transition-transform"
-                  >
-                    {/* Large pulsing ripple aura */}
-                    <circle
-                      r={22}
-                      className="fill-yellow-500/10 stroke-yellow-500/25 animate-ping"
-                    />
-                    {/* Solid black outline circle */}
-                    <circle r={13} fill="#000000" />
-                    {/* Orange base warning circle */}
-                    <circle r={11} fill="#ea580c" />
-                    {/* Yellow blinking center inside warning circle */}
-                    <circle r={8} fill="#facc15" className="animate-pulse" />
-                    {/* Bold exclamation mark */}
-                    <text
-                      y={3.5}
-                      textAnchor="middle"
-                      dominantBaseline="central"
-                      className="fill-black font-sans font-black text-[12px]"
-                    >
-                      !
-                    </text>
-                  </g>
-                );
-              })}
+              <TaskBeacons completedTasks={completedTasks} />
 
               {/* 6. CHARACTER POSITIONING: INTUITIVE REAL-TIME CREWMATE PIN */}
-              <g className="transition-all duration-150">
+              <g className="transition-[cx,cy] duration-150">
                 {/* Glowing coordinate pointer ring underneath */}
                 <circle
                   cx={playerPos.x}
