@@ -26,11 +26,17 @@ interface GameViewportProps {
   nearestRoom: RoomConfig | null;
   doors: any;
   doorProgress: any;
-  onMapClick: (e: React.MouseEvent<HTMLCanvasElement>) => void;
+  onMapClick: (e: MapClickEvent) => void;
   onEmergencyClick: () => void;
   onRoomClick: (roomId: string) => void;
   showCinematic: boolean;
   completedTasks: Record<string, boolean>;
+}
+
+export interface MapClickEvent {
+  clientX: number;
+  clientY: number;
+  target: EventTarget;
 }
 
 function GameViewportView({
@@ -102,6 +108,19 @@ function GameViewportView({
           width={900}
           height={800}
           onClick={onMapClick}
+          onKeyDown={(e) => {
+            if (e.key !== "Enter" && e.key !== " ") return;
+            e.preventDefault();
+            const rect = e.currentTarget.getBoundingClientRect();
+            onMapClick({
+              clientX: rect.left + rect.width / 2,
+              clientY: rect.top + rect.height / 2,
+              target: e.currentTarget,
+            });
+          }}
+          role="button"
+          tabIndex={0}
+          aria-label="Ship map. Click to auto-run to a location, or press Enter to auto-run to the ship center."
           className="absolute inset-0 z-0 bg-transparent"
         />
         <div
@@ -184,7 +203,7 @@ function GameViewportView({
 
 interface GameViewportContainerProps {
   isMobile: boolean;
-  onMapClick: (e: React.MouseEvent<HTMLCanvasElement>) => void;
+  onMapClick: (e: MapClickEvent) => void;
   onEmergencyClick: () => void;
   onRoomClick: (roomId: string) => void;
 }

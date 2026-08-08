@@ -5,7 +5,7 @@ import ChatSystem from "./ChatSystem";
 import HologramMap from "./HologramMap";
 import BottomActionControls from "./hud/BottomActionControls";
 import ChecklistHUD from "./hud/ChecklistHUD";
-import GameViewport from "./hud/GameViewport";
+import GameViewport, { type MapClickEvent } from "./hud/GameViewport";
 import MobileJoystickHUD from "./hud/MobileJoystickHUD";
 import RightActionWidgets from "./hud/RightActionWidgets";
 import TopStatusHUD from "./hud/TopStatusHUD";
@@ -100,7 +100,7 @@ export default function GameWorld({ isMobile }: GameWorldProps) {
 		setVentMapOpen,
 	});
 
-	const handleMapClick = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
+	const handleMapClick = useCallback((e: MapClickEvent) => {
 		if (openModalRoom || ventMapOpen) return;
 		const rect = (e.target as HTMLCanvasElement).getBoundingClientRect();
 		if (!rect) return;

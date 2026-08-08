@@ -214,7 +214,8 @@ export default function ChatSystem() {
         />
         <button
           type="submit"
-          className="p-2 rounded-lg bg-brand-blue/80 hover:bg-brand-cyan text-white hover:text-black transition-all border border-brand-blue/50 hover:border-transparent flex items-center justify-center"
+          aria-label="Send message"
+          className="p-2 rounded-lg bg-brand-blue/80 hover:bg-brand-cyan text-white hover:text-black transition-colors border border-brand-blue/50 hover:border-transparent flex items-center justify-center"
         >
           <Send size={14} />
         </button>
