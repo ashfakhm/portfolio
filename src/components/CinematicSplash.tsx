@@ -11,7 +11,7 @@ export default function CinematicSplash() {
 		<>
 			{/* ==================================================== */}
 			{showCinematic && (
-				<div className="absolute inset-0 z-50 bg-[#000] flex flex-col items-center justify-center text-center p-6 select-none transition-all overflow-hidden">
+				<div className="absolute inset-0 z-50 bg-black flex flex-col items-center justify-center text-center p-6 select-none transition overflow-hidden">
 					{/* STAGE 1: THE ACCLAIMED "SHH!" RED SCREEN WITH GLOW CIRCLE */}
 					<div className="flex flex-col items-center justify-center gap-6 max-w-xl animate-scaleIn">
 						<div
@@ -27,7 +27,7 @@ export default function CinematicSplash() {
 						{/* Crewmate putting a white gloved finger in front of visor outline */}
 						<div className="my-10 relative flex items-center justify-center transform scale-125 drop-shadow-[0_0_22px_rgba(239,68,68,0.7)]">
 							{/* Spotlight background glow circle */}
-							<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 size-[180px] rounded-full bg-slate-400/20 blur-xl z-0"></div>
+							<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 size-45 rounded-full bg-slate-400/20 blur-xl z-0"></div>
 
 							<div className="relative z-10">
 								<CrewmateSprite
@@ -101,7 +101,7 @@ export default function CinematicSplash() {
 							setShowImpostorAlert(false);
 						}
 					}}
-					className="absolute inset-0 w-full h-full z-50 bg-[#c51111ee] animate-pulse flex flex-col items-center justify-center text-center cursor-pointer p-4 transition-all focus:outline-none border-none outline-none"
+					className="absolute inset-0 w-full h-full z-50 bg-[#c51111ee] animate-pulse flex flex-col items-center justify-center text-center cursor-pointer p-4 transition focus:outline-none border-none outline-none"
 				>
 					<div className="gap-5 flex flex-col items-center justify-center animate-pulse">
 						<AlertTriangle

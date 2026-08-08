@@ -26,7 +26,7 @@ export default function StorageTask({
 								FUEL CELL
 							</div>
 							<div
-								className="w-full bg-[#f1c40f] border-t border-yellow-300 rounded-sm transition-all duration-100"
+								className="w-full bg-[#f1c40f] border-t border-yellow-300 rounded-sm transition-[height] duration-100"
 								style={{ height: `${fuelLevel}%` }}
 							>
 								{fuelLevel > 15 && (
@@ -72,9 +72,9 @@ export default function StorageTask({
 							href="https://linkedin.com/in/ashfakhm/"
 							target="_blank"
 							rel="noreferrer"
-							className="bg-[#10101f] border border-[#3a3a5e] p-6 rounded-lg flex items-center gap-4 hover:border-blue-500/50 hover:bg-[#1a1a2e] transition-all group"
+							className="bg-[#10101f] border border-[#3a3a5e] p-6 rounded-lg flex items-center gap-4 hover:border-blue-500/50 hover:bg-[#1a1a2e] transition-colors group"
 						>
-							<div className="size-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500/20 group-hover:scale-110 transition-all border border-blue-500/20">
+							<div className="size-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500/20 group-hover:scale-110 transition border border-blue-500/20">
 								<svg
 									viewBox="0 0 24 24"
 									fill="none"
@@ -104,9 +104,9 @@ export default function StorageTask({
 							href="https://github.com/ashfakhm"
 							target="_blank"
 							rel="noreferrer"
-							className="bg-[#10101f] border border-[#3a3a5e] p-6 rounded-lg flex items-center gap-4 hover:border-slate-400 hover:bg-[#1a1a2e] transition-all group"
+							className="bg-[#10101f] border border-[#3a3a5e] p-6 rounded-lg flex items-center gap-4 hover:border-slate-400 hover:bg-[#1a1a2e] transition-colors group"
 						>
-							<div className="size-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 group-hover:bg-slate-700 group-hover:scale-110 transition-all border border-slate-600">
+							<div className="size-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 group-hover:bg-slate-700 group-hover:scale-110 transition border border-slate-600">
 								<svg
 									viewBox="0 0 24 24"
 									fill="none"

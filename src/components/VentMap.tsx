@@ -33,9 +33,9 @@ function VentMapView({
 
   return (
     <div className="absolute inset-0 bg-black/90 z-40 flex flex-col items-center justify-center p-6 text-center select-none font-mono animate-fadeIn">
-      <div className="w-full max-w-md bg-[#111122] border-4 border-[#3a3a5e] p-5 rounded-xl text-center space-y-4">
+      <div className="w-full max-w-md bg-[#111122] border-4 border-border-subtle p-5 rounded-xl text-center space-y-4">
         <h3
-          className="text-xs font-bold text-[#38FEDE]"
+          className="text-xs font-bold text-brand-cyan"
           style={{ fontFamily: '"Press Start 2P"' }}
         >
           💨 SECTOR VENTILATION DUCTWAYS
@@ -50,7 +50,7 @@ function VentMapView({
               key={v.id}
               type="button"
               onClick={() => triggerVentTravel(v.rx)}
-              className="p-3 bg-[#0a0a16] hover:bg-[#38FEDE]/10 border-2 border-slate-800 hover:border-[#38FEDE] text-white hover:text-[#38FEDE] rounded transition-all cursor-pointer font-bold flex flex-col items-center"
+              className="p-3 bg-[#0a0a16] hover:bg-brand-cyan/10 border-2 border-slate-800 hover:border-brand-cyan text-white hover:text-brand-cyan rounded transition-colors cursor-pointer font-bold flex flex-col items-center"
             >
               <span className="text-lg">⚙</span>
               <span className="mt-1 truncate uppercase text-[9px]">

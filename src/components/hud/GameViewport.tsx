@@ -134,7 +134,7 @@ function GameViewportView({
           type="button"
           onClick={onEmergencyClick}
           aria-label="Trigger Emergency Meeting"
-          className="absolute pointer-events-auto bg-[#c5111115] border-2 border-red-500/20 rounded-full cursor-pointer flex items-center justify-center hover:bg-red-500/20 transition-all z-0"
+          className="absolute pointer-events-auto bg-[#c5111115] border-2 border-red-500/20 rounded-full cursor-pointer flex items-center justify-center hover:bg-red-500/20 transition z-0"
           style={{
             left: "432px",
             top: "132px",
@@ -154,7 +154,7 @@ function GameViewportView({
               type="button"
               onClick={() => onRoomClick(room.id)}
               aria-label={`Go to ${room.name}`}
-              className="absolute pointer-events-auto text-[8px] bg-slate-900/90 border border-slate-700 hover:border-brand-cyan text-slate-300 px-1.5 py-0.5 rounded tracking-wide font-mono flex items-center gap-1 shadow-md hover:scale-105 active:scale-95 transition-all select-none cursor-pointer"
+              className="absolute pointer-events-auto text-[8px] bg-slate-900/90 border border-slate-700 hover:border-brand-cyan text-slate-300 px-1.5 py-0.5 rounded tracking-wide font-mono flex items-center gap-1 shadow-md hover:scale-105 active:scale-95 transition select-none cursor-pointer"
               style={{
                 left: `${room.bounds.minX + rectWidth / 2 - 40}px`,
                 top: ["electrical", "comms", "shields", "storage"].includes(room.id)
@@ -172,7 +172,7 @@ function GameViewportView({
       </div>
 
       <div
-        className="absolute inset-0 pointer-events-none z-[15]"
+        className="absolute inset-0 pointer-events-none z-15"
         style={{
           background:
             "radial-gradient(circle at 50vw 50vh, transparent 180px, rgba(0,0,0,0.4) 300px, rgba(0,0,0,0.85) 450px, rgba(0,0,0,1) 600px)",

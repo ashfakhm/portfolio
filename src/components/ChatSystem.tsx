@@ -130,8 +130,8 @@ export default function ChatSystem() {
   if (!chatOpen || showCinematic) return null;
 
   return (
-    <div className="absolute top-16 right-3 bottom-20 sm:top-24 sm:right-4 sm:bottom-28 w-64 sm:w-80 bg-hud-bg/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.7)] flex flex-col overflow-hidden z-20 font-mono transition-all ring-1 ring-inset ring-white/10">
-      <div className="bg-white/[0.03] px-4 py-3 border-b border-white/10 flex items-center justify-between text-xs font-bold">
+    <div className="absolute top-16 right-3 bottom-20 sm:top-24 sm:right-4 sm:bottom-28 w-64 sm:w-80 bg-hud-bg/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.7)] flex flex-col overflow-hidden z-20 font-mono transition ring-1 ring-inset ring-white/10">
+      <div className="bg-white/3 px-4 py-3 border-b border-white/10 flex items-center justify-between text-xs font-bold">
         <span className="text-brand-cyan flex items-center gap-1">
           💬 COCKPIT CREW LOGS
         </span>
@@ -192,7 +192,7 @@ export default function ChatSystem() {
               key={p.q}
               type="button"
               onClick={() => handleSendPreset(p)}
-              className="p-1.5 border border-white/5 hover:border-brand-blue/50 bg-white/5 hover:bg-white/10 rounded-md text-slate-300 text-left truncate cursor-pointer transition-all hover:text-white flex items-center gap-1"
+              className="p-1.5 border border-white/5 hover:border-brand-blue/50 bg-white/5 hover:bg-white/10 rounded-md text-slate-300 text-left truncate cursor-pointer transition-colors hover:text-white flex items-center gap-1"
             >
               <ChevronRight size={10} className="text-brand-blue" /> {p.text}
             </button>
@@ -202,7 +202,7 @@ export default function ChatSystem() {
 
       <form
         onSubmit={handleSendCustomMessage}
-        className="p-3 bg-white/[0.02] border-t border-white/10 flex gap-2"
+        className="p-3 bg-white/2 border-t border-white/10 flex gap-2"
       >
         <input
           type="text"

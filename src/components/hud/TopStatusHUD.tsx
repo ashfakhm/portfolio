@@ -34,7 +34,7 @@ function TopStatusHUDView({
             type="button"
             onClick={onHelpClick}
             aria-label="Help Tutorial"
-            className="bg-sky-500/20 hover:bg-sky-500/30 border border-sky-500/50 text-[9px] font-semibold text-sky-300 p-1.5 sm:px-2.5 sm:py-1 rounded-md cursor-pointer uppercase transition-all tracking-wider font-mono hover:scale-105 active:scale-95 leading-none flex items-center gap-1"
+            className="bg-sky-500/20 hover:bg-sky-500/30 border border-sky-500/50 text-[9px] font-semibold text-sky-300 p-1.5 sm:px-2.5 sm:py-1 rounded-md cursor-pointer uppercase transition tracking-wider font-mono hover:scale-105 active:scale-95 leading-none flex items-center gap-1"
           >
             <HelpCircle size={12} />{" "}
             <span className="hidden sm:inline">Help</span>
@@ -44,7 +44,7 @@ function TopStatusHUDView({
 
       <div className="w-full h-3.5 bg-zinc-950 border border-border-subtle rounded overflow-hidden p-0.5 relative">
         <div
-          className="h-full bg-brand-success rounded-sm transition-all duration-300 shadow-[0_0_10px_#1cbd57]"
+          className="h-full bg-brand-success rounded-sm transition-[width] duration-300 shadow-[0_0_10px_#1cbd57]"
           style={{ width: `${progressPercent}%` }}
         />
         {progressPercent === 100 && (

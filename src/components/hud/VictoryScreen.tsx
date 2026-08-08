@@ -15,7 +15,7 @@ export default function VictoryScreen({
 	onPlayAgain,
 }: VictoryScreenProps) {
 	return (
-		<div className="fixed inset-0 z-[100] bg-black/90 flex flex-col items-center justify-center animate-fadeIn select-none backdrop-blur-md p-4">
+		<div className="fixed inset-0 z-100 bg-black/90 flex flex-col items-center justify-center animate-fadeIn select-none backdrop-blur-md p-4">
 			<div
 				className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none"
 				style={{
@@ -24,7 +24,7 @@ export default function VictoryScreen({
 				}}
 			/>
 			<div
-				className="text-brand-cyan text-5xl md:text-8xl font-black uppercase tracking-[0.1em] drop-shadow-[0_0_40px_rgba(56,254,222,0.8)] mb-8 z-10 text-center w-full max-w-lg"
+				className="text-brand-cyan text-5xl md:text-8xl font-black uppercase tracking-widest drop-shadow-[0_0_40px_rgba(56,254,222,0.8)] mb-8 z-10 text-center w-full max-w-lg"
 				style={{
 					fontFamily: '"Press Start 2P"',
 					textShadow: "4px 4px 0px #0b5030, -2px -2px 0px #fff",
@@ -55,7 +55,7 @@ export default function VictoryScreen({
 				type="button"
 				onClick={onPlayAgain}
 				aria-label="Play Again"
-				className="px-8 py-4 bg-brand-blue text-white font-bold rounded-xl hover:bg-brand-cyan hover:text-black hover:scale-105 active:scale-95 transition-all shadow-[0_6px_0_#0d4d80] active:shadow-[0_2px_0_#0d4d80] active:translate-y-1 z-10 border-2 border-black tracking-widest uppercase text-xs"
+				className="px-8 py-4 bg-brand-blue text-white font-bold rounded-xl hover:bg-brand-cyan hover:text-black hover:scale-105 active:scale-95 transition shadow-[0_6px_0_#0d4d80] active:shadow-[0_2px_0_#0d4d80] active:translate-y-1 z-10 border-2 border-black tracking-widest uppercase text-xs"
 				style={{ fontFamily: '"Press Start 2P"' }}
 			>
 				PLAY AGAIN

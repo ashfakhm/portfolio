@@ -73,7 +73,7 @@ function BottomActionControlsView({
                   key={col}
                   onClick={() => setPlayerColor(col)}
                   aria-label={`Select ${col} color`}
-                  className={`size-4 rounded-full border cursor-pointer hover:scale-110 active:scale-95 transition-all`}
+                  className={`size-4 rounded-full border cursor-pointer hover:scale-110 active:scale-95 transition-transform`}
                   style={{
                     backgroundColor: CREWMATE_COLORS[col].fill,
                     borderColor: playerColor === col ? "#FFF" : "#222",
@@ -106,7 +106,7 @@ function BottomActionControlsView({
             type="button"
             onClick={onVentClick}
             aria-label="Use vent passage"
-            className="p-3 sm:px-4 sm:py-3 bg-[#4e5564]/80 backdrop-blur-sm hover:bg-[#5f697c]/90 border border-slate-400/50 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.1)] active:scale-95 transition-all text-center font-bold text-[9px] tracking-widest uppercase text-brand-cyan flex items-center gap-1.5"
+            className="p-3 sm:px-4 sm:py-3 bg-[#4e5564]/80 backdrop-blur-sm hover:bg-[#5f697c]/90 border border-slate-400/50 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.1)] active:scale-95 transition text-center font-bold text-[9px] tracking-widest uppercase text-brand-cyan flex items-center gap-1.5"
             style={{ fontFamily: '"Press Start 2P"' }}
           >
             <Wind size={16} className="sm:w-3 sm:h-3" />{" "}
@@ -118,7 +118,7 @@ function BottomActionControlsView({
           type="button"
           onClick={onEmergencyClick}
           aria-label="Report emergency"
-          className="p-3 sm:px-5 sm:py-4 bg-red-500/20 hover:bg-red-500/30 text-red-100 rounded-2xl border border-red-500/50 text-center shadow-[0_0_20px_rgba(220,38,38,0.2)] active:scale-95 transition-all w-16 sm:w-[120px] flex flex-col items-center justify-center backdrop-blur-md"
+          className="p-3 sm:px-5 sm:py-4 bg-red-500/20 hover:bg-red-500/30 text-red-100 rounded-2xl border border-red-500/50 text-center shadow-[0_0_20px_rgba(220,38,38,0.2)] active:scale-95 transition w-16 sm:w-30 flex flex-col items-center justify-center backdrop-blur-md"
           style={{ fontFamily: '"Press Start 2P"' }}
         >
           <div className="flex flex-col items-center gap-1 sm:gap-1.5">
@@ -140,7 +140,7 @@ function BottomActionControlsView({
           onClick={onUseClick}
           disabled={!nearestRoom}
           aria-label="Use station"
-          className={`p-3 sm:py-4 sm:px-6 md:py-4 md:px-8 rounded-2xl border text-center cursor-pointer font-bold uppercase transition-all flex flex-col items-center justify-center relative overflow-hidden w-16 sm:w-[140px] backdrop-blur-md ${
+          className={`p-3 sm:py-4 sm:px-6 md:py-4 md:px-8 rounded-2xl border text-center cursor-pointer font-bold uppercase transition flex flex-col items-center justify-center relative overflow-hidden w-16 sm:w-35 backdrop-blur-md ${
             nearestRoom
               ? "bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-300 border-yellow-500/50 shadow-[0_0_20px_rgba(234,179,8,0.2)] active:scale-95"
               : "bg-slate-800/30 text-slate-500 border-slate-700/50 cursor-not-allowed opacity-80 shadow-none"

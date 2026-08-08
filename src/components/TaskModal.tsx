@@ -135,10 +135,10 @@ export default function TaskModal({
 	};
 
 	return (
-		<div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 transition-all">
+		<div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 transition">
 			<div
 				id="task-inner-box"
-				className="w-full max-w-4xl bg-[#09090f]/80 backdrop-blur-3xl border border-white/10 rounded-[20px] md:rounded-[32px] flex flex-col shadow-[0_0_40px_rgba(0,0,0,0.5)] relative select-none ring-1 ring-inset ring-white/5"
+				className="w-full max-w-4xl bg-[#09090f]/80 backdrop-blur-3xl border border-white/10 rounded-[20px] md:rounded-4xl flex flex-col shadow-[0_0_40px_rgba(0,0,0,0.5)] relative select-none ring-1 ring-inset ring-white/5"
 				style={{ height: "min(90vh, 700px)" }}
 			>
 				{/* Simple red X close button (Among Us Style) */}
@@ -146,7 +146,7 @@ export default function TaskModal({
 					type="button"
 					onClick={() => onClose(taskCompleted)}
 					aria-label="Close task modal"
-					className="absolute -top-2 -right-2 md:-top-4 md:-right-4 w-10 h-10 md:w-12 md:h-12 bg-red-600 border-2 border-red-400/50 rounded-full flex items-center justify-center text-white z-50 shadow-[0_4px_20px_rgba(220,38,38,0.4)] hover:scale-105 active:scale-95 cursor-pointer hover:bg-red-500 transition-all"
+					className="absolute -top-2 -right-2 md:-top-4 md:-right-4 w-10 h-10 md:w-12 md:h-12 bg-red-600 border-2 border-red-400/50 rounded-full flex items-center justify-center text-white z-50 shadow-[0_4px_20px_rgba(220,38,38,0.4)] hover:scale-105 active:scale-95 cursor-pointer hover:bg-red-500 transition"
 				>
 					<div className="size-6 relative">
 						<div className="absolute top-1/2 left-0 w-full h-1.5 bg-white -translate-y-1/2 rotate-45 rounded-sm" />
@@ -164,7 +164,7 @@ export default function TaskModal({
 							<button
 								type="button"
 								onClick={forceCompleteTask}
-								className="absolute top-2 right-2 z-10 text-[10px] text-gray-400 hover:text-green-400 border border-[#3a3a5e] hover:border-green-500/50 bg-[#1a1a2e] px-2 py-1 rounded transition-all cursor-pointer flex items-center gap-1"
+								className="absolute top-2 right-2 z-10 text-[10px] text-gray-400 hover:text-green-400 border border-border-subtle hover:border-green-500/50 bg-modal-bg px-2 py-1 rounded transition-colors cursor-pointer flex items-center gap-1"
 							>
 								<span>Skip Task Game Quick-Unlock</span>
 							</button>

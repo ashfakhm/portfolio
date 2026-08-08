@@ -51,7 +51,7 @@ export default function CommsTask({ onComplete, isCompleted }: CommsTaskProps) {
 
 						<div className="w-full h-8 bg-zinc-950 border-2 border-slate-700 rounded overflow-hidden p-1 flex items-center">
 							<div
-								className="h-full bg-[#1a9eff] rounded-sm transition-all duration-150"
+								className="h-full bg-[#1a9eff] rounded-sm transition-[width] duration-150"
 								style={{ width: `${downloadProgress}%` }}
 							/>
 						</div>
@@ -60,7 +60,7 @@ export default function CommsTask({ onComplete, isCompleted }: CommsTaskProps) {
 							<button
 								type="button"
 								onClick={startDownloading}
-								className="w-full p-2.5 bg-[#1a9eff] text-black hover:bg-[#38FEDE] font-bold text-[10px] sm:text-xs uppercase tracking-wide rounded border-2 border-black active:translate-y-0.5 transition-all text-center cursor-pointer"
+								className="w-full p-2.5 bg-[#1a9eff] text-black hover:bg-[#38FEDE] font-bold text-[10px] sm:text-xs uppercase tracking-wide rounded border-2 border-black active:translate-y-0.5 transition text-center cursor-pointer"
 								style={{ fontFamily: '"Press Start 2P"' }}
 							>
 								DOWNLOAD DATA

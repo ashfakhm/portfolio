@@ -1,7 +1,7 @@
 export default function Projects() {
 	return (
 		<div className="flex-1 flex flex-col gap-4 animate-fadeIn">
-			<div className="bg-rose-500/5 backdrop-blur-md border border-rose-500/20 shadow-[0_0_20px_rgba(244,63,94,0.15)] p-4 rounded-xl shadow-lg flex items-center justify-between">
+			<div className="bg-rose-500/5 backdrop-blur-md border border-rose-500/20 shadow-[0_0_20px_rgba(244,63,94,0.15)] p-4 rounded-xl flex items-center justify-between">
 				<div className="flex items-center gap-3">
 					<div className="size-3 rounded-full bg-rose-500 animate-pulse" />
 					<span className="font-bold text-rose-400 font-mono tracking-widest text-sm">
@@ -17,7 +17,7 @@ export default function Projects() {
 					href="https://github.com/ashfakhm/quiz-platform"
 					target="_blank"
 					rel="noopener noreferrer"
-					className="bg-[#12121e]/90 backdrop-blur-xl border border-white/5 rounded-2xl p-6 hover:border-rose-500/40 hover:bg-[#1a1a2e] transition-all duration-300 group shadow-lg shadow-rose-900/10 flex flex-col justify-between cursor-pointer block"
+					className="bg-[#12121e]/90 backdrop-blur-xl border border-white/5 rounded-2xl p-6 hover:border-rose-500/40 hover:bg-modal-bg transition-colors duration-300 group shadow-lg shadow-rose-900/10 flex flex-col justify-between cursor-pointer"
 				>
 					<div className="space-y-4">
 						<div className="flex justify-between items-start text-[10px] text-gray-500 mb-3 font-bold tracking-widest uppercase pb-2 border-b border-white/5">
@@ -27,7 +27,7 @@ export default function Projects() {
 						<h3 className="text-sm font-bold text-white font-mono tracking-wider group-hover:text-rose-400 transition-colors">
 							Quiz Platform
 						</h3>
-						<p className="text-xs text-slate-400 leading-relaxed min-h-[60px]">
+						<p className="text-xs text-slate-400 leading-relaxed min-h-15">
 							Interactive exam platform featuring automated test generation. Optimized website loading 
 							speeds and search engine visibility, preventing users from leaving the page and boosting 
 							organic sign-ups.
@@ -57,7 +57,7 @@ export default function Projects() {
 					href="https://github.com/ashfakhm/laundry-ease"
 					target="_blank"
 					rel="noopener noreferrer"
-					className="bg-[#12121e]/90 backdrop-blur-xl border border-white/5 rounded-2xl p-6 hover:border-orange-500/40 hover:bg-[#1a1a2e] transition-all duration-300 group shadow-lg shadow-orange-900/10 flex flex-col justify-between cursor-pointer block"
+					className="bg-[#12121e]/90 backdrop-blur-xl border border-white/5 rounded-2xl p-6 hover:border-orange-500/40 hover:bg-modal-bg transition-colors duration-300 group shadow-lg shadow-orange-900/10 flex flex-col justify-between cursor-pointer"
 				>
 					<div className="space-y-4">
 						<div className="flex justify-between items-start text-[10px] text-gray-500 mb-3 font-bold tracking-widest uppercase pb-2 border-b border-white/5">
@@ -67,7 +67,7 @@ export default function Projects() {
 						<h3 className="text-sm font-bold text-white font-mono tracking-wider group-hover:text-orange-400 transition-colors">
 							LaundryEase
 						</h3>
-						<p className="text-xs text-slate-400 leading-relaxed min-h-[60px]">
+						<p className="text-xs text-slate-400 leading-relaxed min-h-15">
 							Secure marketplace connecting local service providers with customers. Created a reliable 
 							escrow payment flow that automatically handles transaction failures to protect users against 
 							double-charging and checkout drop-offs.
@@ -79,7 +79,7 @@ export default function Projects() {
 							<span className="px-2 py-1 bg-yellow-500/10 rounded text-yellow-400 border border-yellow-500/20">
 								Node.js
 							</span>
-							<span className="px-2 py-1 bg-[#38FEDE]/10 rounded text-[#38FEDE] border border-[#38FEDE]/20">
+							<span className="px-2 py-1 bg-brand-cyan/10 rounded text-brand-cyan border border-brand-cyan/20">
 								Razorpay
 							</span>
 						</div>

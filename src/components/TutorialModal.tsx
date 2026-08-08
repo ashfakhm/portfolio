@@ -55,13 +55,13 @@ export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
 	if (!isOpen) return null;
 
 	return (
-		<div className="fixed top-4 right-4 max-h-[calc(100vh-2rem)] w-[360px] max-w-[calc(100vw-2rem)] z-[60] flex flex-col pointer-events-none animate-fadeIn">
+		<div className="fixed top-4 right-4 max-h-[calc(100vh-2rem)] w-90 max-w-[calc(100vw-2rem)] z-60 flex flex-col pointer-events-none animate-fadeIn">
 			<div
-				className={`w-full bg-[#0f111a]/90 backdrop-blur-md border border-[#38FEDE]/40 rounded-xl flex flex-col shadow-[0_4px_25px_rgba(56,254,222,0.15)] relative overflow-hidden text-left pointer-events-auto transition-all duration-300 ${isMinimized ? "h-[50px]" : "max-h-[70vh]"}`}
+				className={`w-full bg-[#0f111a]/90 backdrop-blur-md border border-brand-cyan/40 rounded-xl flex flex-col shadow-[0_4px_25px_rgba(56,254,222,0.15)] relative overflow-hidden text-left pointer-events-auto transition-all duration-300 ${isMinimized ? "h-12.5" : "max-h-[70vh]"}`}
 				style={{ textShadow: "none" }}
 			>
 				{/* Glowing top border accent */}
-				<div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-[#3a3a5e] via-[#38FEDE] to-[#3a3a5e]" />
+				<div className="absolute top-0 inset-x-0 h-0.5 bg-linear-to-r from-border-subtle via-brand-cyan to-border-subtle" />
 
 				{/* Header (Always Visible) */}
 				<div className="flex items-center justify-between bg-slate-900/50 hover:bg-slate-800/50 transition-colors">
@@ -79,7 +79,7 @@ export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
 						<div className="flex items-center gap-2 flex-1">
 							<span className="text-lg animate-pulse">🎮</span>
 							<div
-								className="text-[#38FEDE] text-[10px] font-black uppercase tracking-widest"
+								className="text-brand-cyan text-[10px] font-black uppercase tracking-widest"
 								style={{ fontFamily: '"Press Start 2P"' }}
 							>
 								CO-PILOT MANUAL
@@ -104,17 +104,17 @@ export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
 				{/* Body (Hidden when minimized) */}
 				{!isMinimized && (
 					<div className="flex-1 p-4 pt-0 gap-4 text-xs font-mono text-slate-300 overflow-y-auto mt-2 custom-scrollbar">
-						<p className="text-[9px] text-[#38FEDE] uppercase tracking-wider font-bold select-none leading-relaxed">
+						<p className="text-[9px] text-brand-cyan uppercase tracking-wider font-bold select-none leading-relaxed">
 							The Boogeyman is coming to kill you! Finish your tasks quickly. If
 							you finish them all, you win. Otherwise, the Boogeyman wins!
 						</p>
 
 						{/* Grid content */}
 						<div className="gap-3 text-left">
-							<div className="bg-[#141724] border border-slate-700 p-2.5 rounded gap-1.5 flex gap-2.5">
+							<div className="bg-[#141724] border border-slate-700 p-2.5 rounded flex gap-2.5">
 								<div className="text-lg">🕹️</div>
 								<div className="flex-1">
-									<div className="font-bold text-white uppercase text-[#ffd700] tracking-wider text-[10px] font-sans border-b border-slate-700 pb-1 mb-1.5">
+									<div className="font-bold uppercase text-brand-gold tracking-wider text-[10px] font-sans border-b border-slate-700 pb-1 mb-1.5">
 										How to Move
 									</div>
 									{isMobileDevice ? (
@@ -180,17 +180,17 @@ export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
 								</div>
 							</div>
 
-							<div className="bg-[#141724] border border-slate-700 p-2.5 rounded gap-1.5 flex gap-2.5">
+							<div className="bg-[#141724] border border-slate-700 p-2.5 rounded flex gap-2.5">
 								<div className="text-lg">🚀</div>
 								<div className="flex-1">
-									<div className="font-bold text-white uppercase text-[#ffd700] tracking-wider text-[10px] font-sans border-b border-slate-700 pb-1 mb-1.5">
+									<div className="font-bold uppercase text-brand-gold tracking-wider text-[10px] font-sans border-b border-slate-700 pb-1 mb-1.5">
 										Doing Tasks
 									</div>
 									<ul className="list-disc pl-4 space-y-1 text-[9px] text-slate-400">
 										<li>
 											<strong className="text-slate-200">Interact:</strong> Go
 											to yellow markers, tap green{" "}
-											<strong className="text-[#38FEDE]">USE</strong> or hit{" "}
+											<strong className="text-brand-cyan">USE</strong> or hit{" "}
 											<kbd className="px-1 bg-slate-900 border border-slate-700 rounded text-white">
 												SPACE
 											</kbd>
@@ -210,10 +210,10 @@ export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
 								</div>
 							</div>
 
-							<div className="bg-[#141724] border border-slate-700 p-2.5 rounded gap-1.5 flex gap-2.5">
+							<div className="bg-[#141724] border border-slate-700 p-2.5 rounded flex gap-2.5">
 								<div className="text-lg">🚇</div>
 								<div className="flex-1">
-									<div className="font-bold text-white uppercase text-[#ffd700] tracking-wider text-[10px] font-sans border-b border-slate-700 pb-1 mb-1.5">
+									<div className="font-bold uppercase text-brand-gold tracking-wider text-[10px] font-sans border-b border-slate-700 pb-1 mb-1.5">
 										Warping & Reporting
 									</div>
 									<ul className="list-disc pl-4 space-y-1 text-[9px] text-slate-400">
@@ -249,7 +249,7 @@ export default function TutorialModal({ isOpen, onClose }: TutorialModalProps) {
 									localStorage.setItem("tutorialMinimized", "true");
 									synthSFX.playBeep();
 								}}
-								className="w-full bg-[#38FEDE]/10 hover:bg-[#38FEDE]/20 text-[#38FEDE] border border-[#38FEDE]/50 py-3 rounded uppercase font-bold tracking-widest text-[10px] transition-colors flex items-center justify-center gap-2"
+								className="w-full bg-brand-cyan/10 hover:bg-brand-cyan/20 text-brand-cyan border border-brand-cyan/50 py-3 rounded uppercase font-bold tracking-widest text-[10px] transition-colors flex items-center justify-center gap-2"
 								style={{ fontFamily: '"Press Start 2P"' }}
 							>
 								<span>CONFIRM & START</span>

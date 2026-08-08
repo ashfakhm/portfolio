@@ -66,7 +66,7 @@ export default function EmergencyTask({
 							<button
 								type="button"
 								onClick={() => setGameStarted(true)}
-								className={`w-32 h-32 rounded-full bg-red-600 hover:bg-red-500 border-4 border-black relative transition-all active:scale-95 shadow-[0_15px_0_#910505,_0_20px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_12px_0_#910505,_0_15px_15px_rgba(0,0,0,0.3)] select-none cursor-pointer flex items-center justify-center group ${
+								className={`w-32 h-32 rounded-full bg-red-600 hover:bg-red-500 border-4 border-black relative transition active:scale-95 shadow-[0_15px_0_#910505,_0_20px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_12px_0_#910505,_0_15px_15px_rgba(0,0,0,0.3)] select-none cursor-pointer flex items-center justify-center group ${
 									gameStarted
 										? "animate-pulse bg-red-500 shadow-none translate-y-2.5 border-red-400"
 										: ""
@@ -106,7 +106,7 @@ export default function EmergencyTask({
 										value={contactName}
 										onChange={(e) => setContactName(e.target.value)}
 										placeholder="Freelancer / HR Agent"
-										className="w-full p-2 bg-[#0d0d1a] border border-[#3a3a5e] rounded text-white focus:outline-none focus:border-red-500 transition-all font-mono"
+										className="w-full p-2 bg-[#0d0d1a] border border-[#3a3a5e] rounded text-white focus:outline-none focus:border-red-500 transition-colors font-mono"
 									/>
 								</div>
 
@@ -122,7 +122,7 @@ export default function EmergencyTask({
 										value={contactEmail}
 										onChange={(e) => setContactEmail(e.target.value)}
 										placeholder="you@frequency.com"
-										className="w-full p-2 bg-[#0d0d1a] border border-[#3a3a5e] rounded text-white focus:outline-none focus:border-red-500 transition-all font-mono"
+										className="w-full p-2 bg-[#0d0d1a] border border-[#3a3a5e] rounded text-white focus:outline-none focus:border-red-500 transition-colors font-mono"
 									/>
 								</div>
 
@@ -138,13 +138,13 @@ export default function EmergencyTask({
 										value={contactMessage}
 										onChange={(e) => setContactMessage(e.target.value)}
 										placeholder="We want to recruit you! Let's schedule a meeting."
-										className="w-full p-2 bg-[#0d0d1a] border border-[#3a3a5e] rounded text-white focus:outline-none focus:border-red-500 transition-all font-mono resize-none"
+										className="w-full p-2 bg-[#0d0d1a] border border-[#3a3a5e] rounded text-white focus:outline-none focus:border-red-500 transition-colors font-mono resize-none"
 									/>
 								</div>
 
 								<button
 									type="submit"
-									className="w-full py-3 mt-2 bg-red-600 hover:bg-red-500 text-white font-bold rounded cursor-pointer uppercase transition-all tracking-wider text-center border-2 border-black flex items-center justify-center gap-2 text-xs"
+									className="w-full py-3 mt-2 bg-red-600 hover:bg-red-500 text-white font-bold rounded cursor-pointer uppercase transition-colors tracking-wider text-center border-2 border-black flex items-center justify-center gap-2 text-xs"
 									style={{ fontFamily: '"Press Start 2P"' }}
 								>
 									CALL MEETING

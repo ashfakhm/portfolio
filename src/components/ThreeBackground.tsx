@@ -325,7 +325,7 @@ export default function ThreeBackground({
     <div
       ref={containerRef}
       id="three-stars-background"
-      className="absolute inset-0 pointer-events-none z-0 overflow-hidden bg-[#070712]"
+      className="absolute inset-0 pointer-events-none z-0 overflow-hidden bg-app-bg"
       style={{ opacity: 0.75 }}
     />
   );

@@ -60,13 +60,13 @@ function renderLine(line: ParsedLine, key: string): React.ReactNode {
 			);
 		case "h2":
 			return (
-				<h2 key={key} className="text-xs md:text-sm font-bold font-sans text-[#38FEDE] uppercase tracking-wider mt-6 mb-3">
+				<h2 key={key} className="text-xs md:text-sm font-bold font-sans text-brand-cyan uppercase tracking-wider mt-6 mb-3">
 					<FormattedText text={line.text} />
 				</h2>
 			);
 		case "h3":
 			return (
-				<h3 key={key} className="text-[10px] md:text-xs font-bold font-sans text-[#38FEDE]/80 uppercase mt-4 mb-2">
+				<h3 key={key} className="text-[10px] md:text-xs font-bold font-sans text-brand-cyan/80 uppercase mt-4 mb-2">
 					<FormattedText text={line.text} />
 				</h3>
 			);
@@ -136,9 +136,9 @@ export default function LegalModal({ isOpen, onClose, initialTab = "privacy" }: 
 	const markdownContent = activeTab === "privacy" ? privacyPolicyMd : termsOfServiceMd;
 
 	return (
-		<div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
+		<div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
 			<div
-				className="w-full max-w-2xl h-[80vh] bg-[#09090f]/90 backdrop-blur-3xl border border-white/10 rounded-[24px] flex flex-col shadow-[0_0_40px_rgba(0,0,0,0.6)] relative overflow-hidden ring-1 ring-inset ring-white/5"
+				className="w-full max-w-2xl h-[80vh] bg-[#09090f]/90 backdrop-blur-3xl border border-white/10 rounded-3xl flex flex-col shadow-[0_0_40px_rgba(0,0,0,0.6)] relative overflow-hidden ring-1 ring-inset ring-white/5"
 				style={{ textShadow: "none" }}
 			>
 				{/* Circular red X close button (Among Us Style matching TaskModal) */}
@@ -149,7 +149,7 @@ export default function LegalModal({ isOpen, onClose, initialTab = "privacy" }: 
 						synthSFX.playBeep();
 					}}
 					aria-label="Close legal documents modal"
-					className="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-9 h-9 md:w-11 md:h-11 bg-red-600 border-2 border-red-400/50 rounded-full flex items-center justify-center text-white z-50 shadow-[0_4px_20px_rgba(220,38,38,0.4)] hover:scale-105 active:scale-95 cursor-pointer hover:bg-red-500 transition-all"
+					className="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-9 h-9 md:w-11 md:h-11 bg-red-600 border-2 border-red-400/50 rounded-full flex items-center justify-center text-white z-50 shadow-[0_4px_20px_rgba(220,38,38,0.4)] hover:scale-105 active:scale-95 cursor-pointer hover:bg-red-500 transition"
 				>
 					<div className="size-5 relative">
 						<div className="absolute top-1/2 left-0 w-full h-1 bg-white -translate-y-1/2 rotate-45 rounded-sm" />
@@ -168,7 +168,7 @@ export default function LegalModal({ isOpen, onClose, initialTab = "privacy" }: 
 							}}
 							className={`text-[8px] md:text-[9px] font-black uppercase tracking-wider py-1 border-b-2 transition-all ${
 								activeTab === "privacy"
-									? "text-[#38FEDE] border-[#38FEDE]"
+									? "text-brand-cyan border-brand-cyan"
 									: "text-slate-400 border-transparent hover:text-slate-200"
 							}`}
 							style={{ fontFamily: '"Press Start 2P"' }}
@@ -183,7 +183,7 @@ export default function LegalModal({ isOpen, onClose, initialTab = "privacy" }: 
 							}}
 							className={`text-[8px] md:text-[9px] font-black uppercase tracking-wider py-1 border-b-2 transition-all ${
 								activeTab === "terms"
-									? "text-[#38FEDE] border-[#38FEDE]"
+									? "text-brand-cyan border-brand-cyan"
 									: "text-slate-400 border-transparent hover:text-slate-200"
 							}`}
 							style={{ fontFamily: '"Press Start 2P"' }}
